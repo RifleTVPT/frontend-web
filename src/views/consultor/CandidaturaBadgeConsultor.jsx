@@ -8,7 +8,7 @@ import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 
 const CandidaturaBadgeConsultor = () => {
   const { id } = useParams();
-  const nivelNameMap = {'A':'Júnior', 'B':'Intermédio', 'C':'Sénior', 'D':'Especialista', 'E':'Líder de Conhecimento'};
+  const nivelNameMap = {'A':'Júnior', 'B':'Intermédio', 'C':'Sénior', 'D':'Especialista', 'E':'Líder de Conhecimento', 'F':'Master'};
   const navigate = useNavigate();
   
   const [badgeInfo, setBadgeInfo] = useState(null);

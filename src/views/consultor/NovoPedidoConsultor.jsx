@@ -11,7 +11,7 @@ const NovoPedidoConsultor = () => {
   
   // 1. ESTADOS DOS FILTROS
   const [estrutura, setEstrutura] = useState({ serviceLines: [], areas: [] });
-  const [niveisSelecionados, setNiveisSelecionados] = useState(['A', 'B', 'C', 'D', 'E']);
+  const [niveisSelecionados, setNiveisSelecionados] = useState(['A', 'B', 'C', 'D', 'E', 'F']);
   const [pesquisa, setPesquisa] = useState('');
   const [serviceLine, setServiceLine] = useState('Todas');
   const [areaSelecionada, setAreaSelecionada] = useState('Todas');
@@ -190,7 +190,7 @@ const NovoPedidoConsultor = () => {
               <div className="d-flex gap-2 justify-content-start flex-wrap mt-2">
                 {todosNiveis.length === 0 && <span className="text-muted small py-2">Sem níveis configurados para as seleções.</span>}
                 {todosNiveis.map(n => {
-                  const nivelNameMap = {'A':'Júnior', 'B':'Intermédio', 'C':'Sénior', 'D':'Especialista', 'E':'Líder de Conhecimento'};
+                  const nivelNameMap = {'A':'Júnior', 'B':'Intermédio', 'C':'Sénior', 'D':'Especialista', 'E':'Líder de Conhecimento', 'F':'Master'};
                   const nomeExibicao = nivelNameMap[n] ? `Nível ${nivelNameMap[n]} (${n})` : `Nível (${n})`;
                   return (
                     <button 

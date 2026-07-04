@@ -9,7 +9,7 @@ import '../../assets/dashboard.css';
 const HistoricoPedidosConsultor = () => {
   const navigate = useNavigate();
   const [estrutura, setEstrutura] = useState({ serviceLines: [], areas: [] });
-  const [niveisSelecionados, setNiveisSelecionados] = useState(['A', 'B', 'C', 'D', 'E']);
+  const [niveisSelecionados, setNiveisSelecionados] = useState(['A', 'B', 'C', 'D', 'E', 'F']);
   
   // ESTADOS DOS FILTROS
   const [statusFilter, setStatusFilter] = useState('Todos');
