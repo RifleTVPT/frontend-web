@@ -121,19 +121,27 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
             nivelId: nivelIdAtual,
             pontos,
             hasValidade: !!hasValidade,
-            has_validade: hasValidade ? 1 : 0,
-            tipoValidade: hasValidade ? tipoValidade : null,
-            valorValidade: hasValidade ? Number(valorValidade) : null,
-            validadeDias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : null,
-            validade_dias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : null,
-            validadeMeses: hasValidade ? (tipoValidade === 'dias' ? (Number(valorValidade) / 30) : Number(valorValidade)) : null,
-            validade_meses: hasValidade ? (tipoValidade === 'dias' ? (Number(valorValidade) / 30) : Number(valorValidade)) : null,
-            validadePadrao: hasValidade ? `${Number(valorValidade)} ${tipoValidade}` : null,
-            validadeAnos: null,
             adminId,
             requisitos: listaRequisitosFinais,
             urlImagem: initialData?.urlImagem
         };
+
+        if (hasValidade) {
+            payload.tipoValidade = tipoValidade;
+            payload.valorValidade = Number(valorValidade);
+            if (tipoValidade === 'dias') {
+                payload.validadeDias = Number(valorValidade);
+                payload.validadeMeses = null; // Nullify meses so backend clears it
+            } else if (tipoValidade === 'meses') {
+                payload.validadeMeses = Number(valorValidade);
+                payload.validadeDias = null; // Nullify dias so backend clears it
+            }
+        } else {
+            payload.validadeDias = null;
+            payload.validadeMeses = null;
+            payload.tipoValidade = null;
+            payload.valorValidade = null;
+        }
 
         if (imagemPreview && imagemPreview.startsWith('data:image')) {
             payload.imagemBase64 = imagemPreview;
