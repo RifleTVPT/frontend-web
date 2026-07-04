@@ -90,8 +90,20 @@ const NovoPedidoConsultor = () => {
   };
 
   // 3. O CORAÇÃO DOS FILTROS CRUZADOS
+  const levelToLetter = (l) => {
+    if (!l) return 'A';
+    const name = String(l).toLowerCase();
+    if(name.includes('júnior') || name.includes('junior')) return 'A';
+    if(name.includes('intermédio') || name.includes('intermedio')) return 'B';
+    if(name.includes('especialista')) return 'C';
+    if(name.includes('sénior') || name.includes('senior')) return 'D';
+    if(name.includes('líder') || name.includes('lider')) return 'E';
+    if(name === 'f' || name.includes('master')) return 'F';
+    return String(l).toUpperCase();
+  };
+
   const filtrados = badgesAtivos.filter(badge => {
-    const matchNivel = niveisSelecionados.length === 0 || niveisSelecionados.includes(badge.nivel);
+    const matchNivel = niveisSelecionados.length === 0 || niveisSelecionados.includes(levelToLetter(badge.nivel));
     const matchSL = serviceLine === 'Todas' || badge.serviceLine === serviceLine;
     const matchArea = areaSelecionada === 'Todas' || badge.area === areaSelecionada;
     const termo = pesquisa.toLowerCase();
@@ -102,17 +114,6 @@ const NovoPedidoConsultor = () => {
 
     return matchNivel && matchSL && matchArea && matchPesquisa;
   });
-
-  const levelToLetter = (l) => {
-    if (!l) return 'A';
-    const name = l.toLowerCase();
-    if(name.includes('júnior') || name.includes('junior')) return 'A';
-    if(name.includes('intermédio') || name.includes('intermedio')) return 'B';
-    if(name.includes('especialista')) return 'C';
-    if(name.includes('sénior') || name.includes('senior')) return 'D';
-    if(name.includes('líder') || name.includes('lider')) return 'E';
-    return name;
-  };
 
   const todosNiveis = [];
   estrutura.areas.forEach(a => {
@@ -228,15 +229,20 @@ const NovoPedidoConsultor = () => {
                   <div className="d-flex justify-content-center pt-4 mb-3">
                     <div className="rounded-circle border border-primary border-2 d-flex align-items-center justify-content-center bg-light position-relative" style={{width: '90px', height: '90px', overflow: 'hidden'}}>
                         <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '3.5rem', zIndex: 1 }}></i>
-                        {badge.urlImagem && badge.urlImagem.trim() !== '' && !badge.urlImagem.includes('placeholder') && !badge.urlImagem.includes('default-trophy') && !badge.urlImagem.includes('3112946.png') && (
-                            <img 
-                                src={resolvePublicBadgeImage(badge.urlImagem)} 
-                                onError={(e) => { e.target.style.display = 'none'; }}
-                                alt="Badge" 
-                                className="position-absolute w-100 h-100"
-                                style={{objectFit: 'cover', zIndex: 2}} 
-                            />
-                        )}
+                        {(() => {
+                            const rawUrl = badge.URL_IMAGEM || badge.urlImagem;
+                            const imageSrc = rawUrl && rawUrl.trim() !== '' && !rawUrl.includes('placeholder') && !rawUrl.includes('default-trophy') && !rawUrl.includes('3112946.png') ? resolvePublicBadgeImage(rawUrl) : null;
+                            if (!imageSrc) return null;
+                            return (
+                                <img 
+                                    src={imageSrc} 
+                                    onError={(e) => { e.target.style.display = 'none'; }}
+                                    alt="Badge" 
+                                    className="position-absolute w-100 h-100"
+                                    style={{objectFit: 'cover', zIndex: 2}} 
+                                />
+                            );
+                        })()}
                     </div>
                   </div>
                   

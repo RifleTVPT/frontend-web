@@ -254,15 +254,20 @@ const MeusBadgesConsultor = () => {
                   <div className="d-flex justify-content-center pt-4 mb-2">
                     <a href={`/verificacao/${encodeURIComponent(badge.linkPublico)}`} target="_blank" rel="noopener noreferrer" className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden bg-white shadow-sm hover-overlay position-relative" style={{width: '90px', height: '90px'}}>
                       <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '3.5rem', zIndex: 1 }}></i>
-                      {badge.urlImagem && badge.urlImagem.trim() !== '' && !badge.urlImagem.includes('placeholder') && !badge.urlImagem.includes('default-trophy') && !badge.urlImagem.includes('3112946.png') && (
-                          <img 
-                              src={resolvePublicBadgeImage(badge.urlImagem)} 
-                              onError={(e) => { e.target.style.display = 'none'; }}
-                              alt="Badge" 
-                              className="position-absolute w-100 h-100"
-                              style={{objectFit: 'cover', zIndex: 2}}
-                          />
-                      )}
+                      {(() => {
+                          const rawUrl = badge.URL_IMAGEM || badge.urlImagem;
+                          const imageSrc = rawUrl && rawUrl.trim() !== '' && !rawUrl.includes('placeholder') && !rawUrl.includes('default-trophy') && !rawUrl.includes('3112946.png') ? resolvePublicBadgeImage(rawUrl) : null;
+                          if (!imageSrc) return null;
+                          return (
+                              <img 
+                                  src={imageSrc} 
+                                  onError={(e) => { e.target.style.display = 'none'; }}
+                                  alt="Badge" 
+                                  className="position-absolute w-100 h-100"
+                                  style={{objectFit: 'cover', zIndex: 2}}
+                              />
+                          );
+                      })()}
                     </a>
                   </div>
 
