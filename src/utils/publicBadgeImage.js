@@ -4,7 +4,8 @@ export const getApiOrigin = () => {
     if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
         return `${window.location.protocol}//${window.location.hostname}:3000`;
     }
-    return window.location.origin;
+    // No ambiente de produção, apontamos sempre para o servidor Render da API
+    return 'https://softinsa-api-riya.onrender.com';
 };
 
 export const getDefaultBadgeImage = () => `${getApiOrigin()}/uploads/default-trophy.png`;

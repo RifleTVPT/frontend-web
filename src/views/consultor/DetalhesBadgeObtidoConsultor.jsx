@@ -116,9 +116,7 @@ const DetalhesBadgeObtidoConsultor = () => {
   };
 
   const copiarAssinaturaEmail = () => {
-      const apiOrigin = ['localhost', '127.0.0.1'].includes(window.location.hostname)
-          ? `${window.location.protocol}//${window.location.hostname}:3000`
-          : window.location.origin;
+      const apiOrigin = getApiOrigin();
 
       let urlBadge = badgeData.urlImagem && badgeData.urlImagem.trim() !== '' && !badgeData.urlImagem.includes('placeholder') 
           ? badgeData.urlImagem 
