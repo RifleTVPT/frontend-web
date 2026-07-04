@@ -46,7 +46,7 @@ const ExportacaoDadosAdmin = () => {
 
         const fetchAvatar = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const res = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (res.data.success && res.data.data.avatar) setAvatarUrl(res.data.data.avatar);
             } catch (err) {
                 console.error("Erro ao carregar avatar:", err);
@@ -55,7 +55,7 @@ const ExportacaoDadosAdmin = () => {
 
         const fetchFiltrosBD = async () => {
             try {
-                const res = await axios.get('http://localhost:3000/estrutura');
+                const res = await axios.get('https://softinsa-api-riya.onrender.com/estrutura');
                 if(res.data.success) {
                     setDbServiceLines(res.data.data.serviceLines);
                     setDbAreas(res.data.data.areas);
@@ -93,7 +93,7 @@ const ExportacaoDadosAdmin = () => {
     const handleGerarRelatorio = async (formato) => {
         setLoadingExport(true);
         try {
-            const res = await axios.post('http://localhost:3000/relatorios/admin/gerar', {
+            const res = await axios.post('https://softinsa-api-riya.onrender.com/relatorios/admin/gerar', {
                 idUtilizadorAtivo: adminUser?.ID_UTILIZADOR,
                 formatoExportacao: formato,
                 filtros: { pesquisa, periodoTempo, dataInicio, dataFim, serviceLineFilter, areaFilter },

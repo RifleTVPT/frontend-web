@@ -66,7 +66,7 @@ const GamificacaoTalent = () => {
         const carregarDados = async () => {
             try {
                 // 1. Carregar Foto de Perfil
-                const responseUser = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const responseUser = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (responseUser.data.success && responseUser.data.data.avatar) {
                     setAvatarUrl(responseUser.data.data.avatar);
                 } else {
@@ -82,7 +82,7 @@ const GamificacaoTalent = () => {
                 }
 
                 // 2. Carregar Estatísticas da API
-                const responseStats = await axios.get('http://localhost:3000/estatisticas/talent/gamificacao');
+                const responseStats = await axios.get('https://softinsa-api-riya.onrender.com/estatisticas/talent/gamificacao');
                 if (responseStats.data.success) {
                     setDadosApi(responseStats.data.data);
                 }

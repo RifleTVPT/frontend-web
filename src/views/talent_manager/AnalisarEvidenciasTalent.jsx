@@ -35,7 +35,7 @@ const AnalisarEvidenciasTalent = () => {
 
         const carregarFotoPerfil = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (response.data.success && response.data.data.avatar) {
                     setAvatarUrl(response.data.data.avatar);
                 } else {
@@ -56,7 +56,7 @@ const AnalisarEvidenciasTalent = () => {
 
         const fetchDetalhesPedido = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/pedidos/tm/analisar/${id}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/pedidos/tm/analisar/${id}`);
                 if (response.data.success) {
                     setDadosPedido(response.data.data);
                 }
@@ -82,7 +82,7 @@ const AnalisarEvidenciasTalent = () => {
 
     const handleAcao = async (tipo) => {
         try {
-            await axios.post(`http://localhost:3000/pedidos/tm/decisao/${id}`, {
+            await axios.post(`https://softinsa-api-riya.onrender.com/pedidos/tm/decisao/${id}`, {
                 idUtilizadorAtivo: utilizador.ID_UTILIZADOR,
                 decisao: tipo,
                 feedback: feedback
@@ -103,8 +103,8 @@ const AnalisarEvidenciasTalent = () => {
     const getBadgeImageUrl = (foto) => {
         if (!foto) return null;
         if (foto.startsWith('http')) return foto;
-        if (foto.startsWith('/')) return `http://localhost:3000${foto}`;
-        return `http://localhost:3000/uploads/${foto}`;
+        if (foto.startsWith('/')) return `https://softinsa-api-riya.onrender.com${foto}`;
+        return `https://softinsa-api-riya.onrender.com/uploads/${foto}`;
     };
 
     if (loading || !dadosPedido) return <div className="d-flex justify-content-center align-items-center vh-100"><div className="spinner-border text-primary"></div></div>;
@@ -238,7 +238,7 @@ const AnalisarEvidenciasTalent = () => {
                                 <td className="py-3">
                                     {e.url ? (
                                         <a 
-                                            href={e.url.startsWith('http') ? e.url : `http://localhost:3000${e.url}`}
+                                            href={e.url.startsWith('http') ? e.url : `https://softinsa-api-riya.onrender.com${e.url}`}
                                             target="_blank" 
                                             rel="noreferrer" 
                                             className="btn btn-primary btn-sm px-3 rounded-2 fw-bold shadow-sm"

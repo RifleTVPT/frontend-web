@@ -23,11 +23,11 @@ const DetalhesPedidoRegistoAdmin = () => {
         const fetchData = async () => {
             try {
                 // Fetch avatar/configurações do admin
-                const resAdmin = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resAdmin = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarUrl(resAdmin.data.data.avatar);
                 
                 // Fetch Detalhes do Registo
-                const resPedido = await axios.get(`http://localhost:3000/admin-users/registos/${id}`);
+                const resPedido = await axios.get(`https://softinsa-api-riya.onrender.com/admin-users/registos/${id}`);
                 if (resPedido.data.success) {
                     setPedido(resPedido.data.data);
                 } else {
@@ -50,7 +50,7 @@ const DetalhesPedidoRegistoAdmin = () => {
 
     const handleAceitar = async () => {
         try {
-            const res = await axios.put(`http://localhost:3000/admin-users/registos/${id}/aceitar`);
+            const res = await axios.put(`https://softinsa-api-riya.onrender.com/admin-users/registos/${id}/aceitar`);
             if (res.data.success) {
                 alert("Pedido aceite com sucesso!");
                 navigate('/admin/utilizadores/lista');
@@ -63,7 +63,7 @@ const DetalhesPedidoRegistoAdmin = () => {
     const handleRecusar = async () => {
         if (!window.confirm("Pretende mesmo recusar este pedido de registo?")) return;
         try {
-            const res = await axios.put(`http://localhost:3000/admin-users/registos/${id}/recusar`);
+            const res = await axios.put(`https://softinsa-api-riya.onrender.com/admin-users/registos/${id}/recusar`);
             if (res.data.success) {
                 alert("Pedido recusado.");
                 navigate('/admin/utilizadores/pedidos');

@@ -50,7 +50,7 @@ const ConfiguracoesSLL = () => {
 
     const carregarConfiguracoes = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+        const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
         if (response.data.success) {
           const dadosAPI = response.data.data;
           
@@ -86,7 +86,7 @@ const ConfiguracoesSLL = () => {
   const handleSalvarPerfil = async () => {
     setSalvando(true);
     try {
-      const response = await axios.put(`http://localhost:3000/users/configuracoes/${utilizador.ID_UTILIZADOR}`, tempPerfil);
+      const response = await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${utilizador.ID_UTILIZADOR}`, tempPerfil);
       if (response.data.success) {
         setPerfil(tempPerfil);
         setEditando(false);
@@ -112,7 +112,7 @@ const ConfiguracoesSLL = () => {
     const novoPerfil = { ...perfil, idioma: novoIdioma };
     setPerfil(novoPerfil);
     setTempPerfil(novoPerfil);
-    try { await axios.put(`http://localhost:3000/users/configuracoes/${utilizador.ID_UTILIZADOR}`, novoPerfil); } 
+    try { await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${utilizador.ID_UTILIZADOR}`, novoPerfil); } 
     catch (error) { console.error("Erro ao mudar idioma:", error); }
   };
 
@@ -120,7 +120,7 @@ const ConfiguracoesSLL = () => {
       const novoPerfil = { ...perfil, [key]: !perfil[key] };
       setPerfil(novoPerfil);
       setTempPerfil(novoPerfil);
-      try { await axios.put(`http://localhost:3000/users/configuracoes/${utilizador.ID_UTILIZADOR}`, novoPerfil); } 
+      try { await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${utilizador.ID_UTILIZADOR}`, novoPerfil); } 
       catch (error) { console.error("Erro ao mudar preferência:", error); }
   };
 
@@ -138,7 +138,7 @@ const ConfiguracoesSLL = () => {
     formData.append('avatar', file);
 
     try {
-        const response = await axios.post(`http://localhost:3000/users/upload-avatar/${utilizador.ID_UTILIZADOR}`, formData, {
+        const response = await axios.post(`https://softinsa-api-riya.onrender.com/users/upload-avatar/${utilizador.ID_UTILIZADOR}`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
 
@@ -166,7 +166,7 @@ const ConfiguracoesSLL = () => {
     if (!validarPassword(novaPassword)) return setErroPassword("A password deve ter 8+ caracteres, uma maiúscula, uma minúscula, um número e um caractere especial.");
 
     try {
-      const response = await axios.put(`http://localhost:3000/users/mudar-password/${utilizador.ID_UTILIZADOR}`, { passwordAtual, novaPassword });
+      const response = await axios.put(`https://softinsa-api-riya.onrender.com/users/mudar-password/${utilizador.ID_UTILIZADOR}`, { passwordAtual, novaPassword });
       if (response.data.success) {
         alert("Password alterada com sucesso!");
         setShowPasswordModal(false);

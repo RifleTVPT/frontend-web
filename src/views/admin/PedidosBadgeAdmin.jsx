@@ -38,13 +38,13 @@ const PedidosBadgeAdmin = () => {
         const fetchData = async () => {
             try {
                 // Fetch avatar/configurações do admin
-                const resAdmin = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resAdmin = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarUrl(resAdmin.data.data.avatar);
                 
                 // Fetch de todos os pedidos e da estrutura
                 const [resPedidos, resEstrutura] = await Promise.all([
-                    axios.get('http://localhost:3000/pedidos/admin/todos'),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get('https://softinsa-api-riya.onrender.com/pedidos/admin/todos'),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
                 
                 if (resPedidos.data.success) {

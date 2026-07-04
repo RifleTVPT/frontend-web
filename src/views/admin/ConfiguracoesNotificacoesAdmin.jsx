@@ -53,7 +53,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
 
         const fetchAvatar = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const res = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (res.data.success && res.data.data.avatar) setAvatarUrl(res.data.data.avatar);
             } catch (err) {
                 console.error("Erro ao carregar avatar:", err);
@@ -62,7 +62,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
 
         const fetchConfiguracoes = async () => {
             try {
-                const res = await axios.get('http://localhost:3000/configuracoes');
+                const res = await axios.get('https://softinsa-api-riya.onrender.com/configuracoes');
                 if (res.data.success && res.data.data) {
                     const cfg = res.data.data;
                     setGlobalEmail(cfg.GLOBAL_EMAIL ?? true);
@@ -109,7 +109,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
     const handleSave = async () => {
         setSaving(true);
         try {
-            const res = await axios.put('http://localhost:3000/configuracoes', {
+            const res = await axios.put('https://softinsa-api-riya.onrender.com/configuracoes', {
                 GLOBAL_EMAIL: globalEmail,
                 GLOBAL_PUSH: globalPush,
                 MATRIZ_NOTIFICACOES: JSON.stringify(matriz),
@@ -145,7 +145,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
             setSmtpSecure(false);
             setSaving(true);
             try {
-                await axios.put('http://localhost:3000/configuracoes', {
+                await axios.put('https://softinsa-api-riya.onrender.com/configuracoes', {
                     GLOBAL_EMAIL: true,
                     GLOBAL_PUSH: true,
                     MATRIZ_NOTIFICACOES: JSON.stringify(defaultMatriz),
@@ -168,7 +168,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
     const handleTestarSmtp = async () => {
         setTestingSmtp(true);
         try {
-            const res = await axios.post('http://localhost:3000/configuracoes/testar-email', {
+            const res = await axios.post('https://softinsa-api-riya.onrender.com/configuracoes/testar-email', {
                 SMTP_HOST: smtpHost,
                 SMTP_PORT: smtpPort,
                 SMTP_USER: smtpUser,

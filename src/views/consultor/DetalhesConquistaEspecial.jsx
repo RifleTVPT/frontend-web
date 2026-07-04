@@ -19,7 +19,7 @@ const DetalhesConquistaEspecial = () => {
     
     const fetchDetalhes = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/conquistas/detalhes/${userLocal.ID_UTILIZADOR}/${id}`);
+        const response = await axios.get(`https://softinsa-api-riya.onrender.com/conquistas/detalhes/${userLocal.ID_UTILIZADOR}/${id}`);
         if (response.data.success) {
           setConquista(response.data.data);
         }
@@ -39,7 +39,7 @@ const DetalhesConquistaEspecial = () => {
         const userLocal = JSON.parse(sessionStorage.getItem('user'));
         
         const response = await axios.get(
-            `http://localhost:3000/conquistas/${userLocal.ID_UTILIZADOR}/${id}/certificado`,
+            `https://softinsa-api-riya.onrender.com/conquistas/${userLocal.ID_UTILIZADOR}/${id}/certificado`,
             { responseType: 'blob' }
         );
 

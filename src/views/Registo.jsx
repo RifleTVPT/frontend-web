@@ -22,7 +22,7 @@ const Registo = () => {
     const [politicasText, setPoliticasText] = useState('A carregar políticas do Administrador...');
 
     useEffect(() => {
-        axios.get('http://localhost:3000/estrutura')
+        axios.get('https://softinsa-api-riya.onrender.com/estrutura')
             .then(res => {
                 if (res.data.success) {
                     setEstrutura(res.data.data);
@@ -35,7 +35,7 @@ const Registo = () => {
     const fetchPoliticas = async () => {
         setShowPoliticas(true);
         try {
-            const res = await axios.get('http://localhost:3000/configuracoes/rgpd');
+            const res = await axios.get('https://softinsa-api-riya.onrender.com/configuracoes/rgpd');
             if (res.data.success && res.data.data) {
                 const termos = res.data.data.RGPD_TERMOS || 'Termos e condições não definidos.';
                 const politicas = res.data.data.RGPD_POLITICAS || 'Políticas de privacidade não definidas.';
@@ -88,7 +88,7 @@ const Registo = () => {
             const slName = isTalentPuro ? 'N/A' : (estrutura.serviceLines.find(s => s.id.toString() === formData.slId.toString())?.nome || 'N/A');
             const areaName = !isConsultor ? 'N/A' : (estrutura.areas.find(a => a.id.toString() === formData.areaId.toString())?.nome || 'N/A');
 
-            const res = await axios.post('http://localhost:3000/users/register', {
+            const res = await axios.post('https://softinsa-api-riya.onrender.com/users/register', {
                 nome: formData.nome,
                 email: formData.email,
                 password: formData.password,

@@ -60,9 +60,9 @@ const HistoricoPedidosSLL = () => {
                 slAtual = await obterServiceLineSLL(userLocal);
                 setMinhaSL(slAtual);
                 const [userRes, historicoRes, estRes] = await Promise.all([
-                    axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-                    axios.get(`http://localhost:3000/pedidos/sll/historico?sl=${encodeURIComponent(slAtual)}`),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+                    axios.get(`https://softinsa-api-riya.onrender.com/pedidos/sll/historico?sl=${encodeURIComponent(slAtual)}`),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
 
                 if (userRes.data.success && userRes.data.data.avatar) setAvatarUrl(userRes.data.data.avatar);

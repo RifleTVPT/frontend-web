@@ -43,9 +43,9 @@ const ListaUtilizadoresAdmin = () => {
         const fetchData = async () => {
             try {
                 const [resAdmin, resUtilizadores, resEstrutura] = await Promise.all([
-                    axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-                    axios.get('http://localhost:3000/admin-users/lista'),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+                    axios.get('https://softinsa-api-riya.onrender.com/admin-users/lista'),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
                 
                 if (resAdmin.data.success && resAdmin.data.data.avatar) {
@@ -70,7 +70,7 @@ const ListaUtilizadoresAdmin = () => {
 
     const carregarUtilizadores = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/admin-users/lista');
+            const res = await axios.get('https://softinsa-api-riya.onrender.com/admin-users/lista');
             if (res.data.success) {
                 setUtilizadoresBD(res.data.data);
             }
@@ -109,7 +109,7 @@ const ListaUtilizadoresAdmin = () => {
                 area: finalArea,
                 passwordTemporaria: novoUser.password
             };
-            const response = await axios.post('http://localhost:3000/admin-users/criar', payload);
+            const response = await axios.post('https://softinsa-api-riya.onrender.com/admin-users/criar', payload);
             if (response.data.success) {
                 alert("Utilizador criado com sucesso!");
                 setShowModal(false);

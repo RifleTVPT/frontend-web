@@ -22,16 +22,16 @@ const DetalhesBadgeAdmin = () => {
             const u = JSON.parse(sessionStorage.getItem('user'));
             if (u) {
                 setAdminUser(u);
-                const resAdmin = await axios.get(`http://localhost:3000/users/configuracoes/${u.ID_UTILIZADOR}`);
+                const resAdmin = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${u.ID_UTILIZADOR}`);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarUrl(resAdmin.data.data.avatar);
             }
 
-            const resEstrutura = await axios.get('http://localhost:3000/estrutura');
+            const resEstrutura = await axios.get('https://softinsa-api-riya.onrender.com/estrutura');
             if (resEstrutura.data.success) {
                 setEstrutura(resEstrutura.data.data);
             }
 
-            const res = await axios.get(`http://localhost:3000/catalogo/badges/${id}`);
+            const res = await axios.get(`https://softinsa-api-riya.onrender.com/catalogo/badges/${id}`);
             if (res.data.success) {
                 setBadge(res.data.data);
             }
@@ -54,7 +54,7 @@ const DetalhesBadgeAdmin = () => {
     const handleEliminarBadge = async () => {
         if (!window.confirm("Tem a certeza que deseja eliminar este badge permanentemente?")) return;
         try {
-            const res = await axios.delete(`http://localhost:3000/catalogo/admin/badge/${id}`);
+            const res = await axios.delete(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${id}`);
             if (res.data.success) {
                 alert('Badge eliminado com sucesso!');
                 navigate('/admin/badges/catalogo');

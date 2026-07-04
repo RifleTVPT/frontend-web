@@ -60,8 +60,8 @@ const RelatoriosConsultor = () => {
     const carregarDados = async () => {
       try {
           const [userRes, estRes] = await Promise.all([
-              axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-              axios.get('http://localhost:3000/estrutura')
+              axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+              axios.get('https://softinsa-api-riya.onrender.com/estrutura')
           ]);
           if (userRes.data.success && userRes.data.data.avatar) {
               setAvatarUrl(userRes.data.data.avatar);
@@ -129,7 +129,7 @@ const RelatoriosConsultor = () => {
         formatoExportacao: formato
       };
 
-      const response = await axios.post('http://localhost:3000/relatorios/gerar', payload);
+      const response = await axios.post('https://softinsa-api-riya.onrender.com/relatorios/gerar', payload);
       
       if (response.data.success) {
         const dados = response.data.data;

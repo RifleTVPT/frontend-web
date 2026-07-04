@@ -13,7 +13,7 @@ const VerificacaoBadgeUnico = () => {
         const fetchVerificacao = async () => {
             try {
                 // Usa o encodeURIComponent para evitar que barras na string partam a rota
-                const response = await axios.get(`http://localhost:3000/meus-badges/verificacao/${encodeURIComponent(linkUnico)}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/meus-badges/verificacao/${encodeURIComponent(linkUnico)}`);
                 if(response.data.success){
                     setData(response.data.data);
                 }

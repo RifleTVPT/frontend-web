@@ -22,7 +22,7 @@ const TimelineObjetivosConsultor = () => {
   // 1. CARREGAR DADOS
   const carregarObjetivos = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/objetivos/consultor/${userId}`);
+      const response = await axios.get(`https://softinsa-api-riya.onrender.com/objetivos/consultor/${userId}`);
       if (response.data.success) {
         setObjetivos(response.data.data);
       }
@@ -44,7 +44,7 @@ const TimelineObjetivosConsultor = () => {
     // Carregar a foto de perfil da Base de Dados
     const carregarFotoPerfil = async () => {
       try {
-          const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+          const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
           if (response.data.success && response.data.data.avatar) {
               setAvatarUrl(response.data.data.avatar);
           }
@@ -70,7 +70,7 @@ const TimelineObjetivosConsultor = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/objetivos/criar', {
+      const response = await axios.post('https://softinsa-api-riya.onrender.com/objetivos/criar', {
         idUtilizador: utilizador.ID_UTILIZADOR,
         titulo: novoTitulo,
         dataMeta: novaData,
@@ -97,7 +97,7 @@ const TimelineObjetivosConsultor = () => {
   // 3. MARCAR COMO CONCLUÍDO
   const handleConcluir = async (idObjetivo) => {
       try {
-          const response = await axios.put(`http://localhost:3000/objetivos/concluir/${idObjetivo}`);
+          const response = await axios.put(`https://softinsa-api-riya.onrender.com/objetivos/concluir/${idObjetivo}`);
           if(response.data.success) {
               carregarObjetivos(utilizador.ID_UTILIZADOR); // Atualiza os KPIs e muda de lado
           }

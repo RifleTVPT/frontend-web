@@ -25,8 +25,8 @@ const GaleriaPublicaBadges = () => {
         const fetchGaleria = async () => {
             try {
                 const [galeriaRes, estruturaRes] = await Promise.all([
-                    axios.get(`http://localhost:3000/meus-badges/galeria/${idUtilizador}`),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get(`https://softinsa-api-riya.onrender.com/meus-badges/galeria/${idUtilizador}`),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
                 if (galeriaRes.data.success) {
                     setData(galeriaRes.data.data);

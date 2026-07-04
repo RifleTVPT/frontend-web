@@ -26,7 +26,7 @@ const PerfilConsultorTalent = () => {
 
         const carregarFotoPerfil = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (response.data.success && response.data.data.avatar) {
                     setAvatarUrl(response.data.data.avatar);
                 } else {
@@ -47,7 +47,7 @@ const PerfilConsultorTalent = () => {
 
         const fetchPerfil = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/talent/consultores/perfil/${id}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/talent/consultores/perfil/${id}`);
                 if (response.data.success) {
                     setDadosPerfil(response.data.data);
                 } else {

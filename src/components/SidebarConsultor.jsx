@@ -22,7 +22,7 @@ const SidebarConsultor = () => {
         // Chamada à Base de Dados para garantir que a foto está sempre atualizada
         const carregarFotoPerfil = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (response.data.success) {
                     if (response.data.data.avatar) {
                         setAvatarUrl(response.data.data.avatar);

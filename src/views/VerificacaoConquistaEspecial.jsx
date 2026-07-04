@@ -12,7 +12,7 @@ const VerificacaoConquistaEspecial = () => {
     useEffect(() => {
         const fetchVerificacao = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/meus-badges/verificacao-especial/${idUtilizador}/${idMarco}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/meus-badges/verificacao-especial/${idUtilizador}/${idMarco}`);
                 if(response.data.success){
                     setData(response.data.data);
                 }

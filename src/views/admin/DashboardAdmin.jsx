@@ -45,14 +45,14 @@ const DashboardAdmin = () => {
 
         const carregarFotoPerfil = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const res = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (res.data.success && res.data.data.avatar) setAvatarUrl(res.data.data.avatar);
             } catch (error) { console.error("Erro foto:", error); }
         };
 
         const carregarDashboard = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/dashboard/admin/dados');
+                const response = await axios.get('https://softinsa-api-riya.onrender.com/dashboard/admin/dados');
                 if (response.data.success) {
                     const dados = response.data.data;
                     setIndicadores(dados.kpis);

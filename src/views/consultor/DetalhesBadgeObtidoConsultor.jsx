@@ -27,8 +27,8 @@ const DetalhesBadgeObtidoConsultor = () => {
       try {
         setUtilizador(userLocal);
         const [response, userRes] = await Promise.all([
-            axios.get(`http://localhost:3000/meus-badges/consultor/${userLocal.ID_UTILIZADOR}/badge/${id}`),
-            axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`)
+            axios.get(`https://softinsa-api-riya.onrender.com/meus-badges/consultor/${userLocal.ID_UTILIZADOR}/badge/${id}`),
+            axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`)
         ]);
         
         if (response.data.success) {
@@ -74,7 +74,7 @@ const DetalhesBadgeObtidoConsultor = () => {
     if(!window.confirm("Deseja iniciar o processo de renovação? O Badge deixará de estar ativo no seu perfil até ser novamente aprovado.")) return;
     try {
         const userLocal = JSON.parse(sessionStorage.getItem('user'));
-        const res = await axios.post('http://localhost:3000/pedidos/consultor/renovar', {
+        const res = await axios.post('https://softinsa-api-riya.onrender.com/pedidos/consultor/renovar', {
             idUtilizador: userLocal.ID_UTILIZADOR,
             idBadge: badgeData.id
         });
@@ -93,7 +93,7 @@ const DetalhesBadgeObtidoConsultor = () => {
         
         // Fazer fetch do PDF como um Blob
         const response = await axios.get(
-            `http://localhost:3000/meus-badges/consultor/${userLocal.ID_UTILIZADOR}/badge/${badgeData.id}/certificado`,
+            `https://softinsa-api-riya.onrender.com/meus-badges/consultor/${userLocal.ID_UTILIZADOR}/badge/${badgeData.id}/certificado`,
             { responseType: 'blob' }
         );
 
@@ -256,7 +256,7 @@ const DetalhesBadgeObtidoConsultor = () => {
                         <div className="mt-4 pt-3 border-top text-start">
                             <small className="fw-bold d-block mb-2 text-secondary" style={{fontSize: '11px'}}>Evidências Submetidas:</small>
                             {ficheiros.map((f, idx) => (
-                                <a key={idx} href={`http://localhost:3000${f.url}`} target="_blank" rel="noopener noreferrer" className="d-block small text-decoration-none text-truncate mb-1" style={{fontSize: '12px'}}>
+                                <a key={idx} href={`https://softinsa-api-riya.onrender.com${f.url}`} target="_blank" rel="noopener noreferrer" className="d-block small text-decoration-none text-truncate mb-1" style={{fontSize: '12px'}}>
                                     <i className="bi bi-file-earmark-text text-primary me-2"></i>{f.nome}
                                 </a>
                             ))}

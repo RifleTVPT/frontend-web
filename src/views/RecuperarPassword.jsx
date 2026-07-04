@@ -25,7 +25,7 @@ const RecuperarPassword = () => {
 
         setLoading(true);
         try {
-            const res = await axios.post('http://localhost:3000/users/verificar-email-recuperacao', { email });
+            const res = await axios.post('https://softinsa-api-riya.onrender.com/users/verificar-email-recuperacao', { email });
             if (res.data.success) setPasso(2);
         } catch (err) {
             setErro('Email não associado a um utilizador registado.');
@@ -50,7 +50,7 @@ const RecuperarPassword = () => {
 
         setLoading(true);
         try {
-            const res = await axios.post('http://localhost:3000/users/recuperar-password', { email, novaPassword, confirmarPassword });
+            const res = await axios.post('https://softinsa-api-riya.onrender.com/users/recuperar-password', { email, novaPassword, confirmarPassword });
             if (res.data.success) {
                 setPasso(3);
             } else {

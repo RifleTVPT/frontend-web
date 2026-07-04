@@ -31,7 +31,7 @@ const EstruturaGlobalAdmin = () => {
 
     const carregarDados = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/estrutura');
+            const res = await axios.get('https://softinsa-api-riya.onrender.com/estrutura');
             if (res.data.success) {
                 setEstrutura(res.data.data);
                 if(res.data.data.learningPaths.length > 0 && !lpSelecionado) setLpSelecionado(res.data.data.learningPaths[0].id);
@@ -50,7 +50,7 @@ const EstruturaGlobalAdmin = () => {
 
         const fetchAvatar = async () => {
             try {
-                const resAdmin = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resAdmin = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarUrl(resAdmin.data.data.avatar);
             } catch (error) {
                 console.error("Erro avatar:", error);
@@ -79,7 +79,7 @@ const EstruturaGlobalAdmin = () => {
         const novoNome = novoNomeMapping[proximoNumero] || proximaLetra;
         
         try {
-            await axios.post(`http://localhost:3000/estrutura/area/${areaId}/nivel`, { nivelNome: novoNome });
+            await axios.post(`https://softinsa-api-riya.onrender.com/estrutura/area/${areaId}/nivel`, { nivelNome: novoNome });
             carregarDados();
         } catch (error) {
             console.error(error);
@@ -90,7 +90,7 @@ const EstruturaGlobalAdmin = () => {
     const eliminarNivelMaisAlto = async (areaId) => {
         if (!window.confirm("Tem a certeza? Isto irá apagar o Nível mais alto desta Área e TODOS os seus requisitos!")) return;
         try {
-            await axios.delete(`http://localhost:3000/estrutura/area/${areaId}/nivel`);
+            await axios.delete(`https://softinsa-api-riya.onrender.com/estrutura/area/${areaId}/nivel`);
             carregarDados();
         } catch (error) {
             console.error(error);
@@ -117,7 +117,7 @@ const EstruturaGlobalAdmin = () => {
         if(!nDb) return alert("Nível não encontrado na base de dados para associar requisito.");
 
         try {
-            await axios.post('http://localhost:3000/estrutura/requisito', {
+            await axios.post('https://softinsa-api-riya.onrender.com/estrutura/requisito', {
                 nivelId: nDb.ID_NIVEL,
                 titulo: `Requisito ${inputRequisito.nivel}`,
                 descricao: inputRequisito.desc
@@ -133,7 +133,7 @@ const EstruturaGlobalAdmin = () => {
     const eliminarRequisito = async (idReqDb) => {
         if (!window.confirm("Apagar este requisito?")) return;
         try {
-            await axios.delete(`http://localhost:3000/estrutura/requisito/${idReqDb}`);
+            await axios.delete(`https://softinsa-api-riya.onrender.com/estrutura/requisito/${idReqDb}`);
             carregarDados();
         } catch(e) {
             alert("Erro ao eliminar requisito.");
@@ -143,7 +143,7 @@ const EstruturaGlobalAdmin = () => {
     const eliminarLP = async (id) => {
         if (!window.confirm("Tem a certeza que deseja eliminar este Learning Path?")) return;
         try {
-            const res = await axios.delete(`http://localhost:3000/estrutura/learning-path/${id}`);
+            const res = await axios.delete(`https://softinsa-api-riya.onrender.com/estrutura/learning-path/${id}`);
             if (res.data.success) {
                 if (lpSelecionado === id) { setLpSelecionado(null); setSlSelecionada(null); }
                 carregarDados();
@@ -158,7 +158,7 @@ const EstruturaGlobalAdmin = () => {
     const eliminarSL = async (id) => {
         if (!window.confirm("Tem a certeza que deseja eliminar esta Service Line?")) return;
         try {
-            const res = await axios.delete(`http://localhost:3000/estrutura/service-line/${id}`);
+            const res = await axios.delete(`https://softinsa-api-riya.onrender.com/estrutura/service-line/${id}`);
             if (res.data.success) {
                 if (slSelecionada === id) setSlSelecionada(null);
                 carregarDados();
@@ -173,7 +173,7 @@ const EstruturaGlobalAdmin = () => {
     const eliminarArea = async (id) => {
         if (!window.confirm("Tem a certeza que deseja eliminar esta Área?")) return;
         try {
-            const res = await axios.delete(`http://localhost:3000/estrutura/area/${id}`);
+            const res = await axios.delete(`https://softinsa-api-riya.onrender.com/estrutura/area/${id}`);
             if (res.data.success) {
                 if (areaAtivaEdicao === id) setAreaAtivaEdicao(null);
                 carregarDados();
@@ -193,12 +193,12 @@ const EstruturaGlobalAdmin = () => {
         const handleSalvar = async () => {
             try {
                 if(isEditMode) {
-                    await axios.put(`http://localhost:3000/estrutura/learning-path/${data.id}`, {
+                    await axios.put(`https://softinsa-api-riya.onrender.com/estrutura/learning-path/${data.id}`, {
                         nome: nomeRef.current.value,
                         desc: descRef.current.value
                     });
                 } else {
-                    await axios.post('http://localhost:3000/estrutura/learning-path', {
+                    await axios.post('https://softinsa-api-riya.onrender.com/estrutura/learning-path', {
                         nome: nomeRef.current.value,
                         desc: descRef.current.value,
                         adminId: adminUser.ID_UTILIZADOR
@@ -246,13 +246,13 @@ const EstruturaGlobalAdmin = () => {
         const handleSalvar = async () => {
             try {
                 if(isEditMode) {
-                    await axios.put(`http://localhost:3000/estrutura/service-line/${data.id}`, {
+                    await axios.put(`https://softinsa-api-riya.onrender.com/estrutura/service-line/${data.id}`, {
                         nome: nomeRef.current.value,
                         desc: descRef.current.value,
                         lpId: lpRef.current.value
                     });
                 } else {
-                    await axios.post('http://localhost:3000/estrutura/service-line', {
+                    await axios.post('https://softinsa-api-riya.onrender.com/estrutura/service-line', {
                         nome: nomeRef.current.value,
                         desc: descRef.current.value,
                         lpId: lpRef.current.value,
@@ -306,12 +306,12 @@ const EstruturaGlobalAdmin = () => {
         const handleSalvar = async () => {
             try {
                 if(isEditMode) {
-                    await axios.put(`http://localhost:3000/estrutura/area/${areaMock.id}`, {
+                    await axios.put(`https://softinsa-api-riya.onrender.com/estrutura/area/${areaMock.id}`, {
                         nome: nomeRef.current.value,
                         slId: slRef.current.value
                     });
                 } else {
-                    await axios.post('http://localhost:3000/estrutura/area', {
+                    await axios.post('https://softinsa-api-riya.onrender.com/estrutura/area', {
                         nome: nomeRef.current.value,
                         slId: slRef.current.value,
                         userId: adminUser.ID_UTILIZADOR

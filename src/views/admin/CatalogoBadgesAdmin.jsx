@@ -35,9 +35,9 @@ const CatalogoBadgesAdmin = () => {
         const fetchData = async () => {
             try {
                 const [resAdmin, resBadges, resEstrutura] = await Promise.all([
-                    axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-                    axios.get('http://localhost:3000/catalogo/badges'),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+                    axios.get('https://softinsa-api-riya.onrender.com/catalogo/badges'),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
                 
                 if (resAdmin.data.success && resAdmin.data.data.avatar) {
@@ -73,7 +73,7 @@ const CatalogoBadgesAdmin = () => {
 
     const fetchDados = async () => {
         try {
-            const resBadges = await axios.get('http://localhost:3000/catalogo/badges');
+            const resBadges = await axios.get('https://softinsa-api-riya.onrender.com/catalogo/badges');
             if (resBadges.data.success) {
                 setBadgesData(resBadges.data.data);
             }
@@ -85,7 +85,7 @@ const CatalogoBadgesAdmin = () => {
     const apagarBadge = async (id) => {
         if (!window.confirm("Tem a certeza que deseja eliminar este badge permanentemente?")) return;
         try {
-            const res = await axios.delete(`http://localhost:3000/catalogo/admin/badge/${id}`);
+            const res = await axios.delete(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${id}`);
             if (res.data.success) {
                 alert('Badge eliminado com sucesso!');
                 fetchDados();
@@ -98,7 +98,7 @@ const CatalogoBadgesAdmin = () => {
 
     const abrirEdicao = async (id) => {
         try {
-            const res = await axios.get(`http://localhost:3000/catalogo/badges/${id}`);
+            const res = await axios.get(`https://softinsa-api-riya.onrender.com/catalogo/badges/${id}`);
             if(res.data.success) {
                 const b = res.data.data;
                 setBadgeParaEditar({

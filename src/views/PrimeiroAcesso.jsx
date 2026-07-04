@@ -50,7 +50,7 @@ const PrimeiroAcesso = () => {
             const token = JSON.parse(sessionStorage.getItem('user'))?.token;
             
             const response = await axios.put(
-                `http://localhost:3000/users/mudar-password/${utilizador.ID_UTILIZADOR}`, 
+                `https://softinsa-api-riya.onrender.com/users/mudar-password/${utilizador.ID_UTILIZADOR}`, 
                 { passwordAtual: 'PRIMEIRO_ACESSO_OVERRIDE', novaPassword: novaPassword },
                 { headers: { Authorization: `Bearer ${token}` } } // O backend pode rejeitar se a password atual falhar, temos de fixar isso no backend
             );

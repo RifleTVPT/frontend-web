@@ -31,7 +31,7 @@ const PoliticasRGPDAdmin = () => {
 
         const fetchAvatar = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const res = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (res.data.success && res.data.data.avatar) setAvatarUrl(res.data.data.avatar);
             } catch (err) {
                 console.error("Erro ao carregar avatar:", err);
@@ -40,7 +40,7 @@ const PoliticasRGPDAdmin = () => {
 
         const fetchConfiguracoes = async () => {
             try {
-                const res = await axios.get('http://localhost:3000/configuracoes');
+                const res = await axios.get('https://softinsa-api-riya.onrender.com/configuracoes');
                 if (res.data.success && res.data.data) {
                     const cfg = res.data.data;
                     if (cfg.RGPD_TERMOS) setTermosTexto(cfg.RGPD_TERMOS);
@@ -67,7 +67,7 @@ const PoliticasRGPDAdmin = () => {
     const handleSave = async () => {
         setSaving(true);
         try {
-            const res = await axios.put('http://localhost:3000/configuracoes', {
+            const res = await axios.put('https://softinsa-api-riya.onrender.com/configuracoes', {
                 RGPD_TERMOS: termosTexto,
                 RGPD_POLITICAS: politicasTexto
             });

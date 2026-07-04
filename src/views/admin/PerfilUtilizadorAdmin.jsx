@@ -30,15 +30,15 @@ const PerfilUtilizadorAdmin = () => {
 
         const fetchData = async () => {
             try {
-                const resAdmin = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resAdmin = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarAdmin(resAdmin.data.data.avatar);
 
-                const resEstrutura = await axios.get('http://localhost:3000/estrutura');
+                const resEstrutura = await axios.get('https://softinsa-api-riya.onrender.com/estrutura');
                 if (resEstrutura.data.success) {
                     setEstrutura(resEstrutura.data.data);
                 }
 
-                const resPerfil = await axios.get(`http://localhost:3000/admin-users/perfil/${id}`);
+                const resPerfil = await axios.get(`https://softinsa-api-riya.onrender.com/admin-users/perfil/${id}`);
                 if (resPerfil.data.success) {
                     const dados = resPerfil.data.data;
                     setUser(dados);
@@ -74,7 +74,7 @@ const PerfilUtilizadorAdmin = () => {
         }
 
         try {
-            const response = await axios.put(`http://localhost:3000/admin-users/perfil/${id}`, {
+            const response = await axios.put(`https://softinsa-api-riya.onrender.com/admin-users/perfil/${id}`, {
                 nome: tempUser.nome,
                 email: tempUser.email,
                 perfis: tempUser.perfis,
@@ -96,7 +96,7 @@ const PerfilUtilizadorAdmin = () => {
         if (!window.confirm("Pretende mesmo desativar este utilizador? Ele deixará de ter acesso à plataforma.")) return;
 
         try {
-            const response = await axios.put(`http://localhost:3000/admin-users/desativar/${id}`);
+            const response = await axios.put(`https://softinsa-api-riya.onrender.com/admin-users/desativar/${id}`);
             if (response.data.success) {
                 alert("Conta desativada com sucesso.");
                 setUser({...user, status: 'Inativo'});
@@ -110,7 +110,7 @@ const PerfilUtilizadorAdmin = () => {
         if (!window.confirm("Pretende reativar este utilizador? Ele voltará a ter acesso à plataforma.")) return;
 
         try {
-            const response = await axios.put(`http://localhost:3000/admin-users/ativar/${id}`);
+            const response = await axios.put(`https://softinsa-api-riya.onrender.com/admin-users/ativar/${id}`);
             if (response.data.success) {
                 alert("Conta ativada com sucesso.");
                 setUser({...user, status: 'Ativo'});

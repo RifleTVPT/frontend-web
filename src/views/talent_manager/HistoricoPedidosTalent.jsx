@@ -33,7 +33,7 @@ const HistoricoPedidosTalent = () => {
         // Carregar Foto do BD
         const carregarFotoPerfil = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (response.data.success && response.data.data.avatar) {
                     setAvatarUrl(response.data.data.avatar);
                 } else {
@@ -56,8 +56,8 @@ const HistoricoPedidosTalent = () => {
         const fetchDados = async () => {
             try {
                 const [histRes, estRes] = await Promise.all([
-                    axios.get('http://localhost:3000/pedidos/tm/historico'),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get('https://softinsa-api-riya.onrender.com/pedidos/tm/historico'),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
 
                 if (histRes.data.success) {

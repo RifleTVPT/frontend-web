@@ -41,8 +41,8 @@ const CatalogoConquistasAdmin = () => {
         const fetchData = async () => {
             try {
                 const [resAdmin, resConq] = await Promise.all([
-                    axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-                    axios.get('http://localhost:3000/admin-conquistas/lista')
+                    axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+                    axios.get('https://softinsa-api-riya.onrender.com/admin-conquistas/lista')
                 ]);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarUrl(resAdmin.data.data.avatar);
                 if (resConq.data.success) setConquistas(resConq.data.data);
@@ -57,7 +57,7 @@ const CatalogoConquistasAdmin = () => {
 
     const fetchDados = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/admin-conquistas/lista');
+            const res = await axios.get('https://softinsa-api-riya.onrender.com/admin-conquistas/lista');
             if (res.data.success) setConquistas(res.data.data);
         } catch (e) {
             console.error('Erro a carregar conquistas', e);
@@ -68,7 +68,7 @@ const CatalogoConquistasAdmin = () => {
         e.stopPropagation();
         if (!window.confirm('Tem a certeza que deseja eliminar esta conquista permanentemente? Isto irá remover o marco a todos os consultores que já o tenham ganhado.')) return;
         try {
-            const res = await axios.delete(`http://localhost:3000/admin-conquistas/${id}`);
+            const res = await axios.delete(`https://softinsa-api-riya.onrender.com/admin-conquistas/${id}`);
             if (res.data.success) {
                 alert('Conquista eliminada com sucesso!');
                 fetchDados();

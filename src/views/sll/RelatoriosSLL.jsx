@@ -66,9 +66,9 @@ const RelatoriosSLL = () => {
                 slAtual = await obterServiceLineSLL(userLocal);
                 setMinhaSL(slAtual);
                 const [userRes, estRes, histRes] = await Promise.all([
-                    axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-                    axios.get('http://localhost:3000/estrutura'),
-                    axios.get(`http://localhost:3000/pedidos/sll/historico?sl=${encodeURIComponent(slAtual)}`)
+                    axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura'),
+                    axios.get(`https://softinsa-api-riya.onrender.com/pedidos/sll/historico?sl=${encodeURIComponent(slAtual)}`)
                 ]);
                 if (userRes.data.success && userRes.data.data.avatar) {
                     setAvatarUrl(userRes.data.data.avatar);
@@ -165,7 +165,7 @@ const RelatoriosSLL = () => {
                 opcoes: opcoes
             };
 
-            const response = await axios.post('http://localhost:3000/relatorios/sll/gerar', payload);
+            const response = await axios.post('https://softinsa-api-riya.onrender.com/relatorios/sll/gerar', payload);
             if (response.data.success) {
                 const dados = response.data.data;
                 if (formato === 'PDF') exportarPDF(dados);

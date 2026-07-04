@@ -24,8 +24,8 @@ const DetalhesBadge = () => {
         setUtilizador(userLocal);
 
         const [badgeRes, userRes] = await Promise.all([
-            axios.get(`http://localhost:3000/catalogo/badges/${id}`),
-            axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`)
+            axios.get(`https://softinsa-api-riya.onrender.com/catalogo/badges/${id}`),
+            axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`)
         ]);
 
         if (badgeRes.data.success) {

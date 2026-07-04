@@ -41,9 +41,9 @@ const GestaoConsultoresSLL = () => {
                 slAtual = await obterServiceLineSLL(userLocal);
                 setMinhaSL(slAtual);
                 const [resUser, resLista, resEst] = await Promise.all([
-                    axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-                    axios.get(`http://localhost:3000/sll-consultores/lista?sl=${encodeURIComponent(slAtual)}`),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+                    axios.get(`https://softinsa-api-riya.onrender.com/sll-consultores/lista?sl=${encodeURIComponent(slAtual)}`),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
 
                 if (resUser.data.success && resUser.data.data.avatar) setAvatarUrl(resUser.data.data.avatar);

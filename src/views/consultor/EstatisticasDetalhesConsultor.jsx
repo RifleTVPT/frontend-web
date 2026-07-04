@@ -45,7 +45,7 @@ const EstatisticasDetalhesConsultor = () => {
     // Carregar a foto de perfil da Base de Dados
     const carregarFotoPerfil = async () => {
       try {
-          const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+          const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
           if (response.data.success && response.data.data.avatar) {
               setAvatarUrl(response.data.data.avatar);
           }
@@ -57,7 +57,7 @@ const EstatisticasDetalhesConsultor = () => {
 
     const carregarEstatisticas = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/estatisticas/consultor/${userLocal.ID_UTILIZADOR}/detalhadas`);
+        const response = await axios.get(`https://softinsa-api-riya.onrender.com/estatisticas/consultor/${userLocal.ID_UTILIZADOR}/detalhadas`);
         if (response.data.success) {
           setDados(response.data.data);
         }

@@ -46,10 +46,10 @@ const PedidosPendentesSLL = () => {
             try {
                 slAtual = await obterServiceLineSLL(userLocal);
                 setMinhaSL(slAtual);
-                const resUser = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resUser = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resUser.data.success && resUser.data.data.avatar) setAvatarUrl(resUser.data.data.avatar);
 
-                const resPendentes = await axios.get(`http://localhost:3000/pedidos/sll/pendentes?sl=${encodeURIComponent(slAtual)}`);
+                const resPendentes = await axios.get(`https://softinsa-api-riya.onrender.com/pedidos/sll/pendentes?sl=${encodeURIComponent(slAtual)}`);
                 if (resPendentes.data.success) {
                     setPedidosSLL(resPendentes.data.data);
                     setKpis(resPendentes.data.kpis);

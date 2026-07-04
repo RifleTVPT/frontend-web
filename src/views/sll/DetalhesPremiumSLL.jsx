@@ -21,11 +21,11 @@ const DetalhesPremiumSLL = () => {
         const carregarDados = async () => {
             try {
                 // 1. Foto
-                const resUser = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resUser = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resUser.data.success && resUser.data.data.avatar) setAvatarUrl(resUser.data.data.avatar);
 
                 // 2. Detalhes Conquista
-                const resDetails = await axios.get(`http://localhost:3000/conquistas/global/detalhes/${id}`);
+                const resDetails = await axios.get(`https://softinsa-api-riya.onrender.com/conquistas/global/detalhes/${id}`);
                 if (resDetails.data.success) setConquista(resDetails.data.data);
             } catch (error) {
                 console.error("Erro ao carregar detalhes premium:", error);

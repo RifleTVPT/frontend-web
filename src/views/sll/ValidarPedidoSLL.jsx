@@ -29,11 +29,11 @@ const ValidarPedidoSLL = () => {
 
         const carregarDados = async () => {
             try {
-                const resUser = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resUser = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resUser.data.success && resUser.data.data.avatar) setAvatarUrl(resUser.data.data.avatar);
 
                 // Reutilizamos a rota de análise do TM, pois devolve a mesma estrutura de evidências e reqs
-                const resPedido = await axios.get(`http://localhost:3000/pedidos/sll/analisar/${id}`);
+                const resPedido = await axios.get(`https://softinsa-api-riya.onrender.com/pedidos/sll/analisar/${id}`);
                 if (resPedido.data.success) {
                     setPedido(resPedido.data.data);
                 }
@@ -60,7 +60,7 @@ const ValidarPedidoSLL = () => {
         }
 
         try {
-            const response = await axios.post(`http://localhost:3000/pedidos/sll/decisao/${id}`, {
+            const response = await axios.post(`https://softinsa-api-riya.onrender.com/pedidos/sll/decisao/${id}`, {
                 idUtilizadorAtivo: utilizador.ID_UTILIZADOR,
                 decisao: tipo,
                 feedback: feedback
@@ -78,15 +78,15 @@ const ValidarPedidoSLL = () => {
     };
 
     const handleDownload = (docUrl) => {
-        if(docUrl) window.open(docUrl.startsWith('http') ? docUrl : `http://localhost:3000${docUrl}`, '_blank');
+        if(docUrl) window.open(docUrl.startsWith('http') ? docUrl : `https://softinsa-api-riya.onrender.com${docUrl}`, '_blank');
         else alert('Ficheiro não disponível.');
     };
 
     const getBadgeImageUrl = (foto) => {
         if (!foto) return null;
         if (foto.startsWith('http')) return foto;
-        if (foto.startsWith('/')) return `http://localhost:3000${foto}`;
-        return `http://localhost:3000/uploads/${foto}`;
+        if (foto.startsWith('/')) return `https://softinsa-api-riya.onrender.com${foto}`;
+        return `https://softinsa-api-riya.onrender.com/uploads/${foto}`;
     };
 
     if (loading || !pedido) return <div className="d-flex justify-content-center align-items-center vh-100"><div className="spinner-border text-primary"></div></div>;
@@ -222,7 +222,7 @@ const ValidarPedidoSLL = () => {
                                     <td className="py-3">
                                         {e.url ? (
                                             <a
-                                                href={e.url.startsWith('http') ? e.url : `http://localhost:3000${e.url}`}
+                                                href={e.url.startsWith('http') ? e.url : `https://softinsa-api-riya.onrender.com${e.url}`}
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 onClick={() => setEvidenciasAbertas(atuais => ({ ...atuais, [index]: true }))}

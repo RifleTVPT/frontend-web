@@ -63,11 +63,11 @@ const BadgesExpiracaoSLL = () => {
                 slAtual = await obterServiceLineSLL(userLocal);
                 setMinhaSL(slAtual);
                 // 1. Foto Perfil
-                const resUser = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resUser = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resUser.data.success && resUser.data.data.avatar) setAvatarUrl(resUser.data.data.avatar);
 
                 // 2. Badges em Expiração (filtrados por SL no pedido)
-                const response = await axios.get(`http://localhost:3000/expiracao/badges?sl=${encodeURIComponent(slAtual)}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/expiracao/badges?sl=${encodeURIComponent(slAtual)}`);
                 let areasDosBadges = [];
                 if (response.data.success) {
                     setDadosExpiracao(response.data.data);
@@ -75,7 +75,7 @@ const BadgesExpiracaoSLL = () => {
                 }
 
                 // 3. Obter Áreas Ativas da Estrutura para preencher a Dropdown
-                const resEstrutura = await axios.get('http://localhost:3000/estrutura');
+                const resEstrutura = await axios.get('https://softinsa-api-riya.onrender.com/estrutura');
                 if (resEstrutura.data.success) {
                     const est = resEstrutura.data.data;
                     const slId = est.serviceLines.find(s => s.nome === slAtual)?.id;
@@ -117,7 +117,7 @@ const BadgesExpiracaoSLL = () => {
 
     const handleNotificar = async (item) => {
         try {
-            const response = await axios.post('http://localhost:3000/expiracao/notificar', {
+            const response = await axios.post('https://softinsa-api-riya.onrender.com/expiracao/notificar', {
                 idUtilizador: item.idUtilizador,
                 badgeNome: item.badge,
                 diasRestantes: item.diasRestantes

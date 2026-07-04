@@ -24,11 +24,11 @@ const DetalhesPedidoBadgeAdmin = () => {
         const fetchData = async () => {
             try {
                 // Fetch avatar/configurações do admin
-                const resAdmin = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resAdmin = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarUrl(resAdmin.data.data.avatar);
                 
                 // Fetch Detalhes do Pedido
-                const resPedido = await axios.get(`http://localhost:3000/pedidos/detalhes/${id}`);
+                const resPedido = await axios.get(`https://softinsa-api-riya.onrender.com/pedidos/detalhes/${id}`);
                 if (resPedido.data.success) {
                     setPedido(resPedido.data.data);
                 } else {
@@ -53,7 +53,7 @@ const DetalhesPedidoBadgeAdmin = () => {
         if (!window.confirm("Pretende mesmo eliminar permanentemente este pedido? Esta ação não pode ser desfeita.")) return;
         
         try {
-            const res = await axios.delete(`http://localhost:3000/pedidos/admin/eliminar/${id}`);
+            const res = await axios.delete(`https://softinsa-api-riya.onrender.com/pedidos/admin/eliminar/${id}`);
             if (res.data.success) {
                 alert("Pedido eliminado com sucesso.");
                 navigate('/admin/badges/pedidos');
@@ -134,7 +134,7 @@ const DetalhesPedidoBadgeAdmin = () => {
                                     <td><span className={`fw-bold text-${pedido.corStatus}`}>{pedido.status}</span></td>
                                     <td>
                                         {e.url ? (
-                                            <button onClick={() => window.open(e.url.startsWith('http') ? e.url : `http://localhost:3000${e.url}`, '_blank')} className="btn btn-primary btn-sm px-4 rounded-3 fw-bold shadow-sm" style={{ backgroundColor: '#5D78FF', border: 'none' }}>
+                                            <button onClick={() => window.open(e.url.startsWith('http') ? e.url : `https://softinsa-api-riya.onrender.com${e.url}`, '_blank')} className="btn btn-primary btn-sm px-4 rounded-3 fw-bold shadow-sm" style={{ backgroundColor: '#5D78FF', border: 'none' }}>
                                                 <i className="bi bi-eye-fill me-2"></i> Ver / Download
                                             </button>
                                         ) : (

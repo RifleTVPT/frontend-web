@@ -35,11 +35,11 @@ const MetricasGlobaisAdmin = () => {
         const fetchData = async () => {
             try {
                 // Fetch avatar
-                const resAdmin = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resAdmin = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarUrl(resAdmin.data.data.avatar);
                 
                 // Fetch Métricas
-                const resMetricas = await axios.get('http://localhost:3000/estatisticas/admin/metricas');
+                const resMetricas = await axios.get('https://softinsa-api-riya.onrender.com/estatisticas/admin/metricas');
                 if (resMetricas.data.success) {
                     const d = resMetricas.data.data;
                     setStatsTopo(d.statsTopo);

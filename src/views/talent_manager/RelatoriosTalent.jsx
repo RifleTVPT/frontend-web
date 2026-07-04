@@ -58,8 +58,8 @@ const RelatoriosTalent = () => {
         const carregarDados = async () => {
             try {
                 const [resUser, resEstrutura] = await Promise.all([
-                    axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
                 
                 if (resUser.data.success && resUser.data.data.avatar) {
@@ -175,7 +175,7 @@ const RelatoriosTalent = () => {
             };
 
             // Aponta para a nova rota que acabámos de criar no Backend
-            const response = await axios.post('http://localhost:3000/relatorios/tm/gerar', payload);
+            const response = await axios.post('https://softinsa-api-riya.onrender.com/relatorios/tm/gerar', payload);
             
             if (response.data.success) {
                 const dados = response.data.data;

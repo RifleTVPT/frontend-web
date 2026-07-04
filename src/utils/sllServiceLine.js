@@ -7,7 +7,7 @@ export const obterServiceLineSLL = async userLocal => {
     if (valorValido(atual)) return atual;
 
     const response = await axios.get(
-        `http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`
+        `https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`
     );
     const serviceLine = response.data?.data?.serviceLine;
     if (!valorValido(serviceLine)) {

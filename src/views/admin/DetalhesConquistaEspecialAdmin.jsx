@@ -29,8 +29,8 @@ const DetalhesConquistaEspecialAdmin = () => {
         const fetchData = async () => {
             try {
                 const [resAdmin, resConq] = await Promise.all([
-                    axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-                    axios.get(`http://localhost:3000/admin-conquistas/detalhes/${id}`)
+                    axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+                    axios.get(`https://softinsa-api-riya.onrender.com/admin-conquistas/detalhes/${id}`)
                 ]);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarUrl(resAdmin.data.data.avatar);
                 if (resConq.data.success) setConquista(resConq.data.data);
@@ -46,7 +46,7 @@ const DetalhesConquistaEspecialAdmin = () => {
     const handleEliminar = async () => {
         if (!window.confirm(`Tem a certeza que deseja eliminar a conquista "${conquista.titulo}"? Esta ação removerá o marco a todos os consultores que já o tenham ganho.`)) return;
         try {
-            const res = await axios.delete(`http://localhost:3000/admin-conquistas/${id}`);
+            const res = await axios.delete(`https://softinsa-api-riya.onrender.com/admin-conquistas/${id}`);
             if (res.data.success) {
                 alert('Conquista eliminada com sucesso!');
                 navigate('/admin/badges/conquistas');

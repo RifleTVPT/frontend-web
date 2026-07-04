@@ -38,13 +38,13 @@ const AtividadeHistoricoAdmin = () => {
         const fetchData = async () => {
             try {
                 // Fetch avatar do admin
-                const resAdmin = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resAdmin = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resAdmin.data.success && resAdmin.data.data.avatar) setAvatarUrl(resAdmin.data.data.avatar);
                 
                 // Fetch Atividades e Estrutura
                 const [resAtiv, resEstrutura] = await Promise.all([
-                    axios.get('http://localhost:3000/admin-users/atividades'),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get('https://softinsa-api-riya.onrender.com/admin-users/atividades'),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
                 
                 if (resAtiv.data.success) {

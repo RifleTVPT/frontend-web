@@ -32,10 +32,10 @@ const PerfilConsultorSLL = () => {
             try {
                 slAtual = await obterServiceLineSLL(userLocal);
                 setMinhaSL(slAtual);
-                const resUser = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resUser = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resUser.data.success && resUser.data.data.avatar) setAvatarUrl(resUser.data.data.avatar);
 
-                const response = await axios.get(`http://localhost:3000/sll-consultores/perfil/${id}?sl=${encodeURIComponent(slAtual)}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/sll-consultores/perfil/${id}?sl=${encodeURIComponent(slAtual)}`);
                 if (response.data.success) {
                     setDadosPerfil(response.data.data);
                 } else {

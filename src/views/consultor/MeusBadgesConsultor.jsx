@@ -34,7 +34,7 @@ const MeusBadgesConsultor = () => {
     // Carregar a foto de perfil
     const carregarFotoPerfil = async () => {
       try {
-          const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+          const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
           if (response.data.success && response.data.data.avatar) {
               setAvatarUrl(response.data.data.avatar);
           }
@@ -47,8 +47,8 @@ const MeusBadgesConsultor = () => {
     const fetchData = async () => {
       try {
         const [badgesRes, estruturaRes] = await Promise.all([
-            axios.get(`http://localhost:3000/meus-badges/consultor/${userLocal.ID_UTILIZADOR}`),
-            axios.get('http://localhost:3000/estrutura')
+            axios.get(`https://softinsa-api-riya.onrender.com/meus-badges/consultor/${userLocal.ID_UTILIZADOR}`),
+            axios.get('https://softinsa-api-riya.onrender.com/estrutura')
         ]);
         if (badgesRes.data.success) {
           setMeusBadges(badgesRes.data.data);

@@ -72,10 +72,10 @@ const GamificacaoSLL = () => {
             try {
                 slAtual = await obterServiceLineSLL(userLocal);
                 setMinhaSL(slAtual);
-                const resUser = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resUser = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resUser.data.success && resUser.data.data.avatar) setAvatarUrl(resUser.data.data.avatar);
 
-                const response = await axios.get(`http://localhost:3000/estatisticas/sll/gamificacao?sl=${encodeURIComponent(slAtual)}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/estatisticas/sll/gamificacao?sl=${encodeURIComponent(slAtual)}`);
                 if (response.data.success) {
                     setDashboardData(response.data.data);
                 }
@@ -105,13 +105,13 @@ const GamificacaoSLL = () => {
                 origem: 'Service Line Leader',
                 enviarNotificacao: enviarNotif
             };
-            const response = await axios.post('http://localhost:3000/objetivos/criar', payload);
+            const response = await axios.post('https://softinsa-api-riya.onrender.com/objetivos/criar', payload);
             if (response.data.success) {
                 alert("Objetivo atribuído com sucesso!");
                 setShowModal(false);
                 setObjTitulo(''); setObjData(''); setObjDesc(''); setObjTipo('');
                 // Recarregar os dados para atualizar a lista
-                const resRefresh = await axios.get(`http://localhost:3000/estatisticas/sll/gamificacao?sl=${encodeURIComponent(minhaSL)}`);
+                const resRefresh = await axios.get(`https://softinsa-api-riya.onrender.com/estatisticas/sll/gamificacao?sl=${encodeURIComponent(minhaSL)}`);
                 if (resRefresh.data.success) setDashboardData(resRefresh.data.data);
             }
         } catch (error) {

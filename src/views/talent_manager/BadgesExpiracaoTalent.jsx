@@ -40,7 +40,7 @@ const BadgesExpiracaoTalent = () => {
         // Carregar Foto
         const carregarFotoPerfil = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (response.data.success && response.data.data.avatar) {
                     setAvatarUrl(response.data.data.avatar);
                 } else {
@@ -63,8 +63,8 @@ const BadgesExpiracaoTalent = () => {
         const carregarDados = async () => {
             try {
                 const [resExpiracoes, resEstrutura] = await Promise.all([
-                    axios.get('http://localhost:3000/expiracao/badges'),
-                    axios.get('http://localhost:3000/estrutura')
+                    axios.get('https://softinsa-api-riya.onrender.com/expiracao/badges'),
+                    axios.get('https://softinsa-api-riya.onrender.com/estrutura')
                 ]);
 
                 if (resExpiracoes.data.success) {
@@ -101,7 +101,7 @@ const BadgesExpiracaoTalent = () => {
     // Função de Notificação via API
     const handleNotificar = async (item) => {
         try {
-            const response = await axios.post('http://localhost:3000/expiracao/notificar', {
+            const response = await axios.post('https://softinsa-api-riya.onrender.com/expiracao/notificar', {
                 idUtilizador: item.idUtilizador,
                 badgeNome: item.badge,
                 diasRestantes: item.diasRestantes

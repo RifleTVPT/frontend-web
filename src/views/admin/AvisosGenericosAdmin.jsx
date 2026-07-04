@@ -20,7 +20,7 @@ const AvisosGenericosAdmin = () => {
 
     const fetchAvisos = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/avisos');
+            const res = await axios.get('https://softinsa-api-riya.onrender.com/avisos');
             if (res.data.success) {
                 setAvisos(res.data.data);
             }
@@ -38,7 +38,7 @@ const AvisosGenericosAdmin = () => {
 
         const fetchAvatar = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const res = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (res.data.success && res.data.data.avatar) setAvatarUrl(res.data.data.avatar);
             } catch (err) {
                 console.error("Erro ao carregar avatar:", err);
@@ -53,7 +53,7 @@ const AvisosGenericosAdmin = () => {
 
     const toggleStatus = async (id) => {
         try {
-            const res = await axios.put(`http://localhost:3000/avisos/${id}/status`);
+            const res = await axios.put(`https://softinsa-api-riya.onrender.com/avisos/${id}/status`);
             if (res.data.success) {
                 fetchAvisos(); // Recarrega
                 setShowModal(false);
@@ -67,7 +67,7 @@ const AvisosGenericosAdmin = () => {
     const handleDeleteAviso = async (id) => {
         if (!window.confirm("Tem a certeza que deseja eliminar este aviso permanentemente?")) return;
         try {
-            const res = await axios.delete(`http://localhost:3000/avisos/${id}`);
+            const res = await axios.delete(`https://softinsa-api-riya.onrender.com/avisos/${id}`);
             if (res.data.success) {
                 fetchAvisos();
                 setShowModal(false);
@@ -104,9 +104,9 @@ const AvisosGenericosAdmin = () => {
 
         try {
             if (isEditMode && avisoSelecionado) {
-                await axios.put(`http://localhost:3000/avisos/${avisoSelecionado.id}`, payload);
+                await axios.put(`https://softinsa-api-riya.onrender.com/avisos/${avisoSelecionado.id}`, payload);
             } else {
-                await axios.post('http://localhost:3000/avisos', payload);
+                await axios.post('https://softinsa-api-riya.onrender.com/avisos', payload);
             }
             setShowModal(false);
             fetchAvisos();

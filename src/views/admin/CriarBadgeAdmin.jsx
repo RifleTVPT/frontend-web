@@ -24,7 +24,7 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
     const [configuracoesGlobais, setConfiguracoesGlobais] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/configuracoes')
+        axios.get('https://softinsa-api-riya.onrender.com/configuracoes')
             .then(res => {
                 if (res.data.success) setConfiguracoesGlobais(res.data.data);
             }).catch(e => console.error("Erro a obter configuracoes", e));
@@ -137,7 +137,7 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
         try {
             if (initialData?.id) {
                 // Update badge (PUT request)
-                const res = await axios.put(`http://localhost:3000/catalogo/admin/badge/${initialData.id}`, payload);
+                const res = await axios.put(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${initialData.id}`, payload);
                 
                 if (res.data.success) {
                     alert('Badge atualizado com sucesso!');
@@ -146,7 +146,7 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                 }
             } else {
                 // Create badge (POST request)
-                const res = await axios.post('http://localhost:3000/catalogo/admin/badge/criar', payload);
+                const res = await axios.post('https://softinsa-api-riya.onrender.com/catalogo/admin/badge/criar', payload);
 
                 if (res.data.success) {
                     alert('Badge criado com sucesso!');

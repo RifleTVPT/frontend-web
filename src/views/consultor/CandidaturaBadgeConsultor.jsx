@@ -37,10 +37,10 @@ const CandidaturaBadgeConsultor = () => {
         setUtilizador(userLocal);
 
         const [badgeRes, configRes, rascunhoRes, userRes] = await Promise.all([
-            axios.get(`http://localhost:3000/catalogo/badges/${id}`),
-            axios.get(`http://localhost:3000/configuracoes`),
-            axios.get(`http://localhost:3000/catalogo/rascunho/${id}/${userLocal.ID_UTILIZADOR}`),
-            axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`)
+            axios.get(`https://softinsa-api-riya.onrender.com/catalogo/badges/${id}`),
+            axios.get(`https://softinsa-api-riya.onrender.com/configuracoes`),
+            axios.get(`https://softinsa-api-riya.onrender.com/catalogo/rascunho/${id}/${userLocal.ID_UTILIZADOR}`),
+            axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`)
         ]);
 
         if (userRes.data.success && userRes.data.data.avatar) {
@@ -49,7 +49,7 @@ const CandidaturaBadgeConsultor = () => {
 
         // Verificar se já possui o badge (separado para não bloquear o resto)
         try {
-            const meusBadgesRes = await axios.get(`http://localhost:3000/meus-badges/consultor/${userLocal.ID_UTILIZADOR}`);
+            const meusBadgesRes = await axios.get(`https://softinsa-api-riya.onrender.com/meus-badges/consultor/${userLocal.ID_UTILIZADOR}`);
             if (meusBadgesRes.data.success) {
                 const obtido = meusBadgesRes.data.data.find(b => b.id === parseInt(id));
                 if (obtido) {
@@ -132,7 +132,7 @@ const CandidaturaBadgeConsultor = () => {
           formData.append('todosFicheiros', JSON.stringify(novaListaFicheiros));
           binarios.forEach(file => formData.append('ficheiros', file));
 
-          await axios.post('http://localhost:3000/catalogo/rascunho', formData, {
+          await axios.post('https://softinsa-api-riya.onrender.com/catalogo/rascunho', formData, {
               headers: { 'Content-Type': 'multipart/form-data' }
           });
       } catch (err) {
@@ -224,7 +224,7 @@ const CandidaturaBadgeConsultor = () => {
           formData.append('ficheiros', file);
       });
 
-      const response = await axios.post('http://localhost:3000/catalogo/candidatar', formData, {
+      const response = await axios.post('https://softinsa-api-riya.onrender.com/catalogo/candidatar', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
       });
       if (response.data.success) {

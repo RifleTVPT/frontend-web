@@ -48,7 +48,7 @@ const CriarConquistaAdmin = ({ show, onClose, onCreated }) => {
             if (param2) formData.append('param2', param2);
             if (imagemFile) formData.append('imagem', imagemFile);
 
-            const res = await axios.post('http://localhost:3000/admin-conquistas/criar', formData, {
+            const res = await axios.post('https://softinsa-api-riya.onrender.com/admin-conquistas/criar', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             if (res.data.success) {

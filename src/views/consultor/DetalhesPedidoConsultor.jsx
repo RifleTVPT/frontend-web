@@ -25,7 +25,7 @@ const DetalhesPedidoConsultor = () => {
     // Carregar a foto de perfil
     const carregarFotoPerfil = async () => {
       try {
-          const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+          const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
           if (response.data.success && response.data.data.avatar) {
               setAvatarUrl(response.data.data.avatar);
           }
@@ -37,7 +37,7 @@ const DetalhesPedidoConsultor = () => {
 
     const carregarDetalhes = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/pedidos/detalhes/${id}`);
+        const response = await axios.get(`https://softinsa-api-riya.onrender.com/pedidos/detalhes/${id}`);
         if (response.data.success) {
           setPedido(response.data.data);
         }
@@ -170,7 +170,7 @@ const DetalhesPedidoConsultor = () => {
                     {/* Na vida real, o onClick faria download do URL da Evidência */}
                     {ev.url ? (
                       <a
-                        href={ev.url.startsWith('http') ? ev.url : `http://localhost:3000${ev.url}`}
+                        href={ev.url.startsWith('http') ? ev.url : `https://softinsa-api-riya.onrender.com${ev.url}`}
                         target="_blank"
                         rel="noreferrer"
                         className="btn btn-primary btn-sm rounded-3 px-3"

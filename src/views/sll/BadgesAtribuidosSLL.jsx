@@ -63,11 +63,11 @@ const BadgesAtribuidosSLL = () => {
                 slAtual = await obterServiceLineSLL(userLocal);
                 setMinhaSL(slAtual);
                 // 1. Foto Perfil
-                const resUser = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const resUser = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resUser.data.success && resUser.data.data.avatar) setAvatarUrl(resUser.data.data.avatar);
 
                 // 2. Badges Atribuídos e Áreas dos Badges
-                const resBadges = await axios.get(`http://localhost:3000/sll-badges/atribuidos?sl=${encodeURIComponent(slAtual)}`);
+                const resBadges = await axios.get(`https://softinsa-api-riya.onrender.com/sll-badges/atribuidos?sl=${encodeURIComponent(slAtual)}`);
                 let areasDosBadges = [];
                 if (resBadges.data.success) {
                     setDadosBD(resBadges.data.data);
@@ -75,7 +75,7 @@ const BadgesAtribuidosSLL = () => {
                 }
 
                 // 3. Obter Áreas Ativas da Estrutura
-                const resEstrutura = await axios.get('http://localhost:3000/estrutura');
+                const resEstrutura = await axios.get('https://softinsa-api-riya.onrender.com/estrutura');
                 if (resEstrutura.data.success) {
                     const est = resEstrutura.data.data;
                     const slId = est.serviceLines.find(s => s.nome === slAtual)?.id;

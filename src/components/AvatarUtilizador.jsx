@@ -8,7 +8,7 @@ const obterIniciais = nome => {
 
 const resolverFoto = foto => {
   if (!foto) return null;
-  return foto.startsWith('http') ? foto : `http://localhost:3000${foto}`;
+  return foto.startsWith('http') ? foto : `https://softinsa-api-riya.onrender.com${foto}`;
 };
 
 const AvatarUtilizador = ({ nome, foto, tamanho = 38 }) => {

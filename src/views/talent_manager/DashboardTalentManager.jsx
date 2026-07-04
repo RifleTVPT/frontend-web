@@ -46,7 +46,7 @@ const DashboardTalentManager = () => {
     // Carregar a foto de perfil oficial da BD para o cabeçalho
     const carregarFotoPerfil = async () => {
       try {
-          const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+          const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
           if (response.data.success && response.data.data.avatar) {
               setAvatarUrl(response.data.data.avatar);
           } else {
@@ -68,7 +68,7 @@ const DashboardTalentManager = () => {
     // Carregar dados reais do Dashboard TM
     const carregarDashboard = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/dashboard/talent-manager/dados`);
+        const response = await axios.get(`https://softinsa-api-riya.onrender.com/dashboard/talent-manager/dados`);
         if (response.data.success) {
           const dados = response.data.data;
           setStats(dados.stats);
@@ -88,8 +88,8 @@ const DashboardTalentManager = () => {
     const carregarAvisos = async () => {
       try {
         const [notifResult, avisosResult] = await Promise.allSettled([
-            axios.get(`http://localhost:3000/notificacoes/user/${userLocal.ID_UTILIZADOR}`),
-            axios.get(`http://localhost:3000/avisos?perfil=Talent%20Manager`)
+            axios.get(`https://softinsa-api-riya.onrender.com/notificacoes/user/${userLocal.ID_UTILIZADOR}`),
+            axios.get(`https://softinsa-api-riya.onrender.com/avisos?perfil=Talent%20Manager`)
         ]);
         const notifRes = notifResult.status === 'fulfilled' ? notifResult.value : null;
         const avisosRes = avisosResult.status === 'fulfilled' ? avisosResult.value : null;
@@ -264,7 +264,7 @@ const DashboardTalentManager = () => {
                        {pedido.urlImagem ? (
                           <>
                               <img 
-                                  src={pedido.urlImagem.startsWith('http') ? pedido.urlImagem : `http://localhost:3000${pedido.urlImagem}`} 
+                                  src={pedido.urlImagem.startsWith('http') ? pedido.urlImagem : `https://softinsa-api-riya.onrender.com${pedido.urlImagem}`} 
                                   alt="Badge" 
                                   style={{width: '40px', height: '40px', objectFit: 'contain'}} 
                                   onError={(e) => {

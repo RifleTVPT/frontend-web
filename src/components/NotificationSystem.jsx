@@ -18,7 +18,7 @@ const NotificationSystem = () => {
   const carregarNotificacoes = async (userLocal) => {
     try {
         const idUser = userLocal.ID_UTILIZADOR;
-        const response = await axios.get(`http://localhost:3000/notificacoes/user/${idUser}`);
+        const response = await axios.get(`https://softinsa-api-riya.onrender.com/notificacoes/user/${idUser}`);
         
         let novasNotificacoes = [];
         if(response.data.success) {
@@ -27,7 +27,7 @@ const NotificationSystem = () => {
 
         // Tentar ir buscar avisos gerais
         try {
-            const resAvisos = await axios.get('http://localhost:3000/avisos');
+            const resAvisos = await axios.get('https://softinsa-api-riya.onrender.com/avisos');
             if(resAvisos.data.success) {
                 const ativos = (Array.isArray(resAvisos.data.data) ? resAvisos.data.data : [])
                     .filter(a => a.status === 'Ativo');
@@ -69,7 +69,7 @@ const NotificationSystem = () => {
   const markAllRead = async (e) => {
     e.stopPropagation(); // Impede o dropdown de fechar
     try {
-        await axios.put(`http://localhost:3000/notificacoes/user/${utilizador.ID_UTILIZADOR}/read-all`);
+        await axios.put(`https://softinsa-api-riya.onrender.com/notificacoes/user/${utilizador.ID_UTILIZADOR}/read-all`);
         
         // Marcar todos os avisos como lidos também
         const readAvisos = JSON.parse(localStorage.getItem('read_avisos')) || [];
@@ -93,7 +93,7 @@ const NotificationSystem = () => {
             setNotifications(notifications.map(n => n.id === notif.id ? { ...n, read: true } : n));
         } else {
             try {
-                await axios.put(`http://localhost:3000/notificacoes/${notif.id}/read`);
+                await axios.put(`https://softinsa-api-riya.onrender.com/notificacoes/${notif.id}/read`);
                 setNotifications(notifications.map(n => n.id === notif.id ? { ...n, read: true } : n));
             } catch (error) {
                 console.error("Erro", error);

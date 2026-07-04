@@ -42,7 +42,7 @@ const ConfiguracoesGeraisAdmin = () => {
 
         const fetchAvatar = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+                const res = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (res.data.success) {
                     if (res.data.data.avatar) {
                         setAvatarUrl(res.data.data.avatar);
@@ -59,7 +59,7 @@ const ConfiguracoesGeraisAdmin = () => {
 
         const fetchConfiguracoes = async () => {
             try {
-                const res = await axios.get('http://localhost:3000/configuracoes');
+                const res = await axios.get('https://softinsa-api-riya.onrender.com/configuracoes');
                 if (res.data.success && res.data.data) {
                     const cfg = res.data.data;
                     setPontosDefault({
@@ -91,7 +91,7 @@ const ConfiguracoesGeraisAdmin = () => {
     const handleSave = async () => {
         setSaving(true);
         try {
-            const res = await axios.put('http://localhost:3000/configuracoes', {
+            const res = await axios.put('https://softinsa-api-riya.onrender.com/configuracoes', {
                 PONTOS_DEFAULT_A: pontosDefault.A,
                 PONTOS_DEFAULT_B: pontosDefault.B,
                 PONTOS_DEFAULT_C: pontosDefault.C,
@@ -115,7 +115,7 @@ const ConfiguracoesGeraisAdmin = () => {
 
     const handleSalvarPerfil = async () => {
         try {
-            const res = await axios.put(`http://localhost:3000/users/configuracoes/${adminUser.ID_UTILIZADOR}`, tempPerfil);
+            const res = await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${adminUser.ID_UTILIZADOR}`, tempPerfil);
             if (res.data.success) {
                 setPerfil(tempPerfil);
                 setEditando(false);
@@ -139,7 +139,7 @@ const ConfiguracoesGeraisAdmin = () => {
         const formData = new FormData();
         formData.append('avatar', file);
         try {
-            const response = await axios.post(`http://localhost:3000/users/upload-avatar/${adminUser.ID_UTILIZADOR}`, formData, {
+            const response = await axios.post(`https://softinsa-api-riya.onrender.com/users/upload-avatar/${adminUser.ID_UTILIZADOR}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             if (response.data.success) {
@@ -156,7 +156,7 @@ const ConfiguracoesGeraisAdmin = () => {
         if (!passwordAtual || !novaPassword || !confirmarPassword) return setErroPassword("Preencha todos os campos.");
         if (novaPassword !== confirmarPassword) return setErroPassword("A nova password e a confirmação não coincidem.");
         try {
-            const res = await axios.put(`http://localhost:3000/users/mudar-password/${adminUser.ID_UTILIZADOR}`, { passwordAtual, novaPassword });
+            const res = await axios.put(`https://softinsa-api-riya.onrender.com/users/mudar-password/${adminUser.ID_UTILIZADOR}`, { passwordAtual, novaPassword });
             if (res.data.success) {
                 alert("Password alterada com sucesso!");
                 setShowPasswordModal(false);

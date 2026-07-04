@@ -76,7 +76,7 @@ const DashboardSLL = () => {
 
     const carregarFotoPerfil = async () => {
       try {
-          const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+          const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
           if (response.data.success && response.data.data.avatar) {
               setAvatarUrl(response.data.data.avatar);
           } else {
@@ -90,7 +90,7 @@ const DashboardSLL = () => {
       try {
         slAtual = await obterServiceLineSLL(userLocal);
         setServiceLine(slAtual);
-        const response = await axios.get(`http://localhost:3000/dashboard/sll/dados?sl=${encodeURIComponent(slAtual)}&id=${userLocal.ID_UTILIZADOR}`);
+        const response = await axios.get(`https://softinsa-api-riya.onrender.com/dashboard/sll/dados?sl=${encodeURIComponent(slAtual)}&id=${userLocal.ID_UTILIZADOR}`);
         if (response.data.success) {
           const dados = response.data.data;
           setStats(prev => ({ ...prev, ...(dados.stats || {}) }));

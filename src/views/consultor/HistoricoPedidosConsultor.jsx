@@ -33,7 +33,7 @@ const HistoricoPedidosConsultor = () => {
     // Carregar a foto de perfil
     const carregarFotoPerfil = async () => {
       try {
-          const response = await axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
+          const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
           if (response.data.success && response.data.data.avatar) {
               setAvatarUrl(response.data.data.avatar);
           }
@@ -46,8 +46,8 @@ const HistoricoPedidosConsultor = () => {
     const carregarDados = async () => {
       try {
         const [pedidosRes, estruturaRes] = await Promise.all([
-            axios.get(`http://localhost:3000/pedidos/consultor/${userLocal.ID_UTILIZADOR}`),
-            axios.get('http://localhost:3000/estrutura')
+            axios.get(`https://softinsa-api-riya.onrender.com/pedidos/consultor/${userLocal.ID_UTILIZADOR}`),
+            axios.get('https://softinsa-api-riya.onrender.com/estrutura')
         ]);
         if (pedidosRes.data.success) {
           const pedidosFormatados = pedidosRes.data.data.map(p => {

@@ -40,9 +40,9 @@ const TimelineGlobalTalent = () => {
     const carregarDadosIniciais = async () => {
         try {
             const [resUser, consRes, estRes] = await Promise.all([
-                axios.get(`http://localhost:3000/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
-                axios.get('http://localhost:3000/talent/consultores/lista'),
-                axios.get('http://localhost:3000/estrutura')
+                axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`),
+                axios.get('https://softinsa-api-riya.onrender.com/talent/consultores/lista'),
+                axios.get('https://softinsa-api-riya.onrender.com/estrutura')
             ]);
             
             if (resUser.data.success && resUser.data.data.avatar) {
@@ -76,7 +76,7 @@ const TimelineGlobalTalent = () => {
 
   const carregarObjetivos = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/objetivos/consultor/${userId}`);
+      const response = await axios.get(`https://softinsa-api-riya.onrender.com/objetivos/consultor/${userId}`);
       if (response.data.success) {
         setObjetivos(response.data.data);
       }
@@ -93,7 +93,7 @@ const TimelineGlobalTalent = () => {
               carregarObjetivos(c.idUtilizador);
           } else {
              // Tentar obter o idUtilizador do endpoint de perfil caso não esteja na lista base
-             axios.get(`http://localhost:3000/talent/consultores/perfil/${consultorSelecionadoId}`).then(res => {
+             axios.get(`https://softinsa-api-riya.onrender.com/talent/consultores/perfil/${consultorSelecionadoId}`).then(res => {
                  if(res.data.success) {
                      carregarObjetivos(res.data.data.idUtilizador);
                  }
@@ -133,7 +133,7 @@ const TimelineGlobalTalent = () => {
         idUtilizadorAlvo = c.idUtilizador;
     } else {
         try {
-            const res = await axios.get(`http://localhost:3000/talent/consultores/perfil/${consultorSelecionadoId}`);
+            const res = await axios.get(`https://softinsa-api-riya.onrender.com/talent/consultores/perfil/${consultorSelecionadoId}`);
             if(res.data.success) idUtilizadorAlvo = res.data.data.idUtilizador;
         } catch(e) {}
     }
@@ -144,7 +144,7 @@ const TimelineGlobalTalent = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/objetivos/criar', {
+      const response = await axios.post('https://softinsa-api-riya.onrender.com/objetivos/criar', {
         idUtilizador: idUtilizadorAlvo,
         titulo: novoTitulo,
         dataMeta: novaData,
