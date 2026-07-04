@@ -136,28 +136,18 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
         try {
             if (initialData?.id) {
                 // Update badge (PUT request)
-                const response = await fetch(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${initialData.id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const resData = await response.json();
+                const res = await axios.put(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${initialData.id}`, payload);
                 
-                if (resData.success) {
+                if (res.data.success) {
                     alert('Badge atualizado com sucesso!');
                     if (onSuccess) onSuccess();
                     onClose();
                 }
             } else {
                 // Create badge (POST request)
-                const response = await fetch('https://softinsa-api-riya.onrender.com/catalogo/admin/badge/criar', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const resData = await response.json();
+                const res = await axios.post('https://softinsa-api-riya.onrender.com/catalogo/admin/badge/criar', payload);
 
-                if (resData.success) {
+                if (res.data.success) {
                     alert('Badge criado com sucesso!');
                     if (onSuccess) onSuccess();
                     onClose();
