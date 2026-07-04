@@ -123,6 +123,8 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
             hasValidade,
             tipoValidade: hasValidade ? tipoValidade : null,
             valorValidade: hasValidade ? valorValidade : null,
+            validadeDias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : null,
+            validadeMeses: (hasValidade && tipoValidade === 'meses') ? Number(valorValidade) : null,
             adminId,
             requisitos: listaRequisitosFinais,
             urlImagem: initialData?.urlImagem
