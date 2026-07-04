@@ -21,6 +21,10 @@ export const abrirPartilhaLinkedIn = async ({ urlPartilha, urlPublica, texto }) 
         return;
     }
 
-    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(urlPartilha)}`;
+    const urlCacheBuster = urlPartilha.includes('?') 
+        ? `${urlPartilha}&v=${Date.now()}` 
+        : `${urlPartilha}?v=${Date.now()}`;
+
+    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(urlCacheBuster)}`;
     window.open(linkedinUrl, '_blank', 'noopener,noreferrer');
 };
