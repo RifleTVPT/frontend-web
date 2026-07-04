@@ -87,6 +87,10 @@ const DetalhesBadgeAdmin = () => {
                         <i className="bi bi-arrow-left me-2"></i> Voltar ao Catálogo Global de Badges
                     </Link>
 
+                    <div className="alert alert-warning small text-break">
+                        <strong>Debug API (Raw Data):</strong> {JSON.stringify(badge)}
+                    </div>
+
                     {/* CARD DE GESTÃO HORIZONTAL */}
                     <div className="card border-0 shadow-sm rounded-4 p-5 bg-white mb-5">
                         <div className="row align-items-center">
