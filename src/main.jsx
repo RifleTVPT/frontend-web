@@ -11,12 +11,7 @@ import Swal from 'sweetalert2';
 // Configurar o Axios para enviar o Token em TODOS os pedidos!
 axios.interceptors.request.use(config => {
   // Reescrever localhost:3000 para o domínio real se não estivermos em localhost
-  if (config.url && config.url.startsWith('https://softinsa-api-riya.onrender.com')) {
-    const origin = window.location.origin;
-    if (!origin.includes('localhost')) {
-      config.url = config.url.replace('https://softinsa-api-riya.onrender.com', origin);
-    }
-  }
+
 
   const userStr = sessionStorage.getItem('user');
   if (userStr) {
