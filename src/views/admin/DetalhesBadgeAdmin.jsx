@@ -121,7 +121,7 @@ const DetalhesBadgeAdmin = () => {
                                     <p className="mb-2">
                                         <strong>Nível:</strong> {badge.nivel === 'A' ? 'A (Júnior)' : badge.nivel === 'B' ? 'B (Intermédio)' : badge.nivel === 'C' ? 'C (Sénior)' : badge.nivel === 'D' ? 'D (Especialista)' : badge.nivel === 'E' ? 'E (Líder)' : badge.nivel}
                                     </p>
-                                    <p className="mb-2"><strong>Validade:</strong> {badge.hasValidade ? (badge.validadeExpiracao ? `Expira em ${new Date(badge.validadeExpiracao).toLocaleDateString('pt-PT')}` : `${badge.validadeMeses} meses`) : 'Sem Expiração'}</p>
+                                    <p className="mb-2"><strong>Validade:</strong> {badge.hasValidade ? (badge.validadeDias ? `${badge.validadeDias} dias de duração` : `${badge.validadeMeses} meses de duração`) : 'Sem Validade/Vitalício'}</p>
                                     <p className="mb-1"><strong>Pontos:</strong> {badge.pontos} pontos</p>
                                 </div>
                             </div>
@@ -184,7 +184,8 @@ const DetalhesBadgeAdmin = () => {
                     nome: badge.titulo,
                     desc: badge.descricao,
                     hasValidade: badge.hasValidade,
-                    validadeExpiracao: badge.validadeExpiracao,
+                    validadeDias: badge.validadeDias,
+                    validadeMeses: badge.validadeMeses,
                     pontos: badge.pontos,
                     requisitos: badge.requisitos,
                     serviceLine: badge.serviceLine,

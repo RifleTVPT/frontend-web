@@ -94,13 +94,11 @@ const DetalhesBadge = () => {
                   <p className="mb-1"><strong>Nível:</strong> {nivelNameMap[badgeData.nivel] ? `${nivelNameMap[badgeData.nivel]} (Nível ${badgeData.nivel})` : badgeData.nivel}</p>
                   <p className="mb-1">
                     <strong>Validade:</strong> {
-                      !badgeData.hasValidade
-                        ? 'Sem Expiração'
-                        : badgeData.validadeExpiracao
-                          ? `Expira em ${new Date(badgeData.validadeExpiracao).toLocaleDateString('pt-PT')}`
-                          : badgeData.validadeMeses
-                            ? `${badgeData.validadeMeses} meses`
-                            : 'Sem Expiração'
+                      (!badgeData.hasValidade || (!badgeData.validadeMeses && !badgeData.validadeDias))
+                        ? 'Sem Validade/Vitalício'
+                        : badgeData.validadeDias
+                          ? `${badgeData.validadeDias} dias de duração`
+                          : `${badgeData.validadeMeses} meses de duração`
                     }
                   </p>
                   <p className="mb-1"><strong>Pontos:</strong> {badgeData.pontos} pontos</p>

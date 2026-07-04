@@ -19,8 +19,8 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
     const [showAddReq, setShowAddReq] = useState(false);
     const [imagemPreview, setImagemPreview] = useState(initialData?.urlImagem || null);
     const fileInputRef = React.useRef(null);
-    const [validadeExpiracao, setValidadeExpiracao] = useState(initialData?.validadeExpiracao ? new Date(initialData.validadeExpiracao).toISOString().split('T')[0] : '');
-    const [validadePersonalizada, setValidadePersonalizada] = useState(Boolean(initialData?.validadeExpiracao));
+    const [tipoValidade, setTipoValidade] = useState(initialData?.validadeDias ? 'dias' : 'meses');
+    const [valorValidade, setValorValidade] = useState(initialData?.validadeDias || initialData?.validadeMeses || '');
     const [configuracoesGlobais, setConfiguracoesGlobais] = useState(null);
 
     useEffect(() => {
@@ -31,13 +31,11 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
     }, []);
 
     useEffect(() => {
-        if (hasValidade && !validadeExpiracao && configuracoesGlobais) {
-            const d = new Date();
-            d.setMonth(d.getMonth() + (configuracoesGlobais.VALIDADE_MESES_PADRAO || 12));
-            setValidadeExpiracao(d.toISOString().split('T')[0]);
-            setValidadePersonalizada(false);
+        if (hasValidade && !valorValidade && configuracoesGlobais) {
+            setValorValidade(configuracoesGlobais.VALIDADE_MESES_PADRAO || 12);
+            setTipoValidade('meses');
         }
-    }, [hasValidade, validadeExpiracao, configuracoesGlobais]);
+    }, [hasValidade, valorValidade, configuracoesGlobais]);
 
     // Efeitos para preencher valores por defeito
     useEffect(() => {
@@ -123,8 +121,8 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
             nivelId: nivelIdAtual,
             pontos,
             hasValidade,
-            validadeExpiracao: hasValidade ? validadeExpiracao : null,
-            validadePersonalizada: Boolean(hasValidade && validadePersonalizada && validadeExpiracao),
+            tipoValidade: hasValidade ? tipoValidade : null,
+            valorValidade: hasValidade ? valorValidade : null,
             adminId,
             requisitos: listaRequisitosFinais,
             urlImagem: initialData?.urlImagem
@@ -356,30 +354,35 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                                             setHasValidade(val);
                                             if (val) {
                                                 const defaultMonths = configuracoesGlobais?.VALIDADE_MESES_PADRAO || 12;
-                                                const d = new Date();
-                                                d.setMonth(d.getMonth() + defaultMonths);
-                                                setValidadeExpiracao(d.toISOString().split('T')[0]);
-                                                setValidadePersonalizada(false);
+                                                setValorValidade(defaultMonths);
+                                                setTipoValidade('meses');
                                             } else {
-                                                setValidadeExpiracao('');
-                                                setValidadePersonalizada(false);
+                                                setValorValidade('');
                                             }
                                         }}>
                                             <option value="Sem">Sem Expiração</option>
-                                            <option value="Com">Com Expiração Definida</option>
+                                            <option value="Com">Com Validade Definida</option>
                                         </select>
                                     </div>
-                                    <div className="col-12">
+                                    <div className="col-12 d-flex gap-2">
                                         <input 
-                                            type="date" 
-                                            value={validadeExpiracao}
-                                            onChange={(e) => {
-                                                setValidadeExpiracao(e.target.value);
-                                                setValidadePersonalizada(true);
-                                            }}
+                                            type="number" 
+                                            min="1"
+                                            value={valorValidade}
+                                            onChange={(e) => setValorValidade(e.target.value)}
                                             className={`form-control py-2 rounded-3 border-0 ${!hasValidade ? 'bg-secondary bg-opacity-25 text-muted cursor-not-allowed' : 'bg-light'}`} 
-                                            disabled={!hasValidade} 
+                                            disabled={!hasValidade}
+                                            placeholder="Duração"
                                         />
+                                        <select 
+                                            value={tipoValidade}
+                                            onChange={(e) => setTipoValidade(e.target.value)}
+                                            className={`form-select w-50 py-2 rounded-3 border-0 ${!hasValidade ? 'bg-secondary bg-opacity-25 text-muted cursor-not-allowed' : 'bg-light'}`}
+                                            disabled={!hasValidade}
+                                        >
+                                            <option value="meses">Meses</option>
+                                            <option value="dias">Dias</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
