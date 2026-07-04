@@ -222,7 +222,9 @@ const CatalogoBadges = () => {
               <div className="d-flex gap-2 justify-content-start flex-wrap mt-2">
                 {todosNiveis.length === 0 && <span className="text-muted small py-2">Sem níveis configurados para as seleções.</span>}
                 {todosNiveis.map(n => {
-                  const nomeExibicao = `Nível ${n.nome} (${n.letra})`;
+                  const fallbackNames = {'A': 'Júnior', 'B': 'Intermédio', 'C': 'Sénior', 'D': 'Especialista', 'E': 'Líder', 'F': 'Master'};
+                  const nomeFinal = (!n.nome || n.nome.toLowerCase() === n.letra.toLowerCase() || n.nome === 'Desconhecido') ? fallbackNames[n.letra] || n.nome : n.nome;
+                  const nomeExibicao = `Nível ${nomeFinal} (${n.letra})`;
                   return (
                     <button 
                       key={n.letra} onClick={() => toggleNivel(n.letra)}
