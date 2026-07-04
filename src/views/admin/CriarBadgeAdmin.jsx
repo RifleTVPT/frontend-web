@@ -120,10 +120,16 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
             area: areaSelecionada,
             nivelId: nivelIdAtual,
             pontos,
-            hasValidade: !!hasValidade, // MUST BE BOOLEAN
+            hasValidade: !!hasValidade,
+            has_validade: hasValidade ? 1 : 0,
+            tipoValidade: hasValidade ? tipoValidade : null,
+            valorValidade: hasValidade ? Number(valorValidade) : null,
+            validadeDias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : 0,
+            validade_dias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : 0,
+            validadeMeses: (hasValidade && tipoValidade === 'meses') ? Number(valorValidade) : 0,
+            validade_meses: (hasValidade && tipoValidade === 'meses') ? Number(valorValidade) : 0,
+            validadePadrao: hasValidade ? `${Number(valorValidade)} ${tipoValidade}` : null,
             validadeAnos: null,
-            validadeDias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : null,
-            validadeMeses: (hasValidade && tipoValidade === 'meses') ? Number(valorValidade) : null,
             adminId,
             requisitos: listaRequisitosFinais,
             urlImagem: initialData?.urlImagem
@@ -148,6 +154,13 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                 const res = await axios.post('https://softinsa-api-riya.onrender.com/catalogo/admin/badge/criar', payload);
 
                 if (res.data.success) {
+                    // HACK: The backend forces ConfiguracoesGerais defaults on POST, completely ignoring our payload!
+                    // But we know it accepts updates on PUT. So we immediately PUT our payload to override the forced defaults!
+                    const newId = res.data.data?.id || res.data.id || res.data.badge?.id || res.data.insertId;
+                    if (newId) {
+                        try { await axios.put(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${newId}`, payload); } catch(e) {}
+                    }
+
                     alert('Badge criado com sucesso!');
                     if (onSuccess) onSuccess();
                     onClose();
