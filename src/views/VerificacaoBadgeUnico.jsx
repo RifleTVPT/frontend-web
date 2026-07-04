@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../utils/publicBadgeImage';
-
+import AvatarUtilizador from '../components/AvatarUtilizador';
 const VerificacaoBadgeUnico = () => {
     const { linkUnico } = useParams();
     const [data, setData] = useState(null);
@@ -55,8 +55,8 @@ const VerificacaoBadgeUnico = () => {
                     <div className="row g-5">
                         <div className="col-md-4">
                             <div className="card border-primary p-5 rounded-4 h-100 text-center shadow-sm bg-white">
-                                <div className="bg-light rounded-circle mx-auto mb-4 d-flex align-items-center justify-content-center" style={{width: '120px', height: '120px'}}>
-                                    <i className="bi bi-person-fill text-secondary fs-1"></i>
+                                <div className="mb-4 d-flex justify-content-center">
+                                    <AvatarUtilizador nome={consultor.nome} foto={consultor.urlFoto} tamanho={120} />
                                 </div>
                                 <h3 className="fw-bold">{consultor.nome}</h3>
                                 <p className="text-muted small mb-1">{consultor.cargo}</p>

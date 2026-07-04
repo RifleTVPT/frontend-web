@@ -4,6 +4,7 @@ import axios from 'axios';
 import PerfilConsultorModal from '../components/PerfilConsultorModal';
 import { getApiOrigin, resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../utils/publicBadgeImage';
 import { abrirPartilhaLinkedIn } from '../utils/linkedinShare';
+import AvatarUtilizador from '../components/AvatarUtilizador';
 
 const GaleriaPublicaBadges = () => {
     const navigate = useNavigate();
@@ -124,8 +125,8 @@ const GaleriaPublicaBadges = () => {
                     <div className="row g-5 text-start">
                         <div className="col-lg-4">
                             <div className="card border-primary p-4 p-md-5 rounded-4 h-100 text-center shadow-sm bg-white">
-                                <div className="bg-light rounded-circle mx-auto mb-4 d-flex align-items-center justify-content-center" style={{width: '150px', height: '150px'}}>
-                                    <i className="bi bi-person-fill text-secondary" style={{fontSize: '5rem'}}></i>
+                                <div className="mb-4 d-flex justify-content-center">
+                                    <AvatarUtilizador nome={consultor.nome} foto={consultor.urlFoto} tamanho={150} />
                                 </div>
                                 <h3 className="fw-bold">{consultor.nome}</h3>
                                 <p className="text-muted small mb-1">{consultor.cargo}</p>
