@@ -5,7 +5,7 @@ import SidebarAdmin from '../../components/SidebarAdmin';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import CriarBadgeAdmin from './CriarBadgeAdmin';
 import '../../assets/dashboard.css';
-import { resolvePublicBadgeImage } from '../../../utils/publicBadgeImage';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 
 const DetalhesBadgeAdmin = () => {
     const { id } = useParams();
