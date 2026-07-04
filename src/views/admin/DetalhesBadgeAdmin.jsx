@@ -5,6 +5,7 @@ import SidebarAdmin from '../../components/SidebarAdmin';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import CriarBadgeAdmin from './CriarBadgeAdmin';
 import '../../assets/dashboard.css';
+import { resolvePublicBadgeImage } from '../../../utils/publicBadgeImage';
 
 const DetalhesBadgeAdmin = () => {
     const { id } = useParams();
@@ -96,7 +97,8 @@ const DetalhesBadgeAdmin = () => {
                                 <div className="rounded-circle border border-primary border-4 p-1 mb-4 mx-auto position-relative bg-light" style={{ width: '220px', height: '220px', overflow: 'hidden' }}>
                                     <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '9rem', zIndex: 1, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}></i>
                                     {(() => {
-                                        const imageSrc = badge.urlImagem && badge.urlImagem.trim() !== '' && !badge.urlImagem.includes('placeholder') && !badge.urlImagem.includes('default-trophy') && !badge.urlImagem.includes('3112946.png') ? badge.urlImagem : null;
+                                        const rawUrl = badge.urlImagem;
+                                        const imageSrc = rawUrl && rawUrl.trim() !== '' && !rawUrl.includes('placeholder') && !rawUrl.includes('default-trophy') && !rawUrl.includes('3112946.png') ? resolvePublicBadgeImage(rawUrl) : null;
                                         if (!imageSrc) return null;
                                         return (
                                             <img 

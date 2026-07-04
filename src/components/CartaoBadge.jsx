@@ -1,4 +1,5 @@
 import React from 'react';
+import { resolvePublicBadgeImage } from '../utils/publicBadgeImage';
 
 const CartaoBadge = ({ badge, acoesRodape, cabecalhoPersonalizado }) => {
     return (
@@ -16,7 +17,8 @@ const CartaoBadge = ({ badge, acoesRodape, cabecalhoPersonalizado }) => {
                 <div className="rounded-circle border border-primary border-2 d-flex align-items-center justify-content-center bg-light position-relative" style={{ width: '90px', height: '90px', overflow: 'hidden' }}>
                     <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '3.5rem', zIndex: 1 }}></i>
                     {(() => {
-                        const imageSrc = badge.URL_IMAGEM && badge.URL_IMAGEM.trim() !== '' && !badge.URL_IMAGEM.includes('placeholder') && !badge.URL_IMAGEM.includes('default-trophy') ? badge.URL_IMAGEM : null;
+                        const rawUrl = badge.URL_IMAGEM || badge.urlImagem;
+                        const imageSrc = rawUrl && rawUrl.trim() !== '' && !rawUrl.includes('placeholder') && !rawUrl.includes('default-trophy') ? resolvePublicBadgeImage(rawUrl) : null;
                         if (!imageSrc) return null;
                         return (
                             <img 
