@@ -342,13 +342,17 @@ const CandidaturaBadgeConsultor = () => {
                         if (badgeInfo.validadeExpiracao) {
                           return `Até ${new Date(badgeInfo.validadeExpiracao).toLocaleDateString('pt-PT')}`;
                         }
-                        if (!badgeInfo.hasValidade || (!badgeInfo.validadeMeses && !badgeInfo.validadeDias)) {
+                        const vDias = badgeInfo.validadeDias || (badgeInfo.tipoValidade === 'dias' ? badgeInfo.valorValidade : null);
+                        const vMeses = badgeInfo.validadeMeses || (badgeInfo.tipoValidade === 'meses' ? badgeInfo.valorValidade : null);
+                        const hasVal = badgeInfo.hasValidade || vDias || vMeses;
+                        
+                        if (!hasVal) {
                           return 'Sem Expiração';
                         }
-                        if (badgeInfo.validadeDias) {
-                          return `${badgeInfo.validadeDias} dias de duração`;
+                        if (vDias) {
+                          return `${vDias} dias de duração`;
                         }
-                        const meses = Math.round(Number(badgeInfo.validadeMeses));
+                        const meses = Math.round(Number(vMeses));
                         const a = Math.floor(meses / 12);
                         const m = meses % 12;
                         let text = '';

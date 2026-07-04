@@ -122,7 +122,16 @@ const DetalhesBadgeAdmin = () => {
                                         <strong>Nível:</strong> {badge.nivel === 'A' ? 'A (Júnior)' : badge.nivel === 'B' ? 'B (Intermédio)' : badge.nivel === 'C' ? 'C (Sénior)' : badge.nivel === 'D' ? 'D (Especialista)' : badge.nivel === 'E' ? 'E (Líder)' : badge.nivel}
                                     </p>
                                     <p className="mb-2">
-                                        <strong>Validade:</strong> {(badge.hasValidade || badge.validadeDias || badge.validadeMeses) ? (badge.validadeDias ? `${badge.validadeDias} dias de duração` : `${badge.validadeMeses} meses de duração`) : 'Sem Validade/Vitalício'}
+                                        <strong>Validade:</strong> {(() => {
+                                            const vDias = badge.validadeDias || (badge.tipoValidade === 'dias' ? badge.valorValidade : null);
+                                            const vMeses = badge.validadeMeses || (badge.tipoValidade === 'meses' ? badge.valorValidade : null);
+                                            const hasVal = badge.hasValidade || vDias || vMeses;
+                                            
+                                            if (!hasVal) return 'Sem Validade/Vitalício';
+                                            if (vDias) return `${vDias} dias de duração`;
+                                            if (vMeses) return `${vMeses} meses de duração`;
+                                            return 'Sem Validade/Vitalício';
+                                        })()}
                                     </p>
                                     <p className="mb-1"><strong>Pontos:</strong> {badge.pontos} pontos</p>
                                 </div>
