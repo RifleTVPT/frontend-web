@@ -95,7 +95,7 @@ const DetalhesBadge = () => {
                   <p className="mb-1"><strong>Nível:</strong> {nivelNameMap[badgeData.nivel] ? `${nivelNameMap[badgeData.nivel]} (Nível ${badgeData.nivel})` : badgeData.nivel}</p>
                   <p className="mb-1">
                     <strong>Validade:</strong> {
-                      (!badgeData.hasValidade || (!badgeData.validadeMeses && !badgeData.validadeDias))
+                      (!badgeData.validadeMeses && !badgeData.validadeDias)
                         ? 'Sem Validade/Vitalício'
                         : badgeData.validadeDias
                           ? `${badgeData.validadeDias} dias de duração`
