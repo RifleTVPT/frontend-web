@@ -136,26 +136,36 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
         try {
             if (initialData?.id) {
                 // Update badge (PUT request)
-                const res = await axios.put(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${initialData.id}`, payload);
+                const response = await fetch(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${initialData.id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const resData = await response.json();
                 
-                if (res.data.success) {
+                if (resData.success) {
                     alert('Badge atualizado com sucesso!');
                     if (onSuccess) onSuccess();
                     onClose();
                 }
             } else {
                 // Create badge (POST request)
-                const res = await axios.post('https://softinsa-api-riya.onrender.com/catalogo/admin/badge/criar', payload);
+                const response = await fetch('https://softinsa-api-riya.onrender.com/catalogo/admin/badge/criar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const resData = await response.json();
 
-                if (res.data.success) {
+                if (resData.success) {
                     alert('Badge criado com sucesso!');
                     if (onSuccess) onSuccess();
                     onClose();
                 }
             }
         } catch (error) {
-            console.error('Erro ao criar badge', error);
-            alert('Ocorreu um erro ao criar o badge.');
+            console.error('Erro ao criar/atualizar badge', error);
+            alert('Ocorreu um erro ao criar/atualizar o badge.');
         }
     };
 
