@@ -319,23 +319,18 @@ const CandidaturaBadgeConsultor = () => {
             <div className="row align-items-center">
               <div className="col-md-4 text-start border-end pe-5">
                 <div className="d-flex justify-content-center w-100 mb-3">
-                    <div className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden position-relative bg-light" style={{width: '150px', height: '150px'}}>
-                      <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '7rem', zIndex: 1 }}></i>
-                      {(() => {
-                          const rawUrl = badgeInfo.URL_IMAGEM || badgeInfo.urlImagem;
-                          const imageSrc = rawUrl && rawUrl.trim() !== '' && !rawUrl.includes('placeholder') && !rawUrl.includes('default-trophy') && !rawUrl.includes('3112946.png') ? resolvePublicBadgeImage(rawUrl) : null;
-                          if (!imageSrc) return null;
-                          return (
-                              <img 
-                                  src={imageSrc} 
-                                  onError={(e) => { e.target.style.display = 'none'; }}
-                                  alt="Badge" 
-                                  className="position-absolute w-100 h-100"
-                                  style={{objectFit: 'cover', zIndex: 2}}
-                              />
-                          );
-                      })()}
-                    </div>
+                  <div className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden position-relative bg-light" style={{width: '150px', height: '150px'}}>
+                    <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '7rem', zIndex: 1 }}></i>
+                    {badgeInfo.urlImagem && badgeInfo.urlImagem.trim() !== '' && !badgeInfo.urlImagem.includes('placeholder') && !badgeInfo.urlImagem.includes('default-trophy') && !badgeInfo.urlImagem.includes('3112946.png') && (
+                        <img 
+                            src={resolvePublicBadgeImage(badgeInfo.urlImagem)} 
+                            onError={(e) => { e.target.style.display = 'none'; }}
+                            alt="Badge" 
+                            className="position-absolute w-100 h-100"
+                            style={{objectFit: 'cover', zIndex: 2}}
+                        />
+                    )}
+                  </div>
                 </div>
                 <div className="ps-2 fonte-dados-grande">
                   <p className="mb-1"><strong>Service Line:</strong> {badgeInfo.serviceLine || 'Geral'}</p>

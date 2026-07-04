@@ -90,20 +90,8 @@ const NovoPedidoConsultor = () => {
   };
 
   // 3. O CORAÇÃO DOS FILTROS CRUZADOS
-  const levelToLetter = (l) => {
-    if (!l) return 'A';
-    const name = String(l).toLowerCase();
-    if(name.includes('júnior') || name.includes('junior')) return 'A';
-    if(name.includes('intermédio') || name.includes('intermedio')) return 'B';
-    if(name.includes('especialista')) return 'C';
-    if(name.includes('sénior') || name.includes('senior')) return 'D';
-    if(name.includes('líder') || name.includes('lider')) return 'E';
-    if(name === 'f' || name.includes('master')) return 'F';
-    return String(l).toUpperCase();
-  };
-
   const filtrados = badgesAtivos.filter(badge => {
-    const matchNivel = niveisSelecionados.length === 0 || niveisSelecionados.includes(levelToLetter(badge.nivel));
+    const matchNivel = niveisSelecionados.length === 0 || niveisSelecionados.includes(badge.nivel);
     const matchSL = serviceLine === 'Todas' || badge.serviceLine === serviceLine;
     const matchArea = areaSelecionada === 'Todas' || badge.area === areaSelecionada;
     const termo = pesquisa.toLowerCase();
@@ -114,6 +102,18 @@ const NovoPedidoConsultor = () => {
 
     return matchNivel && matchSL && matchArea && matchPesquisa;
   });
+
+  const levelToLetter = (l) => {
+    if (!l) return 'A';
+    const name = String(l).toLowerCase();
+    if(name.includes('júnior') || name.includes('junior') || name === '1' || name === 'a') return 'A';
+    if(name.includes('intermédio') || name.includes('intermedio') || name === '2' || name === 'b') return 'B';
+    if(name.includes('sénior') || name.includes('senior') || name === '3' || name === 'c') return 'C';
+    if(name.includes('especialista') || name === '4' || name === 'd') return 'D';
+    if(name.includes('líder') || name.includes('lider') || name === '5' || name === 'e') return 'E';
+    if(name.includes('master') || name === '6' || name === 'f') return 'F';
+    return String(l).toUpperCase();
+  };
 
   const todosNiveis = [];
   estrutura.areas.forEach(a => {
@@ -229,20 +229,15 @@ const NovoPedidoConsultor = () => {
                   <div className="d-flex justify-content-center pt-4 mb-3">
                     <div className="rounded-circle border border-primary border-2 d-flex align-items-center justify-content-center bg-light position-relative" style={{width: '90px', height: '90px', overflow: 'hidden'}}>
                         <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '3.5rem', zIndex: 1 }}></i>
-                        {(() => {
-                            const rawUrl = badge.URL_IMAGEM || badge.urlImagem;
-                            const imageSrc = rawUrl && rawUrl.trim() !== '' && !rawUrl.includes('placeholder') && !rawUrl.includes('default-trophy') && !rawUrl.includes('3112946.png') ? resolvePublicBadgeImage(rawUrl) : null;
-                            if (!imageSrc) return null;
-                            return (
-                                <img 
-                                    src={imageSrc} 
-                                    onError={(e) => { e.target.style.display = 'none'; }}
-                                    alt="Badge" 
-                                    className="position-absolute w-100 h-100"
-                                    style={{objectFit: 'cover', zIndex: 2}} 
-                                />
-                            );
-                        })()}
+                        {badge.urlImagem && badge.urlImagem.trim() !== '' && !badge.urlImagem.includes('placeholder') && !badge.urlImagem.includes('default-trophy') && !badge.urlImagem.includes('3112946.png') && (
+                            <img 
+                                src={resolvePublicBadgeImage(badge.urlImagem)} 
+                                onError={(e) => { e.target.style.display = 'none'; }}
+                                alt="Badge" 
+                                className="position-absolute w-100 h-100"
+                                style={{objectFit: 'cover', zIndex: 2}} 
+                            />
+                        )}
                     </div>
                   </div>
                   
@@ -251,7 +246,7 @@ const NovoPedidoConsultor = () => {
                     <p className="fw-bold text-primary mb-1 mt-2 text-truncate" style={{fontSize: '1rem'}}>Service Line: {badge.serviceLine || 'Geral'}</p>
                     <p className="text-muted fw-bold mb-2 text-truncate" style={{fontSize: '0.85rem'}}>
                       Área: {badge.area || 'Geral'} - Nível {badge.nivel} 
-                      {badge.nivel === 'A' ? ' (Júnior)' : badge.nivel === 'B' ? ' (Intermédio)' : badge.nivel === 'C' ? ' (Sénior)' : badge.nivel === 'D' ? ' (Especialista)' : badge.nivel === 'E' ? ' (Líder)' : ''}
+                      {badge.nivel === 'A' ? ' (Júnior)' : badge.nivel === 'B' ? ' (Intermédio)' : badge.nivel === 'C' ? ' (Sénior)' : badge.nivel === 'D' ? ' (Especialista)' : badge.nivel === 'E' ? ' (Líder)' : badge.nivel === 'F' ? ' (Master)' : ''}
                     </p>
                   </div>
                   
