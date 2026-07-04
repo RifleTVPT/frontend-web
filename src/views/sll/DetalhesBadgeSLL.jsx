@@ -4,6 +4,7 @@ import SidebarSLL from '../../components/SidebarSLL';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import axios from 'axios';
 import '../../assets/dashboard.css';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 
 const DetalhesBadgeSLL = () => {
   const { id } = useParams();
@@ -112,7 +113,7 @@ const DetalhesBadgeSLL = () => {
                 <div className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden mb-3 position-relative bg-light" style={{ width: '160px', height: '160px' }}>
                   <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '6rem', zIndex: 1 }}></i>
                   {(() => {
-                      const imageSrc = badgeData.urlImagem && badgeData.urlImagem.trim() !== '' && !badgeData.urlImagem.includes('placeholder') && !badgeData.urlImagem.includes('default-trophy') && !badgeData.urlImagem.includes('3112946.png') ? badgeData.urlImagem : null;
+                      const imageSrc = badgeData.urlImagem && badgeData.urlImagem.trim() !== '' && !badgeData.urlImagem.includes('placeholder') && !badgeData.urlImagem.includes('default-trophy') && !badgeData.urlImagem.includes('3112946.png') ? resolvePublicBadgeImage(badgeData.urlImagem) : null;
                       if (!imageSrc) return null;
                       return (
                           <img 

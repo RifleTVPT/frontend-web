@@ -4,6 +4,7 @@ import axios from 'axios';
 import SidebarConsultor from '../../components/SidebarConsultor';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import '../../assets/dashboard.css';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 
 const CandidaturaBadgeConsultor = () => {
   const { id } = useParams();
@@ -322,7 +323,7 @@ const CandidaturaBadgeConsultor = () => {
                     <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '7rem', zIndex: 1 }}></i>
                     {badgeInfo.urlImagem && badgeInfo.urlImagem.trim() !== '' && !badgeInfo.urlImagem.includes('placeholder') && !badgeInfo.urlImagem.includes('default-trophy') && !badgeInfo.urlImagem.includes('3112946.png') && (
                         <img 
-                            src={badgeInfo.urlImagem} 
+                            src={resolvePublicBadgeImage(badgeInfo.urlImagem)} 
                             onError={(e) => { e.target.style.display = 'none'; }}
                             alt="Badge" 
                             className="position-absolute w-100 h-100"

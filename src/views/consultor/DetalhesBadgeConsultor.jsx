@@ -4,6 +4,7 @@ import axios from 'axios';
 import Sidebar from '../../components/SidebarConsultor';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import '../../assets/dashboard.css';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 
 const DetalhesBadge = () => {
   const { id } = useParams();
@@ -74,7 +75,7 @@ const DetalhesBadge = () => {
                   <div className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden position-relative bg-light" style={{width: '150px', height: '150px'}}>
                     <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '7rem', zIndex: 1 }}></i>
                     {(() => {
-                        const imageSrc = badgeData.urlImagem && badgeData.urlImagem.trim() !== '' && !badgeData.urlImagem.includes('placeholder') && !badgeData.urlImagem.includes('default-trophy') && !badgeData.urlImagem.includes('3112946.png') ? badgeData.urlImagem : null;
+                        const imageSrc = badgeData.urlImagem && badgeData.urlImagem.trim() !== '' && !badgeData.urlImagem.includes('placeholder') && !badgeData.urlImagem.includes('default-trophy') && !badgeData.urlImagem.includes('3112946.png') ? resolvePublicBadgeImage(badgeData.urlImagem) : null;
                         if (!imageSrc) return null;
                         return (
                             <img 

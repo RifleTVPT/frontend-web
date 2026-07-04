@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SidebarConsultor from '../../components/SidebarConsultor';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
-import { getApiOrigin } from '../../utils/publicBadgeImage';
+import { getApiOrigin, resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 import { abrirPartilhaLinkedIn } from '../../utils/linkedinShare';
 import '../../assets/dashboard.css';
 
@@ -118,17 +118,7 @@ const DetalhesBadgeObtidoConsultor = () => {
   const copiarAssinaturaEmail = () => {
       const apiOrigin = getApiOrigin();
 
-      let urlBadge = badgeData.urlImagem && badgeData.urlImagem.trim() !== '' && !badgeData.urlImagem.includes('placeholder') 
-          ? badgeData.urlImagem 
-          : `${apiOrigin}/uploads/default-trophy.png`;
-
-      if (/^https?:\/\/localhost:3000/i.test(urlBadge)) {
-          urlBadge = urlBadge.replace(/^https?:\/\/localhost:3000/i, apiOrigin);
-      } else if (urlBadge.startsWith('/')) {
-          urlBadge = `${apiOrigin}${urlBadge}`;
-      } else if (!/^https?:\/\//i.test(urlBadge)) {
-          urlBadge = `${apiOrigin}/uploads/${urlBadge.replace(/^uploads\//, '')}`;
-      }
+      let urlBadge = resolvePublicBadgeImage(badgeData.urlImagem);
       
       const publicOrigin = (import.meta.env.VITE_PUBLIC_APP_URL || window.location.origin).replace(/\/$/, '');
       const urlVerificacao = `${publicOrigin}/verificacao/${encodeURIComponent(badgeData.linkUnico)}`;
@@ -193,7 +183,7 @@ const DetalhesBadgeObtidoConsultor = () => {
                 <Link to={`/verificacao/${encodeURIComponent(badgeData.linkUnico)}`} target="_blank" rel="noopener noreferrer" className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden mb-3 shadow-sm hover-overlay position-relative bg-light" style={{width: '180px', height: '180px', display: 'inline-block'}}>
                   <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '7rem', zIndex: 1, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}></i>
                   {(() => {
-                      const imageSrc = badgeData.urlImagem && badgeData.urlImagem.trim() !== '' && !badgeData.urlImagem.includes('placeholder') && !badgeData.urlImagem.includes('default-trophy') && !badgeData.urlImagem.includes('3112946.png') ? badgeData.urlImagem : null;
+                      const imageSrc = badgeData.urlImagem && badgeData.urlImagem.trim() !== '' && !badgeData.urlImagem.includes('placeholder') && !badgeData.urlImagem.includes('default-trophy') && !badgeData.urlImagem.includes('3112946.png') ? resolvePublicBadgeImage(badgeData.urlImagem) : null;
                       if (!imageSrc) return null;
                       return (
                           <img 

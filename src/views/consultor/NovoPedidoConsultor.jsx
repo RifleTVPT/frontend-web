@@ -4,6 +4,7 @@ import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/dashboard.css';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 
 const NovoPedidoConsultor = () => {
   const navigate = useNavigate();
@@ -229,7 +230,7 @@ const NovoPedidoConsultor = () => {
                         <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '3.5rem', zIndex: 1 }}></i>
                         {badge.urlImagem && badge.urlImagem.trim() !== '' && !badge.urlImagem.includes('placeholder') && !badge.urlImagem.includes('default-trophy') && !badge.urlImagem.includes('3112946.png') && (
                             <img 
-                                src={badge.urlImagem} 
+                                src={resolvePublicBadgeImage(badge.urlImagem)} 
                                 onError={(e) => { e.target.style.display = 'none'; }}
                                 alt="Badge" 
                                 className="position-absolute w-100 h-100"

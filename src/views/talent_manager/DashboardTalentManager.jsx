@@ -5,6 +5,7 @@ import CartaoEstatistica from '../../components/CartaoEstatistica';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/dashboard.css';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 import { Line, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS, CategoryScale, LinearScale, PointElement,
@@ -264,7 +265,7 @@ const DashboardTalentManager = () => {
                        {pedido.urlImagem ? (
                           <>
                               <img 
-                                  src={pedido.urlImagem.startsWith('http') ? pedido.urlImagem : `https://softinsa-api-riya.onrender.com${pedido.urlImagem}`} 
+                                  src={resolvePublicBadgeImage(pedido.urlImagem)} 
                                   alt="Badge" 
                                   style={{width: '40px', height: '40px', objectFit: 'contain'}} 
                                   onError={(e) => {
