@@ -66,7 +66,7 @@ const DetalhesConquistaEspecial = () => {
     abrirPartilhaLinkedIn({
       urlPartilha,
       urlPublica,
-      texto: `Alcancei a conquista especial "${conquista.titulo}" na Plataforma de Badges Softinsa! +${conquista.bonus} pontos.`
+      texto: `Alcancei a conquista especial "${conquista.titulo}" na Plataforma de Badges Softinsa!\n\n• Bónus: +${conquista.bonus} Pontos\n• Data: ${conquista.data}`
     });
   };
 

@@ -66,7 +66,7 @@ const DetalhesBadgeObtidoConsultor = () => {
     abrirPartilhaLinkedIn({
       urlPartilha,
       urlPublica,
-      texto: `Conquistei o badge "${badgeData.titulo}" na Plataforma de Badges Softinsa.`
+      texto: `Acabei de conquistar o badge "${badgeData.titulo}" na Plataforma de Badges Softinsa!\n\n• Service Line: ${badgeData.serviceLine || 'Geral'}\n• Área: ${badgeData.area || 'Geral'}\n• Nível: ${badgeData.nivel && nivelNameMap[badgeData.nivel] ? `${nivelNameMap[badgeData.nivel]} (Nível ${badgeData.nivel})` : badgeData.nivel}\n• Atribuído a: ${badgeData.dataValidado}\n• Validade: ${badgeData.dataExpira === 'N/A' || !badgeData.dataExpira ? 'Sem validade (Vitalício)' : `Até ${badgeData.dataExpira}`}`
     });
   };
 
