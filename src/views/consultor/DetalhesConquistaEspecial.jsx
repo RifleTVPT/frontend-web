@@ -97,14 +97,25 @@ const DetalhesConquistaEspecial = () => {
             <div className="col-md-4">
               <div className={`card h-100 border-0 shadow-sm rounded-4 p-5 text-center ${conquista.obtida ? 'bg-white' : 'bg-light'}`}>
                 <div className="d-flex justify-content-center mb-4">
-                  <div className="rounded-circle d-flex align-items-center justify-content-center shadow" 
-                       style={{ 
-                         width: '150px', height: '150px', 
-                         backgroundColor: conquista.obtida ? '#F9F1DC' : '#E9ECEF', 
-                         border: conquista.obtida ? '6px solid #D4AF37' : '6px solid #ADB5BD' 
-                       }}>
-                    <i className={`bi ${conquista.obtida ? 'bi-patch-check-fill text-warning' : 'bi-lock-fill text-secondary'} `} style={{fontSize: '4rem'}}></i>
-                  </div>
+                  {conquista.obtida ? (
+                    <Link to={`/verificacao-especial/${utilizador?.ID_UTILIZADOR}/${conquista.id}`} target="_blank" rel="noopener noreferrer" className="rounded-circle d-flex align-items-center justify-content-center shadow hover-overlay text-decoration-none" 
+                         style={{ 
+                           width: '150px', height: '150px', 
+                           backgroundColor: '#F9F1DC', 
+                           border: '6px solid #D4AF37' 
+                         }}>
+                      <i className="bi bi-patch-check-fill text-warning" style={{fontSize: '4rem'}}></i>
+                    </Link>
+                  ) : (
+                    <div className="rounded-circle d-flex align-items-center justify-content-center shadow" 
+                         style={{ 
+                           width: '150px', height: '150px', 
+                           backgroundColor: '#E9ECEF', 
+                           border: '6px solid #ADB5BD' 
+                         }}>
+                      <i className="bi bi-lock-fill text-secondary" style={{fontSize: '4rem'}}></i>
+                    </div>
+                  )}
                 </div>
                 <h4 className="fw-bold">{conquista.titulo}</h4>
                 <span className={`badge rounded-pill mb-3 ${conquista.obtida ? 'bg-warning text-dark' : 'bg-secondary'}`}>
