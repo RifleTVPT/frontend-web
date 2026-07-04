@@ -124,10 +124,10 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
             has_validade: hasValidade ? 1 : 0,
             tipoValidade: hasValidade ? tipoValidade : null,
             valorValidade: hasValidade ? Number(valorValidade) : null,
-            validadeDias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : 0,
-            validade_dias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : 0,
-            validadeMeses: (hasValidade && tipoValidade === 'meses') ? Number(valorValidade) : 0,
-            validade_meses: (hasValidade && tipoValidade === 'meses') ? Number(valorValidade) : 0,
+            validadeDias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : null,
+            validade_dias: (hasValidade && tipoValidade === 'dias') ? Number(valorValidade) : null,
+            validadeMeses: hasValidade ? (tipoValidade === 'dias' ? (Number(valorValidade) / 30) : Number(valorValidade)) : null,
+            validade_meses: hasValidade ? (tipoValidade === 'dias' ? (Number(valorValidade) / 30) : Number(valorValidade)) : null,
             validadePadrao: hasValidade ? `${Number(valorValidade)} ${tipoValidade}` : null,
             validadeAnos: null,
             adminId,
@@ -156,9 +156,21 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                 if (res.data.success) {
                     // HACK: The backend forces ConfiguracoesGerais defaults on POST, completely ignoring our payload!
                     // But we know it accepts updates on PUT. So we immediately PUT our payload to override the forced defaults!
-                    const newId = res.data.data?.id || res.data.id || res.data.badge?.id || res.data.insertId;
+                    let newId = res.data.data?.id || res.data.id || res.data.badge?.id || res.data.insertId;
+                    
+                    if (!newId) {
+                        try {
+                            const catalogRes = await axios.get('https://softinsa-api-riya.onrender.com/catalogo/badges');
+                            const allBadges = catalogRes.data.data || [];
+                            const matchingBadges = allBadges.filter(b => b.titulo === nome || b.nome === nome);
+                            if (matchingBadges.length > 0) {
+                                newId = matchingBadges.sort((a, b) => b.id - a.id)[0].id;
+                            }
+                        } catch(e) { console.error("Hack GET failed", e); }
+                    }
+
                     if (newId) {
-                        try { await axios.put(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${newId}`, payload); } catch(e) {}
+                        try { await axios.put(`https://softinsa-api-riya.onrender.com/catalogo/admin/badge/${newId}`, payload); } catch(e) { console.error("Hack PUT failed", e); }
                     }
 
                     alert('Badge criado com sucesso!');
