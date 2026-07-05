@@ -30,13 +30,6 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
             }).catch(e => console.error("Erro a obter configuracoes", e));
     }, []);
 
-    useEffect(() => {
-        if (hasValidade && !valorValidade && configuracoesGlobais) {
-            setValorValidade(configuracoesGlobais.VALIDADE_MESES_PADRAO || 12);
-            setTipoValidade('meses');
-        }
-    }, [hasValidade, valorValidade, configuracoesGlobais]);
-
     // Efeitos para preencher valores por defeito
     useEffect(() => {
         if (estrutura?.serviceLines?.length > 0 && !serviceLine && !initialData) {
