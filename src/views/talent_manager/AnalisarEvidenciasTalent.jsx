@@ -89,14 +89,6 @@ const AnalisarEvidenciasTalent = () => {
             });
 
             if (tipo === 'SLL') {
-        try {
-            await axios.post(`https://softinsa-api-riya.onrender.com/pedidos/tm/decisao/${id}`, {
-                idUtilizadorAtivo: utilizador.ID_UTILIZADOR,
-                decisao: tipo,
-                feedback: feedback
-            });
-
-            if (tipo === 'SLL') {
                 alert("Pedido validado! Enviado com sucesso para o Service Line Leader (SLL) respetivo.");
             } else {
                 alert("Pedido rejeitado! O consultor será notificado com o seu feedback.");
