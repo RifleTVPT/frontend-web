@@ -19,8 +19,11 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
     const [showAddReq, setShowAddReq] = useState(false);
     const [imagemPreview, setImagemPreview] = useState(initialData?.urlImagem || null);
     const fileInputRef = React.useRef(null);
-    const [tipoValidade, setTipoValidade] = useState(initialData?.validadeDias ? 'dias' : 'meses');
-    const [valorValidade, setValorValidade] = useState(initialData?.validadeDias || initialData?.validadeMeses || '');
+    const legacyDias = initialData?.validadeDias;
+    const [tipoValidade, setTipoValidade] = useState('meses'); // Always force meses
+    const [valorValidade, setValorValidade] = useState(
+        legacyDias ? Math.ceil(legacyDias / 30) : (initialData?.validadeMeses || '')
+    );
     const [configuracoesGlobais, setConfiguracoesGlobais] = useState(null);
 
     useEffect(() => {
@@ -393,7 +396,7 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                                             <option value="Com">Com Validade Definida</option>
                                         </select>
                                     </div>
-                                    <div className="col-12 d-flex gap-2">
+                                    <div className="col-12 d-flex gap-2 align-items-center">
                                         <input 
                                             type="number" 
                                             min="1"
@@ -403,15 +406,7 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                                             disabled={!hasValidade}
                                             placeholder="Duração"
                                         />
-                                        <select 
-                                            value={tipoValidade}
-                                            onChange={(e) => setTipoValidade(e.target.value)}
-                                            className={`form-select w-50 py-2 rounded-3 border-0 ${!hasValidade ? 'bg-secondary bg-opacity-25 text-muted cursor-not-allowed' : 'bg-light'}`}
-                                            disabled={!hasValidade}
-                                        >
-                                            <option value="meses">Meses</option>
-                                            <option value="dias">Dias</option>
-                                        </select>
+                                        <span className={`fw-bold ${!hasValidade ? 'text-muted' : 'text-dark'}`}>Meses</span>
                                     </div>
                                 </div>
                             </div>
