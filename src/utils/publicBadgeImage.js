@@ -23,6 +23,7 @@ export const resolvePublicBadgeImage = (url) => {
     }
 
     const value = String(url).trim();
+    if (value.startsWith('data:image')) return value;
     if (/^https?:\/\/localhost:3000/i.test(value)) {
         return value.replace(/^https?:\/\/localhost:3000/i, getApiOrigin());
     }

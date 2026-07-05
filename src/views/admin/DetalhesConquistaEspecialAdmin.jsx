@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SidebarAdmin from '../../components/SidebarAdmin';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 import '../../assets/dashboard.css';
 
 const TIPO_LABELS = {
@@ -59,7 +60,8 @@ const DetalhesConquistaEspecialAdmin = () => {
     if (loading) return <div className="d-flex justify-content-center align-items-center vh-100"><div className="spinner-border text-primary"></div></div>;
     if (!conquista) return <div className="text-center mt-5 text-muted">Conquista não encontrada.</div>;
 
-    const isImageUrl = conquista.imagem && conquista.imagem.startsWith('http');
+    const imageUrl = conquista.imagem ? resolvePublicBadgeImage(conquista.imagem) : null;
+    const isImageUrl = !!imageUrl;
     const tipoKey = conquista.tipo || 'TOTAL_PONTOS';
     const tipoLabel = TIPO_LABELS[tipoKey] || tipoKey;
 
@@ -87,7 +89,7 @@ const DetalhesConquistaEspecialAdmin = () => {
                             <div className="card h-100 border-0 shadow-sm rounded-4 p-4 text-center bg-white" style={{ borderTop: '4px solid #D4AF37' }}>
                                 <div className="d-flex justify-content-center mb-4 mt-2">
                                     {isImageUrl ? (
-                                        <img src={conquista.imagem} alt={conquista.titulo}
+                                        <img src={imageUrl} alt={conquista.titulo}
                                             className="rounded-circle shadow"
                                             style={{ width: '150px', height: '150px', objectFit: 'cover', border: '6px solid #D4AF37' }}
                                             onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}

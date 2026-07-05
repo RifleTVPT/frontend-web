@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SidebarAdmin from '../../components/SidebarAdmin';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import CriarConquistaAdmin from './CriarConquistaAdmin';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 import axios from 'axios';
 import '../../assets/dashboard.css';
 
@@ -185,7 +186,8 @@ const CatalogoConquistasAdmin = () => {
                                 const tipoKey = conq.tipo || 'TOTAL_PONTOS';
                                 const tipoInfo = TIPO_LABELS[tipoKey] || { label: 'Especial', icon: 'bi-star-fill' };
                                 const raridade = getRaridade(conq.bonus || 0);
-                                const isImageUrl = conq.imagem && conq.imagem.startsWith('http');
+                                const imageUrl = conq.imagem ? resolvePublicBadgeImage(conq.imagem) : null;
+                                const isImageUrl = !!imageUrl;
 
                                 return (
                                     <div className="col-md-6 col-xl-4" key={conq.id}>
@@ -216,7 +218,7 @@ const CatalogoConquistasAdmin = () => {
                                             <div className="d-flex justify-content-center mb-3 mt-4">
                                                 {isImageUrl ? (
                                                     <img
-                                                        src={conq.imagem}
+                                                        src={imageUrl}
                                                         alt={conq.titulo}
                                                         className="rounded-circle shadow"
                                                         style={{ width: '90px', height: '90px', objectFit: 'cover', border: `4px solid #D4AF37` }}
