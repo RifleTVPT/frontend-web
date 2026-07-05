@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import SidebarTalent from '../../components/SidebarTalentManager';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import TabelaGenerica from '../../components/TabelaGenerica';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 import axios from 'axios';
 import '../../assets/dashboard.css';
 
