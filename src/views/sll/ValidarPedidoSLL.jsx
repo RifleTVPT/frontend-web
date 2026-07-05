@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import SidebarSLL from '../../components/SidebarSLL';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import TabelaGenerica from '../../components/TabelaGenerica';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 import axios from 'axios';
 import '../../assets/dashboard.css';
 
@@ -32,7 +33,6 @@ const ValidarPedidoSLL = () => {
                 const resUser = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (resUser.data.success && resUser.data.data.avatar) setAvatarUrl(resUser.data.data.avatar);
 
-                // Reutilizamos a rota de análise do TM, pois devolve a mesma estrutura de evidências e reqs
                 const resPedido = await axios.get(`https://softinsa-api-riya.onrender.com/pedidos/sll/analisar/${id}`);
                 if (resPedido.data.success) {
                     setPedido(resPedido.data.data);
@@ -47,11 +47,6 @@ const ValidarPedidoSLL = () => {
         const atualizacao = window.setInterval(carregarDados, 15000);
         return () => window.clearInterval(atualizacao);
     }, [id, navigate]);
-
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        navigate('/');
-    };
 
     const handleAcaoSLL = async (tipo) => {
         if ((tipo === 'REJEITAR' || tipo === 'VOLTA') && !feedback.trim()) {
@@ -75,18 +70,6 @@ const ValidarPedidoSLL = () => {
         } catch (error) {
             alert(error.response?.data?.message || 'Ocorreu um erro ao registar a decisão.');
         }
-    };
-
-    const handleDownload = (docUrl) => {
-        if(docUrl) window.open(docUrl.startsWith('http') ? docUrl : `https://softinsa-api-riya.onrender.com${docUrl}`, '_blank');
-        else alert('Ficheiro não disponível.');
-    };
-
-    const getBadgeImageUrl = (foto) => {
-        if (!foto) return null;
-        if (foto.startsWith('http')) return foto;
-        if (foto.startsWith('/')) return `https://softinsa-api-riya.onrender.com${foto}`;
-        return `https://softinsa-api-riya.onrender.com/uploads/${foto}`;
     };
 
     if (loading || !pedido) return <div className="d-flex justify-content-center align-items-center vh-100"><div className="spinner-border text-primary"></div></div>;
@@ -115,7 +98,7 @@ const ValidarPedidoSLL = () => {
 
                     <div className="row g-4 mb-5">
                         <div className="col-md-6">
-                            <div className="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+                            <div className="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white d-flex flex-column">
                                 <h4 className="fw-bold mb-4 text-dark">Informações do Badge</h4>
                                 <div className="d-flex align-items-center mb-4">
                                     <div 
@@ -125,7 +108,7 @@ const ValidarPedidoSLL = () => {
                                         {pedido.foto && pedido.foto.trim() !== '' ? (
                                             <>
                                               <img 
-                                                  src={getBadgeImageUrl(pedido.foto)}
+                                                  src={resolvePublicBadgeImage(pedido.foto)}
                                                   alt="Badge" 
                                                   style={{width: '100%', height: '100%', objectFit: 'cover', zIndex: 2}}
                                                   className="rounded-circle"
@@ -165,14 +148,17 @@ const ValidarPedidoSLL = () => {
                                         })()
                                       }
                                     </p>
+                                    {pedido.pontos && <p className="mb-1"><strong>Pontos:</strong> {pedido.pontos} pontos</p>}
                                     <p className="mb-1"><strong>Requisitos:</strong> {pedido.reqsNecessarios}</p>
                                 </div>
-                                <button 
-                                    onClick={() => navigate(`/sll/badges/detalhes/${pedido.idBadge}`)} 
-                                    className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm w-50"
-                                >
-                                    Ver Detalhes do Badge
-                                </button>
+                                <div className="mt-auto">
+                                    <button 
+                                        onClick={() => navigate(`/sll/badges/detalhes/${pedido.idBadge}`)} 
+                                        className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm w-50"
+                                    >
+                                        Ver Detalhes do Badge
+                                    </button>
+                                </div>
                             </div>
                         </div>
 

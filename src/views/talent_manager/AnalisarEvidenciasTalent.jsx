@@ -89,6 +89,14 @@ const AnalisarEvidenciasTalent = () => {
             });
 
             if (tipo === 'SLL') {
+        try {
+            await axios.post(`https://softinsa-api-riya.onrender.com/pedidos/tm/decisao/${id}`, {
+                idUtilizadorAtivo: utilizador.ID_UTILIZADOR,
+                decisao: tipo,
+                feedback: feedback
+            });
+
+            if (tipo === 'SLL') {
                 alert("Pedido validado! Enviado com sucesso para o Service Line Leader (SLL) respetivo.");
             } else {
                 alert("Pedido rejeitado! O consultor será notificado com o seu feedback.");
@@ -98,13 +106,6 @@ const AnalisarEvidenciasTalent = () => {
             console.error("Erro ao enviar decisão:", error);
             alert(error.response?.data?.message || "Falha ao registar a decisão.");
         }
-    };
-
-    const getBadgeImageUrl = (foto) => {
-        if (!foto) return null;
-        if (foto.startsWith('http')) return foto;
-        if (foto.startsWith('/')) return `https://softinsa-api-riya.onrender.com${foto}`;
-        return `https://softinsa-api-riya.onrender.com/uploads/${foto}`;
     };
 
     if (loading || !dadosPedido) return <div className="d-flex justify-content-center align-items-center vh-100"><div className="spinner-border text-primary"></div></div>;
@@ -135,7 +136,7 @@ const AnalisarEvidenciasTalent = () => {
 
                     <div className="row g-4 mb-4">
                         <div className="col-md-6">
-                            <div className="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+                            <div className="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white d-flex flex-column">
                                 <h4 className="fw-bold mb-4 text-dark">Informações do Badge</h4>
                                 <div className="d-flex align-items-center mb-4">
                                     <div 
@@ -145,7 +146,7 @@ const AnalisarEvidenciasTalent = () => {
                                         {dadosPedido.foto && dadosPedido.foto.trim() !== '' ? (
                                             <>
                                                 <img 
-                                                    src={getBadgeImageUrl(dadosPedido.foto)}
+                                                    src={resolvePublicBadgeImage(dadosPedido.foto)}
                                                     alt="Badge" 
                                                     style={{width: '100%', height: '100%', objectFit: 'contain', zIndex: 2}}
                                                     className="rounded-circle"
@@ -188,7 +189,7 @@ const AnalisarEvidenciasTalent = () => {
                                     <p className="mb-1"><strong>Pontos:</strong> {dadosPedido.pontos || 0} pontos</p>
                                     <p className="mb-1 mt-3"><strong>Requisitos Necessários:</strong> {dadosPedido.reqsNecessarios}</p>
                                 </div>
-                                <div className="text-center mt-3">
+                                <div className="mt-auto">
                                     <Link to={`/talent/badge-detalhes/${dadosPedido.idBadge}`} className="btn btn-primary btn-sm px-4 rounded-pill fw-bold shadow-sm">
                                         Ver Detalhes do Badge
                                     </Link>
