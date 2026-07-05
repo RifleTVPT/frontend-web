@@ -124,10 +124,12 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
             payload.valorValidade = Number(valorValidade);
             if (tipoValidade === 'dias') {
                 payload.validadeDias = Number(valorValidade);
-                payload.validadeMeses = null; // Nullify meses so backend clears it
+                // The backend ONLY reads validadeMeses and multiplies by 30.
+                // We send it as a precise float so that (float * 30) = days.
+                payload.validadeMeses = Number((Number(valorValidade) / 30).toFixed(4)); 
             } else if (tipoValidade === 'meses') {
                 payload.validadeMeses = Number(valorValidade);
-                payload.validadeDias = null; // Nullify dias so backend clears it
+                payload.validadeDias = null;
             }
         } else {
             payload.validadeDias = null;
