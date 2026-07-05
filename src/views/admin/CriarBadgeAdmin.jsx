@@ -399,7 +399,8 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                                     <div className="col-12 d-flex gap-2 align-items-center">
                                         <input 
                                             type="number" 
-                                            min="1"
+                                            min="0.1"
+                                            step="any"
                                             value={valorValidade}
                                             onChange={(e) => setValorValidade(e.target.value)}
                                             className={`form-control py-2 rounded-3 border-0 ${!hasValidade ? 'bg-secondary bg-opacity-25 text-muted cursor-not-allowed' : 'bg-light'}`} 
