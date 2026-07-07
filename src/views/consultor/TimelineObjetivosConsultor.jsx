@@ -184,7 +184,7 @@ const TimelineObjetivosConsultor = () => {
                   </div>
                   <h5 className="fw-bold mb-1 text-decoration-line-through text-muted">{obj.titulo}</h5>
                   <p className="small mb-1 text-success fw-bold"><i className="bi bi-check-circle-fill me-1"></i> {obj.status}</p>
-                  <p className="small text-muted mb-0">Concluído a: {obj.dataConclusao || obj.data}</p>
+                  <p className="small text-muted mb-0">Concluído a: {obj.dataConclusao || 'N/A'}</p>
                   {obj.atrasado && (
                     <p className="small text-danger fw-bold mb-0 mt-1">
                       <i className="bi bi-exclamation-triangle-fill me-1"></i>
