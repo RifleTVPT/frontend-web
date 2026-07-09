@@ -18,6 +18,7 @@ export const resolvePublicBadgeImage = (url) => {
         || String(url).includes('placeholder')
         || String(url).includes('3112946.png')
         || String(url).includes('default-trophy')
+        || String(url).includes('trofeu-padrao')
     ) {
         return fallback;
     }

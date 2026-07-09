@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 const obterIniciais = nome => {
   const partes = String(nome || '').trim().split(/\s+/).filter(Boolean);
@@ -6,10 +7,7 @@ const obterIniciais = nome => {
   return `${partes[0][0]}${partes.length > 1 ? partes[partes.length - 1][0] : ''}`.toUpperCase();
 };
 
-const resolverFoto = foto => {
-  if (!foto) return null;
-  return foto.startsWith('http') ? foto : `https://softinsa-api-riya.onrender.com${foto}`;
-};
+const resolverFoto = foto => resolveAssetUrl(foto);
 
 const AvatarUtilizador = ({ nome, foto, tamanho = 38 }) => {
   const src = resolverFoto(foto);
