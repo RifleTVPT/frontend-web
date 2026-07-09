@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 
 const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) => {
     const [hasValidade, setHasValidade] = useState(initialData?.hasValidade || false);
@@ -17,7 +18,8 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
     );
     const [novoRequisito, setNovoRequisito] = useState('');
     const [showAddReq, setShowAddReq] = useState(false);
-    const [imagemPreview, setImagemPreview] = useState(initialData?.urlImagem || null);
+    const [imagemPreview, setImagemPreview] = useState(initialData?.urlImagem ? resolvePublicBadgeImage(initialData.urlImagem) : null);
+    const [imagemBase64, setImagemBase64] = useState(null);
     const fileInputRef = React.useRef(null);
     const legacyDias = initialData?.validadeDias;
     const [tipoValidade, setTipoValidade] = useState('meses'); // Always force meses
@@ -141,8 +143,8 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
             payload.valorValidade = null;
         }
 
-        if (imagemPreview && imagemPreview.startsWith('data:image')) {
-            payload.imagemBase64 = imagemPreview;
+        if (imagemBase64) {
+            payload.imagemBase64 = imagemBase64;
         }
 
         try {
@@ -231,7 +233,10 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                                             const file = e.target.files[0];
                                             if (file) {
                                                 const reader = new FileReader();
-                                                reader.onloadend = () => setImagemPreview(reader.result);
+                                                reader.onloadend = () => {
+                                                    setImagemPreview(reader.result);
+                                                    setImagemBase64(reader.result);
+                                                };
                                                 reader.readAsDataURL(file);
                                             }
                                         }} 

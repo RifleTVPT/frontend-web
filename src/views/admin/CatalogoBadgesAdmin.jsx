@@ -108,7 +108,7 @@ const CatalogoBadgesAdmin = () => {
                     hasValidade: b.hasValidade,
                     validadeExpiracao: b.validadeExpiracao,
                     pontos: b.pontos,
-                    urlImagem: b.urlImagem,
+                    urlImagem: b.urlImagem || b.URL_IMAGEM,
                     requisitos: b.requisitos,
                     serviceLine: b.serviceLine,
                     area: b.area,
