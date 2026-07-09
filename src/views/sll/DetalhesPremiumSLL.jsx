@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import SidebarSLL from '../../components/SidebarSLL';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import axios from 'axios';
+import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../../utils/publicBadgeImage';
 import '../../assets/dashboard.css';
 
 const DetalhesPremiumSLL = () => {
@@ -64,10 +65,13 @@ const DetalhesPremiumSLL = () => {
                                 <div className="d-flex justify-content-center mb-4">
                                     <div className="rounded-circle d-flex align-items-center justify-content-center shadow-lg overflow-hidden position-relative" 
                                          style={{ width: '160px', height: '160px', backgroundColor: '#FFF9E6', border: '6px solid #FFC107' }}>
-                                        <i className={`bi ${conquista.icon || 'bi-trophy-fill'} text-warning position-absolute`} style={{fontSize: '5rem', zIndex: 1}}></i>
-                                        {conquista.img && conquista.img !== 'N/A' && (
-                                            <img src={conquista.img} alt={conquista.titulo} className="w-100 h-100 position-absolute" style={{objectFit: 'cover', zIndex: 2}} onError={(e) => { e.target.style.display = 'none'; }} />
-                                        )}
+                                        <img
+                                            src={resolvePublicBadgeImage(conquista.urlImagem || conquista.imagem || conquista.img)}
+                                            onError={useDefaultBadgeImageOnError}
+                                            alt={conquista.titulo}
+                                            className="w-100 h-100 position-absolute"
+                                            style={{ objectFit: 'contain', padding: '10px', zIndex: 2 }}
+                                        />
                                     </div>
                                 </div>
                                 <h3 className="fw-bold text-dark">{conquista.titulo}</h3>

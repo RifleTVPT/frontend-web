@@ -3,6 +3,7 @@ import SidebarSLL from '../../components/SidebarSLL';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../../utils/publicBadgeImage';
 import '../../assets/dashboard.css';
 
 const BadgesPremiumSLL = () => {
@@ -83,10 +84,13 @@ const BadgesPremiumSLL = () => {
                                     <div className="d-flex justify-content-center mb-3">
                                         <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm overflow-hidden position-relative" 
                                              style={{ width: '85px', height: '85px', backgroundColor: '#F9F1DC', border: '3px solid #D4AF37' }}>
-                                            <i className="bi bi-trophy-fill text-warning fs-1 position-absolute" style={{zIndex: 1}}></i>
-                                            {c.img && c.img !== 'N/A' && (
-                                                <img src={c.img} alt={c.titulo} className="w-100 h-100 position-absolute" style={{objectFit: 'cover', zIndex: 2}} onError={(e) => { e.target.style.display = 'none'; }} />
-                                            )}
+                                            <img
+                                                src={resolvePublicBadgeImage(c.urlImagem || c.imagem || c.img)}
+                                                onError={useDefaultBadgeImageOnError}
+                                                alt={c.titulo}
+                                                className="w-100 h-100 position-absolute"
+                                                style={{ objectFit: 'contain', padding: '6px', zIndex: 2 }}
+                                            />
                                         </div>
                                     </div>
                                     <h5 className="fw-bold mb-2 text-dark text-truncate">{c.titulo}</h5>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // <-- Adicionado o axios para ir à BD
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 const SidebarConsultor = () => {
   const [openSubmenu, setOpenSubmenu] = useState("");
@@ -66,6 +67,8 @@ const SidebarConsultor = () => {
   });
 
   const subItemStyle = (path) => `list-group-item list-group-item-action border-0 ps-5 py-2 small bg-transparent ${isActive(path) ? 'text-white fw-bold' : 'text-white-50'}`;
+  const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(utilizador?.NOME_COMPLETO_UTILIZADOR || 'U')}&background=198754&color=fff&size=40`;
+  const avatarSrc = resolveAssetUrl(avatarUrl) || avatarFallback;
 
   return (
     <div className="d-flex flex-column text-white shadow" style={{ width: '280px', minHeight: '100vh', backgroundColor: azulFundo, position: 'sticky', top: 0 }}>
@@ -145,7 +148,7 @@ const SidebarConsultor = () => {
           <div className="position-relative">
             {/* A FOTO AGORA VEM DA BD AUTOMATICAMENTE COM FALLBACK SE QUEBRAR */}
             <img 
-              src={avatarUrl} 
+              src={avatarSrc} 
               className="rounded-circle border" 
               style={{ width: '40px', height: '40px', objectFit: 'cover' }} 
               alt="Avatar" 

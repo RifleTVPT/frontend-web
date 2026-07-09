@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 const SidebarAdmin = () => {
     const [openSubmenu, setOpenSubmenu] = useState("");
@@ -55,8 +56,10 @@ const SidebarAdmin = () => {
         sessionStorage.removeItem('user');
         navigate('/');
     };
+  const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(utilizador?.NOME_COMPLETO_UTILIZADOR || 'U')}&background=198754&color=fff&size=40`;
+  const avatarSrc = resolveAssetUrl(avatarUrl) || avatarFallback;
 
-    return (
+  return (
         <div className="d-flex flex-column text-white shadow" style={{ width: '280px', minHeight: '100vh', backgroundColor: azulFundo, position: 'sticky', top: 0 }}>
             
             <div className="p-4 mb-3 text-center border-bottom border-white-50">
@@ -136,7 +139,7 @@ const SidebarAdmin = () => {
                 <div className="d-flex align-items-center p-2 rounded-3 bg-white text-dark shadow-sm">
                     <div className="position-relative d-inline-block">
                         <img 
-                            src={avatarUrl || `https://ui-avatars.com/api/?name=${utilizador ? utilizador.NOME_COMPLETO_UTILIZADOR : 'U'}&background=198754&color=fff`} 
+                            src={avatarSrc} 
                             className="rounded-circle border" 
                             style={{ width: '40px', height: '40px', objectFit: 'cover' }} 
                             alt="Avatar" 

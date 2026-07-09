@@ -3,6 +3,7 @@ import SidebarTalent from '../../components/SidebarTalentManager';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { resolveAssetUrl } from '../../utils/assetUrl';
 import '../../assets/dashboard.css';
 
 const ConfiguracoesTalent = () => {
@@ -179,6 +180,7 @@ const ConfiguracoesTalent = () => {
       else setErroPassword("Erro de conexão ao servidor.");
     }
   };
+  const avatarPreviewSrc = resolveAssetUrl(avatarUrl) || avatarUrl;
 
   if (loading) return <div className="d-flex justify-content-center align-items-center vh-100"><div className="spinner-border text-primary"></div></div>;
 
@@ -203,7 +205,7 @@ const ConfiguracoesTalent = () => {
                 <div className="d-flex align-items-start gap-4 mb-4 pb-4 border-bottom">
                   <div className="text-center">
                     <div className="position-relative cursor-pointer" onClick={handleFotoClick}>
-                        <img src={avatarUrl} className="rounded-circle shadow-sm border" style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="Avatar" />
+                        <img src={avatarPreviewSrc} className="rounded-circle shadow-sm border" style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="Avatar" />
                         <button className="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle"><i className="bi bi-camera"></i></button>
                     </div>
                     <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleFotoChange} />

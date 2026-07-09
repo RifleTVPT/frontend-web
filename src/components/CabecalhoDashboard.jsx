@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NotificationSystem from './NotificationSystem';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsquerda, ocultarSaudacao }) => {
     const navigate = useNavigate();
@@ -18,6 +19,9 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
         if (hour >= 12 && hour < 20) return 'Boa tarde';
         return 'Boa noite';
     };
+
+    const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(utilizador ? utilizador.NOME_COMPLETO_UTILIZADOR : 'U')}&background=198754&color=fff`;
+    const avatarSrc = resolveAssetUrl(avatarUrl) || avatarFallback;
 
     const perfil = (
         sessionStorage.getItem('perfilAtivo')
@@ -63,8 +67,8 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
                
                <div className="d-flex align-items-center gap-2 border-start ps-3 text-start">
                   <img 
-                    src={avatarUrl} 
-                    onError={(e) => { e.target.onerror = null; e.target.src = `https://ui-avatars.com/api/?name=${utilizador ? utilizador.NOME_COMPLETO_UTILIZADOR : 'U'}&background=198754&color=fff`; }}
+                    src={avatarSrc} 
+                    onError={(e) => { e.target.onerror = null; e.target.src = avatarFallback; }}
                     className="rounded-circle shadow-sm border" 
                     style={{ width: '40px', height: '40px', objectFit: 'cover' }} 
                     alt="user avatar" 

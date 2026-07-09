@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../../utils/publicBadgeImage';
 import SidebarTalentManager from '../../components/SidebarTalentManager';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import '../../assets/dashboard.css';
@@ -78,13 +79,19 @@ const DetalhesConquistaEspecialTalent = () => {
             <div className="col-md-4">
               <div className={`card h-100 border-0 shadow-sm rounded-4 p-5 text-center ${conquista.obtida ? 'bg-white' : 'bg-light'}`}>
                 <div className="d-flex justify-content-center mb-4">
-                  <div className="rounded-circle d-flex align-items-center justify-content-center shadow" 
+                  <div className="rounded-circle d-flex align-items-center justify-content-center shadow overflow-hidden" 
                        style={{ 
                          width: '150px', height: '150px', 
                          backgroundColor: conquista.obtida ? '#F9F1DC' : '#E9ECEF', 
                          border: conquista.obtida ? '6px solid #D4AF37' : '6px solid #ADB5BD' 
                        }}>
-                    <i className={`bi ${conquista.obtida ? 'bi-patch-check-fill text-warning' : 'bi-lock-fill text-secondary'} `} style={{fontSize: '4rem'}}></i>
+                    <img
+                          src={resolvePublicBadgeImage(conquista.urlImagem || conquista.imagem || conquista.img)}
+                          onError={useDefaultBadgeImageOnError}
+                          alt={conquista.titulo}
+                          className="w-100 h-100"
+                          style={{ objectFit: 'contain', padding: '10px', filter: conquista.obtida ? 'none' : 'grayscale(1)', opacity: conquista.obtida ? 1 : 0.75 }}
+                        />
                   </div>
                 </div>
                 <h4 className="fw-bold">{conquista.titulo}</h4>

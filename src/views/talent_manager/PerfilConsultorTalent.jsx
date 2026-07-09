@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import SidebarTalent from '../../components/SidebarTalentManager';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import AvatarUtilizador from '../../components/AvatarUtilizador';
+import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../../utils/publicBadgeImage';
 import axios from 'axios';
 import '../../assets/dashboard.css';
 
@@ -182,9 +183,15 @@ const PerfilConsultorTalent = () => {
                                     <div key={idx} className="col-md-4">
                                         <div className="card h-100 rounded-4 shadow-sm p-4 text-center border-warning bg-white" style={{ borderWidth: '1px', borderStyle: 'solid', borderColor: '#D4AF37' }}>
                                           <div className="d-flex justify-content-center mb-3">
-                                            <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm" 
+                                            <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm overflow-hidden"
                                                  style={{ width: '85px', height: '85px', backgroundColor: '#F9F1DC', border: '3px solid #D4AF37' }}>
-                                              <i className="bi bi-star-fill text-warning fs-1"></i>
+                                              <img
+                                                src={resolvePublicBadgeImage(badge.urlImagem || badge.imagem || badge.img)}
+                                                onError={useDefaultBadgeImageOnError}
+                                                alt={badge.area}
+                                                className="w-100 h-100"
+                                                style={{ objectFit: 'contain', padding: '6px' }}
+                                              />
                                             </div>
                                           </div>
                                           <h5 className="fw-bold mb-2 text-truncate">{badge.area}</h5>
@@ -205,8 +212,14 @@ const PerfilConsultorTalent = () => {
                                 <div key={idx} className="col-md-4">
                                     <div className="card shadow-sm p-4 text-center rounded-4 h-100 border-0 bg-white">
                                         <div className="d-flex justify-content-center mb-3">
-                                            <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm bg-light text-primary" style={{width: '85px', height: '85px'}}>
-                                                <i className="bi bi-shield-fill-check fs-1"></i>
+                                            <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm bg-white text-primary overflow-hidden" style={{width: '85px', height: '85px', border: '2px solid #5D78FF'}}>
+                                                <img
+                                                  src={resolvePublicBadgeImage(badge.urlImagem || badge.URL_IMAGEM)}
+                                                  onError={useDefaultBadgeImageOnError}
+                                                  alt={badge.area}
+                                                  className="w-100 h-100"
+                                                  style={{ objectFit: 'contain', padding: '6px' }}
+                                                />
                                             </div>
                                         </div>
                                         <h5 className="fw-bold mb-2 text-truncate">{badge.area}</h5>

@@ -4,6 +4,7 @@ import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import { Bar, Pie } from 'react-chartjs-2';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../../utils/publicBadgeImage';
 import { obterServiceLineSLL } from '../../utils/sllServiceLine';
 import '../../assets/dashboard.css';
 import * as XLSX from 'xlsx';
@@ -332,10 +333,14 @@ const GamificacaoSLL = () => {
                                             <div key={b.id || i} className="text-center px-2">
                                                 <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm mb-2 mx-auto overflow-hidden position-relative" 
                                                      style={{ width: '70px', height: '70px', backgroundColor: '#F9F1DC', border: '3px solid #D4AF37' }}>
-                                                    <i className="bi bi-trophy-fill text-warning fs-3 position-absolute" style={{zIndex: 1}}></i>
-                                                    {b.img && b.img !== 'N/A' && (
-                                                        <img src={b.img} alt={b.nome} className="w-100 h-100 position-absolute" style={{objectFit: 'cover', zIndex: 2}} onError={(e) => { e.target.style.display = 'none'; }} />
-                                                    )}
+                                                    <img
+                                                            src={resolvePublicBadgeImage(b.urlImagem || b.imagem || b.img)}
+                                                            onError={useDefaultBadgeImageOnError}
+                                                            alt={b.nome}
+                                                            className="w-100 h-100 position-absolute"
+                                                            style={{ objectFit: 'contain', padding: '6px', zIndex: 2 }}
+                                                        />
+                                                    
                                                 </div>
                                                 <div className="small fw-bold text-dark" style={{maxWidth: '80px', wordWrap: 'break-word'}}>{b.nome}</div>
                                             </div>

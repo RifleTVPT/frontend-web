@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import SidebarConsultor from '../../components/SidebarConsultor';
-import { getApiOrigin } from '../../utils/publicBadgeImage';
+import { getApiOrigin, resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../../utils/publicBadgeImage';
 import { abrirPartilhaLinkedIn } from '../../utils/linkedinShare';
 import '../../assets/dashboard.css';
 
@@ -98,22 +98,34 @@ const DetalhesConquistaEspecial = () => {
               <div className={`card h-100 border-0 shadow-sm rounded-4 p-5 text-center ${conquista.obtida ? 'bg-white' : 'bg-light'}`}>
                 <div className="d-flex justify-content-center mb-4">
                   {conquista.obtida ? (
-                    <Link to={`/verificacao-especial/${utilizador?.ID_UTILIZADOR}/${conquista.id}`} target="_blank" rel="noopener noreferrer" className="rounded-circle d-flex align-items-center justify-content-center shadow hover-overlay text-decoration-none" 
+                    <Link to={`/verificacao-especial/${utilizador?.ID_UTILIZADOR}/${conquista.id}`} target="_blank" rel="noopener noreferrer" className="rounded-circle d-flex align-items-center justify-content-center shadow hover-overlay text-decoration-none overflow-hidden" 
                          style={{ 
                            width: '150px', height: '150px', 
                            backgroundColor: '#F9F1DC', 
                            border: '6px solid #D4AF37' 
                          }}>
-                      <i className="bi bi-patch-check-fill text-warning" style={{fontSize: '4rem'}}></i>
+                      <img
+                          src={resolvePublicBadgeImage(conquista.urlImagem || conquista.imagem || conquista.img)}
+                          onError={useDefaultBadgeImageOnError}
+                          alt={conquista.titulo}
+                          className="w-100 h-100"
+                          style={{ objectFit: 'contain', padding: '10px', filter: conquista.obtida ? 'none' : 'grayscale(1)', opacity: conquista.obtida ? 1 : 0.75 }}
+                        />
                     </Link>
                   ) : (
-                    <div className="rounded-circle d-flex align-items-center justify-content-center shadow" 
+                    <div className="rounded-circle d-flex align-items-center justify-content-center shadow overflow-hidden" 
                          style={{ 
                            width: '150px', height: '150px', 
                            backgroundColor: '#E9ECEF', 
                            border: '6px solid #ADB5BD' 
                          }}>
-                      <i className="bi bi-lock-fill text-secondary" style={{fontSize: '4rem'}}></i>
+                      <img
+                          src={resolvePublicBadgeImage(conquista.urlImagem || conquista.imagem || conquista.img)}
+                          onError={useDefaultBadgeImageOnError}
+                          alt={conquista.titulo}
+                          className="w-100 h-100"
+                          style={{ objectFit: 'contain', padding: '10px', filter: conquista.obtida ? 'none' : 'grayscale(1)', opacity: conquista.obtida ? 1 : 0.75 }}
+                        />
                     </div>
                   )}
                 </div>

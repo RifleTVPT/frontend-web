@@ -3,6 +3,7 @@ import SidebarConsultor from '../../components/SidebarConsultor';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../../utils/publicBadgeImage';
 import '../../assets/dashboard.css';
 
 const ConquistasEspeciaisConsultor = () => {
@@ -109,9 +110,15 @@ const ConquistasEspeciaisConsultor = () => {
               <div className="col-md-6 col-lg-4" key={conq.id}>
                 <div className="card h-100 rounded-4 shadow-sm p-4 text-center border-warning bg-white" style={{ borderWidth: '1px', borderStyle: 'solid', borderColor: '#D4AF37' }}>
                   <div className="d-flex justify-content-center mb-3">
-                    <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm" 
+                    <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm overflow-hidden"
                          style={{ width: '85px', height: '85px', backgroundColor: '#F9F1DC', border: '3px solid #D4AF37' }}>
-                      <i className="bi bi-star-fill text-warning fs-1"></i>
+                      <img
+                        src={resolvePublicBadgeImage(conq.urlImagem || conq.imagem || conq.img)}
+                        onError={useDefaultBadgeImageOnError}
+                        alt={conq.titulo}
+                        className="w-100 h-100"
+                        style={{ objectFit: 'contain', padding: '6px' }}
+                      />
                     </div>
                   </div>
                   <h5 className="fw-bold mb-2 text-truncate">{conq.titulo}</h5>
@@ -138,9 +145,15 @@ const ConquistasEspeciaisConsultor = () => {
               <div className="col-md-6 col-lg-4" key={conq.id}>
                 <div className="card h-100 rounded-4 shadow-sm p-4 text-center border-0 bg-white">
                   <div className="d-flex justify-content-center mb-3">
-                    <div className="rounded-circle d-flex align-items-center justify-content-center opacity-75" 
+                    <div className="rounded-circle d-flex align-items-center justify-content-center opacity-75 overflow-hidden"
                          style={{ width: '85px', height: '85px', backgroundColor: '#F0F0F0', border: '3px solid #C0C0C0' }}>
-                      <i className="bi bi-trophy-fill text-secondary fs-1"></i>
+                      <img
+                        src={resolvePublicBadgeImage(conq.urlImagem || conq.imagem || conq.img)}
+                        onError={useDefaultBadgeImageOnError}
+                        alt={conq.titulo}
+                        className="w-100 h-100"
+                        style={{ objectFit: 'contain', padding: '6px', filter: 'grayscale(1)', opacity: 0.75 }}
+                      />
                     </div>
                   </div>
                   <h5 className="fw-bold mb-2 text-dark text-truncate">{conq.titulo}</h5>

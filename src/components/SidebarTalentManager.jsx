@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 const SidebarTalentManager = () => {
   const [openSubmenu, setOpenSubmenu] = useState("");
@@ -73,6 +74,8 @@ const SidebarTalentManager = () => {
     sessionStorage.removeItem('user');
     navigate('/');
   };
+  const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(utilizador?.NOME_COMPLETO_UTILIZADOR || 'U')}&background=198754&color=fff&size=40`;
+  const avatarSrc = resolveAssetUrl(avatarUrl) || avatarFallback;
 
   return (
     <div className="d-flex flex-column text-white shadow" 
@@ -182,7 +185,7 @@ const SidebarTalentManager = () => {
         <div className="d-flex align-items-center p-2 rounded-3 bg-white text-dark shadow-sm">
           <div className="position-relative">
             <img 
-              src={avatarUrl} 
+              src={avatarSrc} 
               className="rounded-circle border" 
               style={{ width: '40px', height: '40px', objectFit: 'cover' }} 
               alt="Avatar" 
