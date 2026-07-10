@@ -25,10 +25,19 @@ const SidebarConsultor = () => {
             try {
                 const response = await axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${userLocal.ID_UTILIZADOR}`);
                 if (response.data.success) {
+                    const dados = response.data.data;
+                    const userAtualizado = {
+                        ...userLocal,
+                        NOME_COMPLETO_UTILIZADOR: dados.nome || userLocal.NOME_COMPLETO_UTILIZADOR,
+                        EMAIL_UTILIZADOR: dados.email || userLocal.EMAIL_UTILIZADOR,
+                        URL_FOTO: dados.avatar || userLocal.URL_FOTO
+                    };
+                    sessionStorage.setItem('user', JSON.stringify(userAtualizado));
+                    setUtilizador(userAtualizado);
                     if (response.data.data.avatar) {
                         setAvatarUrl(response.data.data.avatar);
                     } else {
-                        setAvatarUrl(`https://ui-avatars.com/api/?name=${encodeURIComponent(userLocal.NOME_COMPLETO_UTILIZADOR)}&background=198754&color=fff&size=40`);
+                        setAvatarUrl(`https://ui-avatars.com/api/?name=${encodeURIComponent(userAtualizado.NOME_COMPLETO_UTILIZADOR)}&background=198754&color=fff&size=40`);
                     }
                 }
             } catch (error) {

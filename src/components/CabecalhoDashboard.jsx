@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NotificationSystem from './NotificationSystem';
 import { resolveAssetUrl } from '../utils/assetUrl';
+import axios from 'axios';
 
 const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsquerda, ocultarSaudacao }) => {
     const navigate = useNavigate();
+    const [utilizadorAtual, setUtilizadorAtual] = useState(utilizador);
+    const [avatarAtual, setAvatarAtual] = useState(avatarUrl);
+
+    useEffect(() => {
+        setUtilizadorAtual(utilizador);
+        setAvatarAtual(avatarUrl);
+    }, [utilizador, avatarUrl]);
+
+    useEffect(() => {
+        const id = utilizador?.ID_UTILIZADOR;
+        if (!id) return;
+        let ativo = true;
+        axios.get(`https://softinsa-api-riya.onrender.com/users/configuracoes/${id}`)
+            .then(response => {
+                if (!ativo || !response.data.success) return;
+                const dados = response.data.data;
+                const userLocal = JSON.parse(sessionStorage.getItem('user') || '{}');
+                const atualizado = {
+                    ...userLocal,
+                    ...utilizador,
+                    NOME_COMPLETO_UTILIZADOR: dados.nome || utilizador?.NOME_COMPLETO_UTILIZADOR,
+                    EMAIL_UTILIZADOR: dados.email || utilizador?.EMAIL_UTILIZADOR,
+                    URL_FOTO: dados.avatar || utilizador?.URL_FOTO
+                };
+                sessionStorage.setItem('user', JSON.stringify(atualizado));
+                setUtilizadorAtual(atualizado);
+                setAvatarAtual(dados.avatar || avatarUrl);
+            })
+            .catch(() => {});
+        return () => { ativo = false; };
+    }, [utilizador?.ID_UTILIZADOR]);
 
     const handleLogout = () => {
         if (window.confirm("Pretende terminar a sua sessão?")) {
@@ -20,13 +52,13 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
         return 'Boa noite';
     };
 
-    const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(utilizador ? utilizador.NOME_COMPLETO_UTILIZADOR : 'U')}&background=198754&color=fff`;
-    const avatarSrc = resolveAssetUrl(avatarUrl) || avatarFallback;
+    const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(utilizadorAtual ? utilizadorAtual.NOME_COMPLETO_UTILIZADOR : 'U')}&background=198754&color=fff`;
+    const avatarSrc = resolveAssetUrl(avatarAtual) || avatarFallback;
 
     const perfil = (
         sessionStorage.getItem('perfilAtivo')
-        || utilizador?.PERFIL_ATIVO
-        || utilizador?.PERFIL_UTILIZADOR
+        || utilizadorAtual?.PERFIL_ATIVO
+        || utilizadorAtual?.PERFIL_UTILIZADOR
         || ''
     ).toLowerCase();
     const homeResolvida = linkHome || (
@@ -56,7 +88,7 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
                {!ocultarSaudacao && (
                  <Link to={homeResolvida} className="text-decoration-none fw-bold text-primary d-flex align-items-center gap-2">
                    <i className="bi bi-house-fill fs-5 mb-1"></i> 
-                   <span className="fs-5">{getGreeting()}, {utilizador?.NOME_COMPLETO_UTILIZADOR?.split(' ')[0] || 'Utilizador'}!</span>
+                   <span className="fs-5">{getGreeting()}, {utilizadorAtual?.NOME_COMPLETO_UTILIZADOR?.split(' ')[0] || 'Utilizador'}!</span>
                  </Link>
                )}
             </div>
@@ -74,7 +106,7 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
                     alt="user avatar" 
                   />
                   <div className="lh-1">
-                    <div className="small fw-bold">{utilizador?.NOME_COMPLETO_UTILIZADOR}</div>
+                    <div className="small fw-bold">{utilizadorAtual?.NOME_COMPLETO_UTILIZADOR}</div>
                     <span 
                       onClick={handleLogout} 
                       className="text-danger fw-bold text-decoration-none mt-1 d-inline-block hover-opacidade" 
