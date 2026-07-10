@@ -40,7 +40,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
     // Estado da matriz
     const [matriz, setMatriz] = useState({});
     const [smtpHost, setSmtpHost] = useState('');
-    const [smtpPort, setSmtpPort] = useState(587);
+    const [smtpPort, setSmtpPort] = useState('587');
     const [smtpUser, setSmtpUser] = useState('');
     const [smtpPass, setSmtpPass] = useState('');
     const [smtpSecure, setSmtpSecure] = useState(false);
@@ -79,7 +79,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
                         setMatriz(criarMatrizPadrao());
                     }
                     if (cfg.SMTP_HOST) setSmtpHost(cfg.SMTP_HOST);
-                    if (cfg.SMTP_PORT) setSmtpPort(cfg.SMTP_PORT);
+                    if (cfg.SMTP_PORT) setSmtpPort(String(cfg.SMTP_PORT));
                     if (cfg.SMTP_USER) setSmtpUser(cfg.SMTP_USER);
                     if (cfg.SMTP_PASS) setSmtpPass(cfg.SMTP_PASS);
                     if (cfg.SMTP_SECURE !== undefined) setSmtpSecure(cfg.SMTP_SECURE);
@@ -114,7 +114,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
                 GLOBAL_PUSH: globalPush,
                 MATRIZ_NOTIFICACOES: JSON.stringify(matriz),
                 SMTP_HOST: smtpHost,
-                SMTP_PORT: smtpPort,
+                SMTP_PORT: Number(smtpPort || 587),
                 SMTP_USER: smtpUser,
                 SMTP_PASS: smtpPass,
                 SMTP_SECURE: smtpSecure
@@ -139,7 +139,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
             setGlobalPush(true);
             setMatriz(defaultMatriz);
             setSmtpHost('');
-            setSmtpPort(587);
+            setSmtpPort('587');
             setSmtpUser('');
             setSmtpPass('');
             setSmtpSecure(false);
@@ -170,7 +170,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
         try {
             const res = await axios.post('https://softinsa-api-riya.onrender.com/configuracoes/testar-email', {
                 SMTP_HOST: smtpHost,
-                SMTP_PORT: smtpPort,
+                SMTP_PORT: Number(smtpPort || 587),
                 SMTP_USER: smtpUser,
                 SMTP_PASS: smtpPass,
                 SMTP_SECURE: smtpSecure
@@ -359,11 +359,15 @@ const ConfiguracoesNotificacoesAdmin = () => {
                                             <label htmlFor="smtpPort" className="fw-bold small text-muted text-uppercase mb-2">Porta SMTP</label>
                                             <input 
                                                 id="smtpPort"
-                                                type="number" 
+                                                type="text"
+                                                inputMode="numeric"
                                                 className="form-control bg-light py-2" 
                                                 placeholder="ex: 587"
                                                 value={smtpPort}
-                                                onChange={(e) => setSmtpPort(parseInt(e.target.value) || 587)}
+                                                onChange={(e) => setSmtpPort(e.target.value.replace(/\D/g, ''))}
+                                                onBlur={() => {
+                                                    if (!smtpPort) setSmtpPort('587');
+                                                }}
                                             />
                                         </div>
                                         <div className="col-md-2 d-flex align-items-end pb-2">
