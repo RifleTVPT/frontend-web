@@ -150,7 +150,7 @@ const PedidosPendentesTalent = () => {
                                     </div>
                                     <div className="col-12 pt-2">
                                         <div className="h5 fw-bold m-0 text-dark">{percAceites} %</div>
-                                        <div className="small text-muted">Taxa de aprovação média</div>
+                                        <div className="small text-muted">Taxa de aprovação final</div>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +164,7 @@ const PedidosPendentesTalent = () => {
                                     </div>
                                     <div className="col-12 pt-2">
                                         <div className="h5 fw-bold m-0 text-dark">{percRecusados} %</div>
-                                        <div className="small text-muted">Taxa de rejeição média</div>
+                                        <div className="small text-muted">Taxa de rejeição final</div>
                                     </div>
                                 </div>
                             </div>

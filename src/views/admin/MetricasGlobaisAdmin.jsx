@@ -26,6 +26,7 @@ const MetricasGlobaisAdmin = () => {
     const [dadosBadgesSL, setDadosBadgesSL] = useState([]);
     const [utilizadoresAtivos, setUtilizadoresAtivos] = useState([]);
     const [areasInteresse, setAreasInteresse] = useState([]);
+    const [detalhesCalculo, setDetalhesCalculo] = useState(null);
 
     useEffect(() => {
         const userLocal = JSON.parse(sessionStorage.getItem('user'));
@@ -47,6 +48,7 @@ const MetricasGlobaisAdmin = () => {
                     setDadosBadgesSL(d.dadosBadgesSL);
                     setUtilizadoresAtivos(d.utilizadoresAtivos);
                     setAreasInteresse(d.areasInteresse);
+                    setDetalhesCalculo(d.detalhesCalculo || null);
                 }
             } catch (error) {
                 console.error("Erro ao carregar dados:", error);
@@ -77,7 +79,7 @@ const MetricasGlobaisAdmin = () => {
         XLSX.utils.book_append_sheet(wb, wsAcessos, "Acessos Diários");
 
         // Folha 3: Badges por SL
-        const badgesSLFormato = dadosBadgesSL.map(d => ({ 'Service Line': d.sl, 'Total Badges': d.total }));
+        const badgesSLFormato = dadosBadgesSL.map(d => ({ 'Service Line': d.slCompleta || d.sl, 'Total Badges': d.total }));
         const wsBadgesSL = XLSX.utils.json_to_sheet(badgesSLFormato);
         XLSX.utils.book_append_sheet(wb, wsBadgesSL, "Badges por SL");
 
@@ -90,6 +92,26 @@ const MetricasGlobaisAdmin = () => {
         const areasFormato = areasInteresse.map(a => ({ Área: a.area, 'Service Line': a.sl, Interações: a.acessos }));
         const wsAreas = XLSX.utils.json_to_sheet(areasFormato);
         XLSX.utils.book_append_sheet(wb, wsAreas, "Áreas de Interesse");
+
+        // Folha 6: Regras e dados de cálculo
+        const detalhesFormato = detalhesCalculo ? [
+            { Secção: 'Taxa Aprovação Badges', Métrica: 'Aceites', Valor: detalhesCalculo.aprovacao?.aceites ?? 0 },
+            { Secção: 'Taxa Aprovação Badges', Métrica: 'Recusados', Valor: detalhesCalculo.aprovacao?.recusados ?? 0 },
+            { Secção: 'Taxa Aprovação Badges', Métrica: 'Total decidido', Valor: detalhesCalculo.aprovacao?.totalDecididos ?? 0 },
+            { Secção: 'Taxa Aprovação Badges', Métrica: 'Regra', Valor: detalhesCalculo.aprovacao?.regra ?? '' },
+            { Secção: 'Taxa de Interação', Métrica: 'Acessos este mês', Valor: detalhesCalculo.interacao?.acessosEsteMes ?? 0 },
+            { Secção: 'Taxa de Interação', Métrica: 'Utilizadores ativos', Valor: detalhesCalculo.interacao?.utilizadoresAtivos ?? 0 },
+            { Secção: 'Taxa de Interação', Métrica: 'Potencial mensal', Valor: detalhesCalculo.interacao?.totalPotencial ?? 0 },
+            { Secção: 'Taxa de Interação', Métrica: 'Regra', Valor: detalhesCalculo.interacao?.regra ?? '' },
+            { Secção: 'Utilizadores Ativos', Métrica: 'Total atual', Valor: detalhesCalculo.utilizadoresAtivos?.totalAtual ?? 0 },
+            { Secção: 'Utilizadores Ativos', Métrica: 'Novos ativos este mês', Valor: detalhesCalculo.utilizadoresAtivos?.novosAtivosEsteMes ?? 0 },
+            { Secção: 'Utilizadores Ativos', Métrica: 'Novos ativos mês anterior', Valor: detalhesCalculo.utilizadoresAtivos?.novosAtivosMesAnterior ?? 0 },
+            { Secção: 'Utilizadores Ativos', Métrica: 'Regra', Valor: detalhesCalculo.utilizadoresAtivos?.regra ?? '' },
+            { Secção: 'Áreas com mais interesse', Métrica: 'Regra', Valor: detalhesCalculo.areasInteresse?.regra ?? '' },
+            { Secção: 'Utilizadores Mais Ativos', Métrica: 'Regra', Valor: detalhesCalculo.utilizadoresMaisAtivos?.regra ?? '' }
+        ] : [];
+        const wsDetalhes = XLSX.utils.json_to_sheet(detalhesFormato);
+        XLSX.utils.book_append_sheet(wb, wsDetalhes, "Regras de Cálculo");
 
         XLSX.writeFile(wb, "Softinsa_Metricas_Globais.xlsx");
     };
@@ -126,7 +148,7 @@ const MetricasGlobaisAdmin = () => {
         // 3. Badges por SL
         currentY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 15 : 100;
         doc.text("Badges por Service Line", 14, currentY);
-        const badgesSLData = dadosBadgesSL.map(d => [d.sl, d.total]);
+        const badgesSLData = dadosBadgesSL.map(d => [d.slCompleta || d.sl, d.total]);
         autoTable(doc, {
             startY: currentY + 5,
             head: [['Service Line', 'Total de Badges']],
@@ -159,6 +181,27 @@ const MetricasGlobaisAdmin = () => {
             body: areasData,
             theme: 'grid',
             headStyles: { fillColor: [93, 120, 255] }
+        });
+
+        currentY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 15 : 220;
+        if (currentY > 245) { doc.addPage(); currentY = 20; }
+        doc.text("Regras de Cálculo e Dados de Suporte", 14, currentY);
+        const detalhesData = detalhesCalculo ? [
+            ['Taxa Aprovação', `Aceites: ${detalhesCalculo.aprovacao?.aceites ?? 0}; Recusados: ${detalhesCalculo.aprovacao?.recusados ?? 0}; Total decidido: ${detalhesCalculo.aprovacao?.totalDecididos ?? 0}`],
+            ['Regra Aprovação', detalhesCalculo.aprovacao?.regra ?? ''],
+            ['Taxa Interação', `Acessos este mês: ${detalhesCalculo.interacao?.acessosEsteMes ?? 0}; Utilizadores ativos: ${detalhesCalculo.interacao?.utilizadoresAtivos ?? 0}; Potencial: ${detalhesCalculo.interacao?.totalPotencial ?? 0}`],
+            ['Regra Interação', detalhesCalculo.interacao?.regra ?? ''],
+            ['Utilizadores Ativos', `Total atual: ${detalhesCalculo.utilizadoresAtivos?.totalAtual ?? 0}; Novos este mês: ${detalhesCalculo.utilizadoresAtivos?.novosAtivosEsteMes ?? 0}; Novos mês anterior: ${detalhesCalculo.utilizadoresAtivos?.novosAtivosMesAnterior ?? 0}`],
+            ['Regra Áreas', detalhesCalculo.areasInteresse?.regra ?? ''],
+            ['Regra Utilizadores Mais Ativos', detalhesCalculo.utilizadoresMaisAtivos?.regra ?? '']
+        ] : [['Sem dados', 'Sem dados de suporte disponíveis']];
+        autoTable(doc, {
+            startY: currentY + 5,
+            head: [['Secção', 'Detalhe']],
+            body: detalhesData,
+            theme: 'grid',
+            headStyles: { fillColor: [93, 120, 255] },
+            columnStyles: { 1: { cellWidth: 120 } }
         });
 
         doc.save("Softinsa_Metricas_Globais.pdf");

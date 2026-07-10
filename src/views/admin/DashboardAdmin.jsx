@@ -130,8 +130,8 @@ const DashboardAdmin = () => {
                                 titulo="Utilizadores Ativos"
                                 valor={indicadores.utilizadoresAtivos}
                                 subtitulo={
-                                    <span className={indicadores.taxaCrescimentoUsers >= 0 ? 'text-success' : 'text-danger'}>
-                                        {indicadores.taxaCrescimentoUsers >= 0 ? '+ ' : ''}{indicadores.taxaCrescimentoUsers || 0} % <span className="text-muted fw-normal">vs mês anterior</span>
+                                    <span className="text-primary">
+                                        contas ativas atualmente
                                     </span>
                                 }
                                 alinhamento="center"
@@ -161,7 +161,7 @@ const DashboardAdmin = () => {
                                 valor={`${indicadores.taxaAprovacao} %`}
                                 subtitulo={
                                     <span className={indicadores.taxaCrescimentoAprovacao >= 0 ? 'text-success' : 'text-danger'}>
-                                        {indicadores.taxaCrescimentoAprovacao >= 0 ? '+ ' : ''}{indicadores.taxaCrescimentoAprovacao || 0} % <span className="text-muted fw-normal">vs mês anterior</span>
+                                        {indicadores.taxaCrescimentoAprovacao >= 0 ? '+ ' : ''}{indicadores.taxaCrescimentoAprovacao || 0} p.p. <span className="text-muted fw-normal">vs mês anterior</span>
                                     </span>
                                 }
                                 alinhamento="center"
@@ -227,7 +227,7 @@ const DashboardAdmin = () => {
                         </div>
                         <div className="col-md-6">
                             <div className="card border-0 shadow-sm p-4 h-100 rounded-4 bg-white">
-                                <h6 className="fw-bold mb-4">Acessos diários médios por Service Line</h6>
+                                <h6 className="fw-bold mb-4">Acessos diários por Service Line (no total)</h6>
                                 <div style={{ height: '260px' }}>
                                     <Bar data={barData} options={chartOptions} />
                                 </div>
