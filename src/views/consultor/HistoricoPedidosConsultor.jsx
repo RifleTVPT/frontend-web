@@ -204,6 +204,7 @@ const HistoricoPedidosConsultor = () => {
                 <option value="Aceite">Aceite (Aprovado)</option>
                 <option value="Devolvido (Correção)">Devolvido (Correção)</option>
                 <option value="Recusado">Recusado</option>
+                <option value="Eliminado">Eliminado</option>
               </select>
             </div>
             
