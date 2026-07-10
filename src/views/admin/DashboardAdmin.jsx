@@ -6,6 +6,7 @@ import { Line, Bar } from 'react-chartjs-2';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/dashboard.css';
+import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../../utils/publicBadgeImage';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -177,7 +178,13 @@ const DashboardAdmin = () => {
                                     <div className="d-flex align-items-center justify-content-between p-3 border border-light rounded-4 shadow-sm" style={{borderLeft: `5px solid ${item.type === 'reg' ? '#ffc107' : '#2575fc'}`}}>
                                         <div className="d-flex align-items-center gap-3 text-start">
                                             {item.type === 'badge' ? (
-                                                <img src={item.badgeImg} alt="Badge" className="rounded-circle border" style={{ width: '45px', height: '45px', objectFit: 'cover' }} />
+                                                <img
+                                                    src={resolvePublicBadgeImage(item.badgeImg)}
+                                                    onError={useDefaultBadgeImageOnError}
+                                                    alt="Badge"
+                                                    className="rounded-circle border"
+                                                    style={{ width: '45px', height: '45px', objectFit: 'cover' }}
+                                                />
                                             ) : (
                                                 <div className="bg-warning bg-opacity-10 p-2 rounded-circle d-flex align-items-center justify-content-center" style={{width: '45px', height: '45px'}}>
                                                     <span className="fw-bold text-warning fs-5">
