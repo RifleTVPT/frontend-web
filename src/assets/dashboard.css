@@ -90,3 +90,12 @@
 .hover-danger:hover {
     color: #dc3545 !important;
 }
+
+/*
+ * Os badges normais usam um troféu como fallback. Quando existe imagem própria
+ * transparente (SVG/PNG), o fallback não deve ficar visível por baixo.
+ */
+.rounded-circle.position-relative:has(> img) > .bi-trophy-fill.position-absolute,
+.rounded-circle.position-relative:has(> img) > .bi-trophy.position-absolute {
+    display: none !important;
+}
