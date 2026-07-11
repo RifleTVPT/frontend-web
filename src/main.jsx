@@ -32,6 +32,7 @@ axios.interceptors.response.use(
       const currentPath = window.location.pathname;
       if (currentPath !== '/' && currentPath !== '/registo' && currentPath !== '/recuperar-password') {
         sessionStorage.removeItem('user');
+        sessionStorage.setItem('sessionExpiredMessage', '1');
         
         Swal.fire({
           icon: 'warning',

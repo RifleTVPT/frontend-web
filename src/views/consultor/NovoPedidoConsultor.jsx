@@ -11,7 +11,7 @@ const NovoPedidoConsultor = () => {
   
   // 1. ESTADOS DOS FILTROS
   const [estrutura, setEstrutura] = useState({ serviceLines: [], areas: [] });
-  const [niveisSelecionados, setNiveisSelecionados] = useState(['A', 'B', 'C', 'D', 'E', 'F']);
+  const [niveisSelecionados, setNiveisSelecionados] = useState([]);
   const [pesquisa, setPesquisa] = useState('');
   const [serviceLine, setServiceLine] = useState('Todas');
   const [areaSelecionada, setAreaSelecionada] = useState('Todas');

@@ -147,23 +147,20 @@ const CandidaturaBadgeConsultor = () => {
     let novosFicheirosAdicionados = [];
     let novosBinarios = [];
     
-    // Função para limpar strings (remover acentos e minúsculas)
-    const normalizeStr = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const normalizeStr = (str) => String(str || '').toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const extrairCodigoRequisito = (texto) => {
+      const match = normalizeStr(texto).match(/(?:^|[^A-Z0-9])([A-Z][0-9]+)(?=[^A-Z0-9]|$)/);
+      return match ? match[1] : null;
+    };
 
     files.forEach(file => {
       if (todosFicheiros.some(f => f.nome === file.name)) return;
 
-      const nomeFicheiro = normalizeStr(file.name);
+      const codigoFicheiro = extrairCodigoRequisito(file.name);
       
-      // Procura qual o requisito cujas "palavras-chave" estejam no nome do ficheiro
       const reqMatchIndex = novosRequisitos.findIndex(r => {
-          // Extrair palavras significativas do título do requisito (ignorando do, da, de, etc.)
-          const palavrasChave = normalizeStr(r.titulo)
-              .split(/[\s_\-]+/)
-              .filter(w => w.length > 2 || (w.length === 2 && /\d/.test(w))); // Ex: "a1", "b2" passam
-
-          // O ficheiro é mapeado se conter ALGUMA das palavras chave do título
-          return palavrasChave.some(palavra => nomeFicheiro.includes(palavra));
+          const codigoReq = extrairCodigoRequisito(r.titulo);
+          return codigoFicheiro && codigoReq && codigoFicheiro === codigoReq;
       });
       
       let objFicheiro = { nome: file.name, idRequisito: null, mapeadoString: 'Não Mapeado' };

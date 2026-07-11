@@ -120,11 +120,18 @@ const DetalhesConquistaEspecialSLL = () => {
                     <div className="mt-3">
                       <div className="d-flex justify-content-between mb-1 small fw-bold">
                         <span>Progresso Estimado do Consultor</span>
-                        <span>{conquista.progressoLabel || 'Em curso'}</span>
+                        <span className={conquista.indisponivel ? 'text-danger' : ''}>{conquista.progressoLabel || 'Em curso'}</span>
                       </div>
-                      <div className="progress" style={{height: '10px'}}>
-                        <div className="progress-bar progress-bar-striped progress-bar-animated bg-primary" style={{width: `${conquista.progressoValor || 0}%`}}></div>
-                      </div>
+                      {conquista.prazoLabel && !conquista.indisponivel && (
+                        <div className="small fw-bold text-danger mb-2">
+                          <i className="bi bi-clock-history me-1"></i>{conquista.prazoLabel}
+                        </div>
+                      )}
+                      {!conquista.indisponivel && (
+                        <div className="progress" style={{height: '10px'}}>
+                          <div className="progress-bar progress-bar-striped progress-bar-animated bg-primary" style={{width: `${conquista.progressoValor || 0}%`}}></div>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>

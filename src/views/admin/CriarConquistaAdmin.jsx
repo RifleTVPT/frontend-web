@@ -22,6 +22,7 @@ const CriarConquistaAdmin = ({ show, onClose, onCreated }) => {
     const [imagemPreview, setImagemPreview] = useState(null);
     const [loading, setLoading] = useState(false);
     const fileRef = useRef();
+    const anoAtual = new Date().getFullYear();
 
     if (!show) return null;
 
@@ -37,6 +38,11 @@ const CriarConquistaAdmin = ({ show, onClose, onCreated }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!tipo) { alert('Por favor selecione o tipo de conquista.'); return; }
+        if (tipo === 'MELHOR_ANO' && Number(param1) < anoAtual) {
+            alert(`O ano alvo não pode ser anterior a ${anoAtual}.`);
+            setParam1(String(anoAtual));
+            return;
+        }
         setLoading(true);
         try {
             const formData = new FormData();
@@ -178,7 +184,15 @@ const CriarConquistaAdmin = ({ show, onClose, onCreated }) => {
                                                 {tipo === 'MELHOR_ANO' && (
                                                     <div className="col-12">
                                                         <label className="form-label small fw-bold">Ano Alvo</label>
-                                                        <input type="number" className="form-control" value={param1} onChange={e => setParam1(e.target.value)} required placeholder="Ex: 2025" />
+                                                        <input
+                                                            type="number"
+                                                            className="form-control"
+                                                            value={param1}
+                                                            onChange={e => setParam1(String(Math.max(anoAtual, Number(e.target.value) || anoAtual)))}
+                                                            required
+                                                            min={anoAtual}
+                                                            placeholder={`Ex: ${anoAtual}`}
+                                                        />
                                                     </div>
                                                 )}
                                                 {tipo === 'MELHOR_MESES' && (

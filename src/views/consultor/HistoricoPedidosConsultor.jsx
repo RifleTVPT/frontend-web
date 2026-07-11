@@ -9,7 +9,7 @@ import '../../assets/dashboard.css';
 const HistoricoPedidosConsultor = () => {
   const navigate = useNavigate();
   const [estrutura, setEstrutura] = useState({ serviceLines: [], areas: [] });
-  const [niveisSelecionados, setNiveisSelecionados] = useState(['A', 'B', 'C', 'D', 'E', 'F']);
+  const [niveisSelecionados, setNiveisSelecionados] = useState([]);
   
   // ESTADOS DOS FILTROS
   const [statusFilter, setStatusFilter] = useState('Todos');
@@ -126,13 +126,6 @@ const HistoricoPedidosConsultor = () => {
       });
   }
   todosNiveis.sort((a, b) => a.letra.localeCompare(b.letra, 'pt'));
-
-  // Efeito para selecionar todos os níveis disponíveis por defeito!
-  useEffect(() => {
-      if (todosNiveis.length > 0 && niveisSelecionados.length === 5 && !todosNiveis.every(n => niveisSelecionados.includes(n.letra))) {
-          setNiveisSelecionados(todosNiveis.map(n => n.letra));
-      }
-  }, [todosNiveis.length]);
 
   const parseData = (dataStr) => {
     if (!dataStr || dataStr === '-') return new Date(0);

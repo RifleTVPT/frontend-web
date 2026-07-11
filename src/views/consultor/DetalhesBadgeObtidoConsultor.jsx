@@ -230,26 +230,15 @@ const DetalhesBadgeObtidoConsultor = () => {
           <h5 className="fw-bold mb-3 mt-5">Requisitos concluídos para a sua Obtenção</h5>
           <div className="row g-3 mb-5">
             {badgeData.requisitos && badgeData.requisitos.map((req, idx) => {
-              // Filtrar ficheiros submetidos para este requisito
-              const ficheiros = badgeData.ficheiros ? badgeData.ficheiros.filter(f => f.idRequisito === req.idBd) : [];
+              const tituloReq = req.titulo || req.nome || `Requisito ${badgeData.nivel}${idx + 1}`;
+              const descricaoReq = req.desc || req.descricao || 'Sem descrição registada.';
               return (
                 <div key={req.idBd} className="col-md-4">
                   <div className="card border-0 shadow-sm p-4 text-center rounded-3 bg-white h-100 d-flex flex-column justify-content-between">
                     <div>
-                        <h6 className="fw-bold m-0 text-primary">Requisito {badgeData.nivel}{idx + 1}</h6>
-                        <small className="d-block mt-2 text-muted fw-bold">{req.desc}</small>
+                        <h6 className="fw-bold m-0 text-primary">{tituloReq}</h6>
+                        <small className="d-block mt-2 text-muted fw-bold">{descricaoReq}</small>
                     </div>
-                    
-                    {ficheiros.length > 0 && (
-                        <div className="mt-4 pt-3 border-top text-start">
-                            <small className="fw-bold d-block mb-2 text-secondary" style={{fontSize: '11px'}}>Evidências Submetidas:</small>
-                            {ficheiros.map((f, idx) => (
-                                <a key={idx} href={`https://softinsa-api-riya.onrender.com${f.url}`} target="_blank" rel="noopener noreferrer" className="d-block small text-decoration-none text-truncate mb-1" style={{fontSize: '12px'}}>
-                                    <i className="bi bi-file-earmark-text text-primary me-2"></i>{f.nome}
-                                </a>
-                            ))}
-                        </div>
-                    )}
                   </div>
                 </div>
               );

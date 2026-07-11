@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthService from './auth.service';
 import "../Login.css";
 import bannerImg from '../assets/login-banner.png';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +16,21 @@ const Login = () => {
   // Estados para o Modal de múltiplos perfis
   const [showProfileSelect, setShowProfileSelect] = useState(false);
   const [perfisDisponiveis, setPerfisDisponiveis] = useState([]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('sessionExpiredMessage') === '1') {
+      sessionStorage.removeItem('sessionExpiredMessage');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Sessão Expirada',
+        text: 'A sua sessão expirou. Por favor, inicie sessão novamente para continuar.',
+        confirmButtonText: 'Entendi',
+        confirmButtonColor: '#255bbf',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+      });
+    }
+  }, []);
 
   // Lógica de Redirecionamento 
   const selecionarPerfil = (perfil) => {

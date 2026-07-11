@@ -12,6 +12,8 @@ const NotificationSystem = () => {
     if (userLocal) {
         setUtilizador(userLocal);
         carregarNotificacoes(userLocal);
+        const intervalo = window.setInterval(() => carregarNotificacoes(userLocal), 15000);
+        return () => window.clearInterval(intervalo);
     }
   }, []);
 
@@ -125,7 +127,12 @@ const NotificationSystem = () => {
     <>
       {/* ATENÇÃO AO data-bs-auto-close="outside" AQUI */}
       <div className="dropdown" data-bs-auto-close="outside">
-        <div className="position-relative cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false">
+        <div
+          className="position-relative cursor-pointer"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          onClick={() => utilizador && carregarNotificacoes(utilizador)}
+        >
           <i className="bi bi-bell fs-4 text-secondary"></i>
           {unreadCount > 0 && (
             <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
