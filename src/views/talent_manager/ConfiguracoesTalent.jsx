@@ -99,10 +99,18 @@ const ConfiguracoesTalent = () => {
     try {
       const response = await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${utilizador.ID_UTILIZADOR}`, tempPerfil);
       if (response.data.success) {
-        setPerfil(tempPerfil);
+        const perfilAtualizado = {
+          ...tempPerfil,
+          nome: response.data.data?.nome || tempPerfil.nome,
+          email: response.data.data?.email || tempPerfil.email,
+          avatar: response.data.data?.avatar || tempPerfil.avatar
+        };
+        setPerfil(perfilAtualizado);
+        setTempPerfil(perfilAtualizado);
         setEditando(false);
         const userLocalStorage = JSON.parse(sessionStorage.getItem('user'));
-        userLocalStorage.NOME_COMPLETO_UTILIZADOR = tempPerfil.nome;
+        userLocalStorage.NOME_COMPLETO_UTILIZADOR = perfilAtualizado.nome;
+        userLocalStorage.EMAIL_UTILIZADOR = perfilAtualizado.email;
         sessionStorage.setItem('user', JSON.stringify(userLocalStorage));
         setUtilizador(userLocalStorage);
       }
@@ -149,7 +157,16 @@ const ConfiguracoesTalent = () => {
         });
 
         if (response.data.success) {
-            setAvatarUrl(response.data.avatarUrl);
+            const novaFoto = response.data.avatarUrl || response.data.data?.avatar;
+            if (novaFoto) {
+                setAvatarUrl(novaFoto);
+                const userLocalStorage = JSON.parse(sessionStorage.getItem('user'));
+                if (userLocalStorage) {
+                    userLocalStorage.URL_FOTO = novaFoto;
+                    sessionStorage.setItem('user', JSON.stringify(userLocalStorage));
+                    setUtilizador(userLocalStorage);
+                }
+            }
         }
     } catch (error) {
         console.error("Erro ao fazer upload da foto:", error);
@@ -233,7 +250,7 @@ const ConfiguracoesTalent = () => {
                     <label className="form-label small fw-bold">Nome Completo</label>
                     <input 
                         type="text" 
-                        className="form-control bg-light border-0 py-2" 
+                        className={`form-control border-0 py-2 ${editando ? 'bg-white shadow-sm' : 'bg-light'}`}
                         value={editando ? tempPerfil.nome : perfil.nome} 
                         onChange={e => setTempPerfil({...tempPerfil, nome: e.target.value})}
                         disabled={!editando} 
@@ -243,7 +260,7 @@ const ConfiguracoesTalent = () => {
                     <label className="form-label small fw-bold">Email Profissional</label>
                     <input 
                         type="email" 
-                        className={`form-control bg-light border-0 py-2 ${!editando ? 'text-muted' : ''}`} 
+                        className={`form-control border-0 py-2 ${editando ? 'bg-white shadow-sm text-dark' : 'bg-light text-muted'}`} 
                         value={editando ? tempPerfil.email : perfil.email} 
                         onChange={e => setTempPerfil({...tempPerfil, email: e.target.value})}
                         disabled={!editando} 

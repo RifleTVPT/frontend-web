@@ -89,15 +89,22 @@ const ConfiguracoesSLL = () => {
     try {
       const response = await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${utilizador.ID_UTILIZADOR}`, tempPerfil);
       if (response.data.success) {
-        setPerfil(tempPerfil);
+        const perfilAtualizado = {
+          ...tempPerfil,
+          nome: response.data.data?.nome || tempPerfil.nome,
+          email: response.data.data?.email || tempPerfil.email,
+          avatar: response.data.data?.avatar || tempPerfil.avatar
+        };
+        setPerfil(perfilAtualizado);
+        setTempPerfil(perfilAtualizado);
         setEditando(false);
         
         // Atualiza a cache local
         const userLocalStorage = JSON.parse(sessionStorage.getItem('user'));
-        userLocalStorage.NOME_COMPLETO_UTILIZADOR = tempPerfil.nome;
-        userLocalStorage.EMAIL_UTILIZADOR = tempPerfil.email;
-        userLocalStorage.SL_REGISTO = tempPerfil.serviceLine;
-        userLocalStorage.SERVICE_LINE = tempPerfil.serviceLine;
+        userLocalStorage.NOME_COMPLETO_UTILIZADOR = perfilAtualizado.nome;
+        userLocalStorage.EMAIL_UTILIZADOR = perfilAtualizado.email;
+        userLocalStorage.SL_REGISTO = perfilAtualizado.serviceLine;
+        userLocalStorage.SERVICE_LINE = perfilAtualizado.serviceLine;
         sessionStorage.setItem('user', JSON.stringify(userLocalStorage));
         setUtilizador(userLocalStorage);
       }
@@ -143,8 +150,15 @@ const ConfiguracoesSLL = () => {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
 
-        if (response.data.success && response.data.data.avatar) {
-            setAvatarUrl(response.data.data.avatar);
+        if (response.data.success && (response.data.avatarUrl || response.data.data?.avatar)) {
+            const novaFoto = response.data.avatarUrl || response.data.data.avatar;
+            setAvatarUrl(novaFoto);
+            const userLocalStorage = JSON.parse(sessionStorage.getItem('user'));
+            if (userLocalStorage) {
+                userLocalStorage.URL_FOTO = novaFoto;
+                sessionStorage.setItem('user', JSON.stringify(userLocalStorage));
+                setUtilizador(userLocalStorage);
+            }
         } else {
             const nomeObj = utilizador.NOME_COMPLETO_UTILIZADOR || 'SLL';
             setAvatarUrl(`https://ui-avatars.com/api/?name=${encodeURIComponent(nomeObj)}&background=F4E1EC&color=333333`);

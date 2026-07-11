@@ -20,6 +20,8 @@ const PerfilUtilizadorAdmin = () => {
     const [editMode, setEditMode] = useState(false);
     const [user, setUser] = useState(null);
     const [tempUser, setTempUser] = useState(null);
+    const [novaPasswordAdmin, setNovaPasswordAdmin] = useState('');
+    const [confirmarPasswordAdmin, setConfirmarPasswordAdmin] = useState('');
 
     const [estrutura, setEstrutura] = useState({ serviceLines: [], areas: [] });
 
@@ -64,7 +66,45 @@ const PerfilUtilizadorAdmin = () => {
 
     const handleFotoClick = () => editMode && fileInputRef.current.click();
 
+    const handleFotoChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file || !editMode) return;
+
+        const preview = URL.createObjectURL(file);
+        setUser(prev => ({ ...prev, foto: preview }));
+        setTempUser(prev => ({ ...prev, foto: preview }));
+
+        const formData = new FormData();
+        formData.append('avatar', file);
+        try {
+            const response = await axios.post(`https://softinsa-api-riya.onrender.com/users/upload-avatar/${id}`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            if (response.data.success) {
+                const novaFoto = response.data.avatarUrl || response.data.data?.avatar;
+                if (novaFoto) {
+                    setUser(prev => ({ ...prev, foto: novaFoto }));
+                    setTempUser(prev => ({ ...prev, foto: novaFoto }));
+                }
+            }
+        } catch (error) {
+            alert("Erro ao guardar a foto do utilizador.");
+        }
+    };
+
     const handleSalvarPerfil = async () => {
+        const passwordPreenchida = novaPasswordAdmin || confirmarPasswordAdmin;
+        if (passwordPreenchida) {
+            if (novaPasswordAdmin !== confirmarPasswordAdmin) {
+                alert('A nova password e a confirmação não coincidem.');
+                return;
+            }
+            if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/.test(novaPasswordAdmin)) {
+                alert('A password deve ter 8+ caracteres, uma maiúscula, uma minúscula, um número e um caractere especial.');
+                return;
+            }
+        }
+
         const removedProfiles = user.perfis.filter(p => !tempUser.perfis.includes(p));
         if (removedProfiles.length > 0) {
             const msg = `Está prestes a remover os seguintes perfis: ${removedProfiles.join(', ')}.\nSe voltar a adicioná-los no futuro, o utilizador perderá o histórico ligado a este perfil.\n\nDeseja mesmo continuar?`;
@@ -79,13 +119,16 @@ const PerfilUtilizadorAdmin = () => {
                 email: tempUser.email,
                 perfis: tempUser.perfis,
                 sl: tempUser.sl,
-                area: tempUser.area
+                area: tempUser.area,
+                novaPassword: passwordPreenchida ? novaPasswordAdmin : undefined
             });
 
             if (response.data.success) {
                 alert("Perfil do utilizador atualizado com sucesso!");
                 setUser(tempUser);
                 setEditMode(false);
+                setNovaPasswordAdmin('');
+                setConfirmarPasswordAdmin('');
             }
         } catch (error) {
             alert(error.response?.data?.message || "Ocorreu um erro ao gravar alterações.");
@@ -175,7 +218,7 @@ const PerfilUtilizadorAdmin = () => {
                                      onClick={handleFotoClick}>
                                     <AvatarUtilizador nome={user.nome} foto={user.foto} tamanho={120} />
                                 </div>
-                                <input type="file" ref={fileInputRef} className="d-none" accept="image/*" />
+                                <input type="file" ref={fileInputRef} className="d-none" accept="image/*" onChange={handleFotoChange} />
                                 {editMode && <button className="btn btn-link btn-sm p-0 text-primary fw-bold text-decoration-none" onClick={handleFotoClick}>Alterar Foto</button>}
                             </div>
                             <div className="col-md ps-md-4">
@@ -188,6 +231,29 @@ const PerfilUtilizadorAdmin = () => {
                                         <div className="col-md-6">
                                             <label className="small fw-bold">Email</label>
                                             <input type="email" className="form-control bg-light border-0 py-2" value={tempUser.email} onChange={(e) => setTempUser({...tempUser, email: e.target.value})} />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="small fw-bold">Nova Password</label>
+                                            <input
+                                                type="password"
+                                                className="form-control bg-light border-0 py-2"
+                                                placeholder="Deixe vazio para manter"
+                                                value={novaPasswordAdmin}
+                                                onChange={(e) => setNovaPasswordAdmin(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="small fw-bold">Confirmar Nova Password</label>
+                                            <input
+                                                type="password"
+                                                className="form-control bg-light border-0 py-2"
+                                                placeholder="Repetir nova password"
+                                                value={confirmarPasswordAdmin}
+                                                onChange={(e) => setConfirmarPasswordAdmin(e.target.value)}
+                                            />
+                                            <small className="text-muted d-block mt-1" style={{fontSize: '10px'}}>
+                                                Mín. 8 carateres, 1 maiúscula, 1 minúscula, 1 número e 1 especial.
+                                            </small>
                                         </div>
                                         <div className="col-12 mt-3">
                                             <label className="small fw-bold mb-2">Perfis de Acesso</label>
@@ -220,7 +286,14 @@ const PerfilUtilizadorAdmin = () => {
                                 </div>
                             </div>
                             <div className="col-md-auto text-end">
-                                <button onClick={() => setEditMode(!editMode)} className={`btn ${editMode ? 'btn-outline-secondary' : 'btn-primary'} rounded-pill px-4 fw-bold shadow-sm`} style={!editMode ? {backgroundColor: '#5D78FF', border: 'none'} : {}}>
+                                <button onClick={() => {
+                                    if (editMode) {
+                                        setTempUser({...user, perfis: [...user.perfis]});
+                                        setNovaPasswordAdmin('');
+                                        setConfirmarPasswordAdmin('');
+                                    }
+                                    setEditMode(!editMode);
+                                }} className={`btn ${editMode ? 'btn-outline-secondary' : 'btn-primary'} rounded-pill px-4 fw-bold shadow-sm`} style={!editMode ? {backgroundColor: '#5D78FF', border: 'none'} : {}}>
                                     <i className={`bi ${editMode ? 'bi-x-lg' : 'bi-pencil-square'} me-2`}></i> {editMode ? 'Cancelar Edição' : 'Editar Perfil'}
                                 </button>
                             </div>
@@ -298,7 +371,7 @@ const PerfilUtilizadorAdmin = () => {
                     {editMode ? (
                         <div className="d-flex justify-content-center gap-4 mt-5 pb-5">
                             <button className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg" style={{backgroundColor: '#5D78FF', border: 'none'}} onClick={handleSalvarPerfil}>Guardar Alterações</button>
-                            <button className="btn btn-light bg-white border px-5 py-3 rounded-pill fw-bold text-muted shadow-sm" onClick={() => {setEditMode(false); setTempUser({...user, perfis: [...user.perfis]});}}>Cancelar Alterações</button>
+                            <button className="btn btn-light bg-white border px-5 py-3 rounded-pill fw-bold text-muted shadow-sm" onClick={() => {setEditMode(false); setTempUser({...user, perfis: [...user.perfis]}); setNovaPasswordAdmin(''); setConfirmarPasswordAdmin('');}}>Cancelar Alterações</button>
                         </div>
                     ) : (
                         <div className="d-flex justify-content-center gap-4 mt-4 pt-4 border-top">

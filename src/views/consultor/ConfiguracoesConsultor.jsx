@@ -80,10 +80,17 @@ const ConfiguracoesConsultor = () => {
     try {
       const response = await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${utilizador.ID_UTILIZADOR}`, tempPerfil);
       if (response.data.success) {
-        setPerfil(tempPerfil);
+        const perfilAtualizado = {
+          ...tempPerfil,
+          nome: response.data.data?.nome || tempPerfil.nome,
+          email: response.data.data?.email || tempPerfil.email
+        };
+        setPerfil(perfilAtualizado);
+        setTempPerfil(perfilAtualizado);
         setEditando(false);
         const userLocalStorage = JSON.parse(sessionStorage.getItem('user'));
-        userLocalStorage.NOME_COMPLETO_UTILIZADOR = tempPerfil.nome;
+        userLocalStorage.NOME_COMPLETO_UTILIZADOR = perfilAtualizado.nome;
+        userLocalStorage.EMAIL_UTILIZADOR = perfilAtualizado.email;
         sessionStorage.setItem('user', JSON.stringify(userLocalStorage));
         setUtilizador(userLocalStorage);
       }
@@ -242,9 +249,10 @@ const ConfiguracoesConsultor = () => {
                     <label className="form-label small fw-bold">Email Profissional</label>
                     <input 
                         type="email" 
-                        className="form-control bg-light border py-2 text-muted" 
-                        value={perfil.email} 
-                        disabled 
+                        className={`form-control border py-2 ${editando ? 'bg-white text-dark shadow-sm' : 'bg-light text-muted'}`}
+                        value={editando ? tempPerfil.email : perfil.email}
+                        onChange={e => setTempPerfil({...tempPerfil, email: e.target.value})}
+                        disabled={!editando}
                     />
                   </div>
                   <div className="col-md-6 text-muted">

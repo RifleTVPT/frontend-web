@@ -23,6 +23,7 @@ const ConfiguracoesGeraisAdmin = () => {
     const [novaPassword, setNovaPassword] = useState('');
     const [confirmarPassword, setConfirmarPassword] = useState('');
     const [erroPassword, setErroPassword] = useState('');
+    const validarPassword = (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/.test(password);
 
     const [modoManutencao, setModoManutencao] = useState(false);
     
@@ -118,10 +119,18 @@ const ConfiguracoesGeraisAdmin = () => {
         try {
             const res = await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${adminUser.ID_UTILIZADOR}`, tempPerfil);
             if (res.data.success) {
-                setPerfil(tempPerfil);
+                const perfilAtualizado = {
+                    ...tempPerfil,
+                    nome: res.data.data?.nome || tempPerfil.nome,
+                    email: res.data.data?.email || tempPerfil.email,
+                    avatar: res.data.data?.avatar || tempPerfil.avatar
+                };
+                setPerfil(perfilAtualizado);
+                setTempPerfil(perfilAtualizado);
                 setEditando(false);
                 const userLocalStorage = JSON.parse(sessionStorage.getItem('user'));
-                userLocalStorage.NOME_COMPLETO_UTILIZADOR = tempPerfil.nome;
+                userLocalStorage.NOME_COMPLETO_UTILIZADOR = perfilAtualizado.nome;
+                userLocalStorage.EMAIL_UTILIZADOR = perfilAtualizado.email;
                 sessionStorage.setItem('user', JSON.stringify(userLocalStorage));
                 setAdminUser(userLocalStorage);
             }
@@ -144,7 +153,16 @@ const ConfiguracoesGeraisAdmin = () => {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             if (response.data.success) {
-                setAvatarUrl(response.data.avatarUrl);
+                const novaFoto = response.data.avatarUrl || response.data.data?.avatar;
+                if (novaFoto) {
+                    setAvatarUrl(novaFoto);
+                    const userLocalStorage = JSON.parse(sessionStorage.getItem('user'));
+                    if (userLocalStorage) {
+                        userLocalStorage.URL_FOTO = novaFoto;
+                        sessionStorage.setItem('user', JSON.stringify(userLocalStorage));
+                        setAdminUser(userLocalStorage);
+                    }
+                }
             }
         } catch (error) {
             console.error("Erro ao upload da foto:", error);
@@ -156,6 +174,7 @@ const ConfiguracoesGeraisAdmin = () => {
         setErroPassword('');
         if (!passwordAtual || !novaPassword || !confirmarPassword) return setErroPassword("Preencha todos os campos.");
         if (novaPassword !== confirmarPassword) return setErroPassword("A nova password e a confirmação não coincidem.");
+        if (!validarPassword(novaPassword)) return setErroPassword("A password deve ter 8+ caracteres, uma maiúscula, uma minúscula, um número e um caractere especial.");
         try {
             const res = await axios.put(`https://softinsa-api-riya.onrender.com/users/mudar-password/${adminUser.ID_UTILIZADOR}`, { passwordAtual, novaPassword });
             if (res.data.success) {
