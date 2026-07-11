@@ -158,16 +158,6 @@ const ConquistasEspeciaisConsultor = () => {
                   </div>
                   <h5 className="fw-bold mb-2 text-dark text-truncate">{conq.titulo}</h5>
                   <p className="text-muted small mb-3 px-3 text-truncate">{conq.descricao}</p>
-                  {conq.progressoLabel && (
-                    <div className={`small fw-bold mb-2 ${conq.indisponivel ? 'text-danger' : 'text-primary'}`}>
-                      {conq.progressoLabel}
-                    </div>
-                  )}
-                  {conq.prazoLabel && !conq.indisponivel && (
-                    <div className="small fw-bold text-danger mb-2">
-                      <i className="bi bi-clock-history me-1"></i>{conq.prazoLabel}
-                    </div>
-                  )}
                   <div className="mb-3 small text-primary fw-bold">+{conq.bonus} pontos Bónus</div>
                   <Link to={`/performance/conquistas/${conq.id}`} className="btn btn-outline-primary rounded-pill px-4 py-2 mx-auto fw-bold" style={{ width: 'fit-content' }}>
                     Ver Requisitos

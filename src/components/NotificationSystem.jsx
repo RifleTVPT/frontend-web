@@ -153,7 +153,7 @@ const NotificationSystem = () => {
                   <i className={`bi ${getTypeStyles(n.type).icon} ${n.isAviso && !n.read ? 'fs-5' : ''}`} style={{ color: getTypeStyles(n.type).color }}></i>
                   <div className="lh-sm w-100">
                     <div className="small fw-bold">{n.title}</div>
-                    <div className="text-truncate small" style={{ maxWidth: '230px' }}>{n.desc}</div>
+                    <div className="text-truncate small" style={{ maxWidth: '230px', whiteSpace: 'pre-line' }}>{n.desc}</div>
                     <div className="d-flex justify-content-between mt-1">
                         <small className="text-muted fw-bold" style={{ fontSize: '10px', color: n.isAviso ? '#ff9800' : '' }}>{n.time}</small>
                         <small className="text-muted" style={{ fontSize: '10px' }}>{n.date}</small>
@@ -187,7 +187,7 @@ const NotificationSystem = () => {
               <div className="modal-body text-center p-4">
                 <i className={`bi ${getTypeStyles(selectedNotif.type).icon}`} style={{ fontSize: '4rem', color: getTypeStyles(selectedNotif.type).color }}></i>
                 <h4 className="fw-bold mt-3" style={{ color: getTypeStyles(selectedNotif.type).color }}>{selectedNotif.title}</h4>
-                <p className="text-muted mt-3 px-2">{selectedNotif.desc}</p>
+                <p className="text-muted mt-3 px-2 text-start" style={{ whiteSpace: 'pre-line', lineHeight: 1.6 }}>{selectedNotif.desc}</p>
                 <div className="d-flex justify-content-center gap-3 mt-4 text-muted small">
                   <span><i className="bi bi-calendar3 me-1"></i> {selectedNotif.date}</span>
                   <span><i className="bi bi-clock me-1"></i> {selectedNotif.time}</span>

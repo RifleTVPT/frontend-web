@@ -18,7 +18,6 @@ const PerfilConsultorSLL = () => {
     const [minhaSL, setMinhaSL] = useState('');
 
     const [mostrarEspeciais, setMostrarEspeciais] = useState(true);
-    const [mostrarOutrasSL, setMostrarOutrasSL] = useState(false);
     const [dadosPerfil, setDadosPerfil] = useState(null);
 
     useEffect(() => {
@@ -62,7 +61,6 @@ const PerfilConsultorSLL = () => {
 
     const badgesExibidos = dadosPerfil.badges.filter(b => {
         if (!mostrarEspeciais && b.especial) return false;
-        if (!mostrarOutrasSL && b.isOutraSL) return false;
         return true;
     });
 
@@ -160,11 +158,6 @@ const PerfilConsultorSLL = () => {
                     <div className="d-flex justify-content-between align-items-center mb-4 mt-5">
                         <h4 className="fw-bold m-0 text-dark">Galeria de Conquistas do Consultor</h4>
                         <div className="d-flex gap-3">
-                            <div className="form-check form-switch d-flex align-items-center gap-2 bg-white px-4 py-2 rounded-pill shadow-sm">
-                                <span className="small fw-bold text-muted ps-2">Outras Service Lines</span>
-                                <input className="form-check-input m-0 cursor-pointer fs-5 ms-2 shadow-none" type="checkbox" 
-                                       checked={mostrarOutrasSL} onChange={() => setMostrarOutrasSL(!mostrarOutrasSL)} />
-                            </div>
                             <div className="form-check form-switch d-flex align-items-center gap-2 bg-white px-4 py-2 rounded-pill shadow-sm">
                                 <span className="small fw-bold text-muted ps-2">Conquistas Especiais</span>
                                 <input className="form-check-input m-0 cursor-pointer fs-5 ms-2 shadow-none" type="checkbox" 
