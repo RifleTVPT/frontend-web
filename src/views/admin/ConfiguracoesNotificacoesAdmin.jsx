@@ -340,7 +340,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
                                         </div>
                                         <div>
                                             <h5 className="fw-bold m-0">Credenciais SMTP</h5>
-                                            <small className="text-muted">Defina as credenciais do servidor SMTP que a plataforma irá usar para disparar emails reais para os utilizadores.</small>
+                                            <small className="text-muted">Se BREVO_API_KEY estiver configurada no Render, o envio usa a API Brevo. Caso contrário, usa estas credenciais SMTP.</small>
                                         </div>
                                     </div>
                                     <div className="row g-4">
@@ -406,7 +406,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
                                                 disabled={testingSmtp || saving}
                                             >
                                                 <i className="bi bi-send-check me-2"></i>
-                                                {testingSmtp ? 'A testar...' : 'Testar ligação e enviar email'}
+                                                {testingSmtp ? 'A testar...' : 'Testar envio de email'}
                                             </button>
                                         </div>
                                     </div>
