@@ -32,14 +32,14 @@ const RelatoriosSLL = () => {
     // Opções de conteúdo (Checkboxes)
     const [opcoes, setOpcoes] = useState({
         taxas: true,
-        evolucao: false,
+        evolucao: true,
         badges: true,
-        pendentes: false,
-        todosPedidos: false,
-        catalogo: false,
+        pendentes: true,
+        todosPedidos: true,
+        catalogo: true,
         historico: true,
         ranking: true,
-        expiracao: false
+        expiracao: true
     });
 
     const conteudosMap = [
@@ -100,12 +100,11 @@ const RelatoriosSLL = () => {
         carregarDados();
     }, [navigate]);
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        navigate('/');
-    };
-
     const toggleOpcao = (key) => setOpcoes(prev => ({ ...prev, [key]: !prev[key] }));
+
+    const resumoFiltros = () => (
+        `SL(${minhaSL}) | Período(${periodo}) | Datas(${dataInicio || 'sem início'} a ${dataFim || 'sem fim'}) | Área(${area}) | Níveis(${niveisSelecionados.join(', ') || 'Todos'}) | Pesquisa(${pesquisa || 'Todas'})`
+    );
 
     const limparFiltros = () => {
         setPeriodo('Todos'); setDataInicio(''); setDataFim('');
@@ -187,27 +186,38 @@ const RelatoriosSLL = () => {
         doc.setTextColor(100);
         currentY += 8;
         doc.text(`Gerado em: ${new Date().toLocaleString()}`, 14, currentY);
-        currentY += 15;
+        currentY += 6;
+        const linhasFiltros = doc.splitTextToSize(resumoFiltros(), 180);
+        doc.text(linhasFiltros, 14, currentY);
+        currentY += 10 + (linhasFiltros.length * 4);
 
         // Função utilitária para desenhar tabelas dinamicamente
         const desenharTabela = (titulo, head, body) => {
-            if (body && body.length > 0) {
-                const safeBody = body.map(row => row.map(cell => cell !== null && cell !== undefined ? String(cell) : ''));
-                doc.setFontSize(14);
-                doc.setTextColor(0);
-                doc.text(titulo, 14, currentY);
-                
-                autoTable(doc, {
-                    startY: currentY + 5,
-                    head: [head],
-                    body: safeBody,
-                    theme: 'grid',
-                    headStyles: { fillColor: [93, 120, 255] }
-                });
-                
-                currentY = doc.lastAutoTable.finalY + 15;
+            doc.setFontSize(14);
+            doc.setTextColor(0);
+            doc.text(titulo, 14, currentY);
+
+            if (!body || body.length === 0) {
+                doc.setFontSize(10);
+                doc.setTextColor(100);
+                doc.text('Sem dados para os filtros selecionados.', 14, currentY + 7);
+                currentY += 18;
                 if (currentY > 270) { doc.addPage(); currentY = 20; }
+                return;
             }
+
+            const safeBody = body.map(row => row.map(cell => cell !== null && cell !== undefined ? String(cell) : ''));
+            autoTable(doc, {
+                startY: currentY + 5,
+                head: [head],
+                body: safeBody,
+                theme: 'grid',
+                styles: { fontSize: 8, overflow: 'linebreak' },
+                headStyles: { fillColor: [93, 120, 255] }
+            });
+            
+            currentY = doc.lastAutoTable.finalY + 15;
+            if (currentY > 270) { doc.addPage(); currentY = 20; }
         };
 
         if (dados.taxas) {
@@ -232,45 +242,54 @@ const RelatoriosSLL = () => {
     const exportarExcel = (dados) => {
         const wb = XLSX.utils.book_new();
 
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{
+            Gerado: new Date().toLocaleString(),
+            'Service Line': minhaSL,
+            Período: periodo,
+            'Data Início': dataInicio || '',
+            'Data Fim': dataFim || '',
+            Área: area,
+            Níveis: niveisSelecionados.join(', ') || 'Todos',
+            Pesquisa: pesquisa || ''
+        }]), "Filtros");
+
+        const adicionarFolha = (nome, linhas) => {
+            const dadosFolha = Array.isArray(linhas) && linhas.length > 0
+                ? linhas
+                : [{ Resultado: 'Sem dados para os filtros selecionados' }];
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(dadosFolha), nome.substring(0, 31));
+        };
+
         if (dados.taxas) {
-            const ws = XLSX.utils.json_to_sheet([
+            adicionarFolha("Taxas", [
                 { Metrica: 'Aceites', Total: dados.taxas.aprovados },
                 { Metrica: 'Recusados', Total: dados.taxas.rejeitados },
                 { Metrica: 'Pendentes de Análise', Total: dados.taxas.pendentes }
             ]);
-            XLSX.utils.book_append_sheet(wb, ws, "Taxas");
         }
-        if (dados.ranking && dados.ranking.length > 0) {
-            const ws = XLSX.utils.json_to_sheet(dados.ranking.map((r, i) => ({ Posicao: i+1, Nome: r.nome, Pontos: r.pontos })));
-            XLSX.utils.book_append_sheet(wb, ws, "Ranking");
+        if (dados.ranking) {
+            adicionarFolha("Ranking", dados.ranking.map((r, i) => ({ Posicao: i+1, Nome: r.nome, Pontos: r.pontos })));
         }
-        if (dados.evolucao && dados.evolucao.length > 0) {
-            const ws = XLSX.utils.json_to_sheet(dados.evolucao);
-            XLSX.utils.book_append_sheet(wb, ws, "Evolução de Pontos");
+        if (dados.evolucao) {
+            adicionarFolha("Evolução de Pontos", dados.evolucao);
         }
-        if (dados.badges && dados.badges.length > 0) {
-            const ws = XLSX.utils.json_to_sheet(dados.badges);
-            XLSX.utils.book_append_sheet(wb, ws, "Badges");
+        if (dados.badges) {
+            adicionarFolha("Badges", dados.badges);
         }
-        if (dados.pendentes && dados.pendentes.length > 0) {
-            const ws = XLSX.utils.json_to_sheet(dados.pendentes);
-            XLSX.utils.book_append_sheet(wb, ws, "Pendentes");
+        if (dados.pendentes) {
+            adicionarFolha("Pendentes", dados.pendentes);
         }
-        if (dados.todosPedidos && dados.todosPedidos.length > 0) {
-            const ws = XLSX.utils.json_to_sheet(dados.todosPedidos);
-            XLSX.utils.book_append_sheet(wb, ws, "Todos os Pedidos");
+        if (dados.todosPedidos) {
+            adicionarFolha("Todos os Pedidos", dados.todosPedidos);
         }
-        if (dados.catalogo && dados.catalogo.length > 0) {
-            const ws = XLSX.utils.json_to_sheet(dados.catalogo);
-            XLSX.utils.book_append_sheet(wb, ws, "Catálogo");
+        if (dados.catalogo) {
+            adicionarFolha("Catálogo", dados.catalogo);
         }
-        if (dados.historico && dados.historico.length > 0) {
-            const ws = XLSX.utils.json_to_sheet(dados.historico);
-            XLSX.utils.book_append_sheet(wb, ws, "Histórico");
+        if (dados.historico) {
+            adicionarFolha("Histórico", dados.historico);
         }
-        if (dados.expiracao && dados.expiracao.length > 0) {
-            const ws = XLSX.utils.json_to_sheet(dados.expiracao);
-            XLSX.utils.book_append_sheet(wb, ws, "Expiracao");
+        if (dados.expiracao) {
+            adicionarFolha("Expiracao", dados.expiracao);
         }
 
         XLSX.writeFile(wb, `Relatorio_SLL_${minhaSL}_${new Date().toISOString().slice(0,10)}.xlsx`);

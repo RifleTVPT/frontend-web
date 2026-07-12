@@ -149,6 +149,15 @@ const BadgesExpiracaoSLL = () => {
     // ==========================================
     // MÉTODOS DE EXPORTAÇÃO
     // ==========================================
+    const resumoFiltros = () => ({
+        'Service Line': minhaSL,
+        Área: areaFiltro,
+        Níveis: niveisAtivos.length ? niveisAtivos.map(formatNivel).join(', ') : 'Todos',
+        Pesquisa: pesquisa || 'Todas',
+        Período: periodo === 'Todas' ? 'Qualquer período' : `Próximos ${parseInt(periodo) * 30} dias`,
+        Total: dadosFiltrados.length
+    });
+
     const exportarExcel = () => {
         if (dadosFiltrados.length === 0) return alert('Sem dados para exportar com os filtros atuais.');
         
@@ -161,6 +170,7 @@ const BadgesExpiracaoSLL = () => {
         })));
         
         const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([resumoFiltros()]), "Filtros");
         XLSX.utils.book_append_sheet(wb, ws, "Badges em Expiracao");
         XLSX.writeFile(wb, `Badges_Expiracao_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.xlsx`);
     };
@@ -168,7 +178,7 @@ const BadgesExpiracaoSLL = () => {
     const exportarPDF = () => {
         if (dadosFiltrados.length === 0) return alert('Sem dados para exportar com os filtros atuais.');
 
-        const doc = new jsPDF('p', 'mm', 'a4');
+        const doc = new jsPDF('l', 'mm', 'a4');
         let currentY = 20;
 
         doc.setFontSize(18);
@@ -177,6 +187,8 @@ const BadgesExpiracaoSLL = () => {
         doc.setTextColor(100);
         currentY += 8;
         doc.text(`Gerado em: ${new Date().toLocaleString()}`, 14, currentY);
+        currentY += 6;
+        doc.text(`Filtros: Área(${areaFiltro}) | Níveis(${niveisAtivos.length ? niveisAtivos.map(formatNivel).join(', ') : 'Todos'}) | Pesquisa(${pesquisa || 'Todas'}) | Período(${periodo === 'Todas' ? 'Qualquer período' : `Próximos ${parseInt(periodo) * 30} dias`})`, 14, currentY);
         currentY += 15;
 
         const corpoTabela = dadosFiltrados.map(item => [
@@ -193,7 +205,7 @@ const BadgesExpiracaoSLL = () => {
             body: corpoTabela,
             theme: 'striped',
             headStyles: { fillColor: [93, 120, 255] },
-            styles: { fontSize: 10 }
+            styles: { fontSize: 8, overflow: 'linebreak' }
         });
 
         doc.save(`Badges_Expiracao_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.pdf`);

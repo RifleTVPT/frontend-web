@@ -111,11 +111,6 @@ const BadgesAtribuidosSLL = () => {
         carregarDados();
     }, [navigate]);
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        navigate('/');
-    };
-
     const toggleNivel = (n) => {
         setNiveisAtivos(prev => prev.includes(n) ? prev.filter(i => i !== n) : [...prev, n]);
     };
@@ -144,6 +139,15 @@ const BadgesAtribuidosSLL = () => {
     // ==========================================
     // MÉTODOS DE EXPORTAÇÃO
     // ==========================================
+    const resumoFiltros = () => ({
+        'Service Line': minhaSL,
+        Área: areaFiltro,
+        Níveis: niveisAtivos.length ? niveisAtivos.map(formatNivel).join(', ') : 'Todos',
+        Pesquisa: pesquisaConsultor || 'Todas',
+        Período: periodo === 'all' ? 'Todo o histórico' : `Últimos ${periodo} meses`,
+        Total: dadosFiltrados.length
+    });
+
     const exportarExcel = () => {
         if (dadosFiltrados.length === 0) return alert('Sem dados para exportar com os filtros atuais.');
         
@@ -157,6 +161,7 @@ const BadgesAtribuidosSLL = () => {
         })));
         
         const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([resumoFiltros()]), "Filtros");
         XLSX.utils.book_append_sheet(wb, ws, "Badges Atribuidos");
         XLSX.writeFile(wb, `Badges_Atribuidos_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.xlsx`);
     };
@@ -164,7 +169,7 @@ const BadgesAtribuidosSLL = () => {
     const exportarPDF = () => {
         if (dadosFiltrados.length === 0) return alert('Sem dados para exportar com os filtros atuais.');
 
-        const doc = new jsPDF('p', 'mm', 'a4');
+        const doc = new jsPDF('l', 'mm', 'a4');
         let currentY = 20;
 
         // Cabeçalho
@@ -174,6 +179,8 @@ const BadgesAtribuidosSLL = () => {
         doc.setTextColor(100);
         currentY += 8;
         doc.text(`Gerado em: ${new Date().toLocaleString()}`, 14, currentY);
+        currentY += 6;
+        doc.text(`Filtros: Área(${areaFiltro}) | Níveis(${niveisAtivos.length ? niveisAtivos.map(formatNivel).join(', ') : 'Todos'}) | Pesquisa(${pesquisaConsultor || 'Todas'}) | Período(${periodo === 'all' ? 'Todo o histórico' : `Últimos ${periodo} meses`})`, 14, currentY);
         currentY += 15;
 
         const corpoTabela = dadosFiltrados.map(item => [
@@ -190,7 +197,7 @@ const BadgesAtribuidosSLL = () => {
             body: corpoTabela,
             theme: 'striped',
             headStyles: { fillColor: [93, 120, 255] },
-            styles: { fontSize: 10 }
+            styles: { fontSize: 8, overflow: 'linebreak' }
         });
 
         doc.save(`Badges_Atribuidos_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.pdf`);

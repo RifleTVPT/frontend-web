@@ -149,6 +149,21 @@ const GamificacaoSLL = () => {
         );
         XLSX.utils.book_append_sheet(wb, wsAreas, "Distribuição por Área");
 
+        const wsObjetivos = XLSX.utils.json_to_sheet((dashboardData.objetivos || []).map(obj => ({
+            Título: obj.titulo,
+            Consultor: obj.consultor,
+            Descrição: obj.descricao,
+            'Data Meta': obj.dataMeta
+        })));
+        XLSX.utils.book_append_sheet(wb, wsObjetivos, "Objetivos Ativos");
+
+        const wsPremium = XLSX.utils.json_to_sheet((dashboardData.premiumBadges || []).map(b => ({
+            Badge: b.nome,
+            Tipo: b.tipo || 'Conquista Especial',
+            Pontos: b.pontos || 0
+        })));
+        XLSX.utils.book_append_sheet(wb, wsPremium, "Badges Premium");
+
         XLSX.writeFile(wb, `Performance_SL_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.xlsx`);
     };
 
@@ -203,6 +218,28 @@ const GamificacaoSLL = () => {
             theme: 'grid',
             headStyles: { fillColor: [93, 120, 255] }
         });
+        currentY = doc.lastAutoTable.finalY + 15;
+
+        if (currentY > 240) { doc.addPage(); currentY = 20; }
+        autoTable(doc, {
+            startY: currentY,
+            head: [['Objetivo', 'Consultor', 'Descrição', 'Data Meta']],
+            body: (dashboardData.objetivos || []).map(obj => [obj.titulo, obj.consultor, obj.descricao, obj.dataMeta]),
+            theme: 'grid',
+            styles: { fontSize: 8, overflow: 'linebreak' },
+            headStyles: { fillColor: [93, 120, 255] }
+        });
+        currentY = doc.lastAutoTable.finalY + 15;
+
+        if (currentY > 240) { doc.addPage(); currentY = 20; }
+        autoTable(doc, {
+            startY: currentY,
+            head: [['Badge Premium', 'Tipo', 'Pontos']],
+            body: (dashboardData.premiumBadges || []).map(b => [b.nome, b.tipo || 'Conquista Especial', b.pontos || 0]),
+            theme: 'grid',
+            styles: { fontSize: 8, overflow: 'linebreak' },
+            headStyles: { fillColor: [93, 120, 255] }
+        });
 
         doc.save(`Performance_SL_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.pdf`);
     };
@@ -220,15 +257,24 @@ const GamificacaoSLL = () => {
         }]
     };
 
-    const colors = ['#2575fc', '#82D674', '#ffc107', '#fd7e14', '#dc3545'];
+    const colors = ['#2575fc', '#82D674', '#ffc107', '#fd7e14', '#dc3545', '#6f42c1', '#20c997', '#0dcaf0', '#adb5bd'];
     const doughnutChartData = {
         labels: dashboardData.doughnut.labels,
         datasets: [{
             data: dashboardData.doughnut.data,
-            backgroundColor: colors.slice(0, dashboardData.doughnut.data.length),
+            backgroundColor: dashboardData.doughnut.data.map((_, idx) => colors[idx % colors.length]),
             borderWidth: 0,
             cutout: '67%'
         }]
+    };
+
+    const linhasLegendaAreas = Math.ceil((doughnutChartData.labels || []).length / 2);
+    const alturaCardGraficos = 320 + Math.max(0, linhasLegendaAreas - 2) * 24;
+    const gridLegendaStyle = {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+        columnGap: '1rem',
+        rowGap: '0.4rem'
     };
 
     return (
@@ -269,7 +315,7 @@ const GamificacaoSLL = () => {
 
                     <div className="row g-4 mb-5">
                         <div className="col-md-5">
-                            <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4">
+                            <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4" style={{ minHeight: `${alturaCardGraficos}px` }}>
                                 <h5 className="fw-bold mb-4 text-dark">Evolução dos Pontos totais da Equipa</h5>
                                 <div style={{ height: '220px' }}>
                                     <Bar data={barChartData} options={{ responsive: true, maintainAspectRatio: false }} />
@@ -278,22 +324,20 @@ const GamificacaoSLL = () => {
                         </div>
 
                         <div className="col-md-7">
-                            <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4">
-                                <div className="row align-items-center h-100">
-                                    <div className="col-5">
-                                        <h5 className="fw-bold mb-3">Distribuição por Área da Service Line</h5>
-                                        <p className="small text-muted mb-4">Badges atribuídos atualmente</p>
-                                        <div className="d-flex flex-column gap-2 small fw-bold text-dark">
-                                            {dashboardData.doughnut.labels && dashboardData.doughnut.labels.map((lbl, idx) => {
-                                                const bgColors = ['#2575fc', '#82D674', '#ffc107', '#fd7e14', '#dc3545'];
-                                                return <div key={idx} className="d-flex align-items-center"><i className="bi bi-circle-fill me-2" style={{color: bgColors[idx]}}></i> {lbl}</div>;
-                                            })}
-                                        </div>
-                                    </div>
-                                    <div className="col-7 d-flex justify-content-center">
-                                        <div style={{ width: '220px', height: '220px' }}>
-                                            <Pie data={doughnutChartData} options={{ maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
-                                        </div>
+                            <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4" style={{ minHeight: `${alturaCardGraficos}px` }}>
+                                <h5 className="fw-bold mb-2">Distribuição por Área da Service Line</h5>
+                                <p className="small text-muted mb-3">Badges atribuídos atualmente</p>
+                                <div className="small fw-bold text-dark mb-3" style={gridLegendaStyle}>
+                                    {doughnutChartData.labels && doughnutChartData.labels.map((lbl, idx) => (
+                                        <span key={idx} className="d-inline-flex align-items-center" style={{ minWidth: 0, whiteSpace: 'nowrap' }}>
+                                            <i className="bi bi-circle-fill me-2" style={{color: colors[idx % colors.length], flex: '0 0 auto'}}></i>
+                                            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{lbl}</span>
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="d-flex justify-content-center flex-grow-1">
+                                    <div style={{ width: '240px', height: '240px' }}>
+                                        <Pie data={doughnutChartData} options={{ maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
                                     </div>
                                 </div>
                             </div>
@@ -326,8 +370,7 @@ const GamificacaoSLL = () => {
                             <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4">
                                 <h5 className="fw-bold mb-4 text-dark text-center">Badges Premium Disponíveis (SLL)</h5>
                                 
-                                {/* 3 Badges Premium Lado a Lado */}
-                                <div className="d-flex justify-content-around align-items-center mb-4 mt-3">
+                                <div className="d-flex justify-content-center align-items-start flex-wrap gap-3 mb-4 mt-3">
                                     {dashboardData.premiumBadges && dashboardData.premiumBadges.length > 0 ? (
                                         dashboardData.premiumBadges.map((b, i) => (
                                             <div key={b.id || i} className="text-center px-2">
@@ -342,7 +385,9 @@ const GamificacaoSLL = () => {
                                                         />
                                                     
                                                 </div>
-                                                <div className="small fw-bold text-dark" style={{maxWidth: '80px', wordWrap: 'break-word'}}>{b.nome}</div>
+                                                <div className="small fw-bold text-dark" style={{maxWidth: '120px', wordWrap: 'break-word'}}>{b.nome}</div>
+                                                <div className="text-muted" style={{fontSize: '11px'}}>{b.tipo || 'Conquista Especial'}</div>
+                                                <div className="fw-bold text-primary" style={{fontSize: '12px'}}>{b.pontos || 0} pts</div>
                                             </div>
                                         ))
                                     ) : (

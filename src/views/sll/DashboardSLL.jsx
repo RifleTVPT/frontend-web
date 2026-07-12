@@ -114,7 +114,7 @@ const DashboardSLL = () => {
             labels: dados.graficoDoughnut?.labels || ['Sem Badges'],
             datasets: [{
               data: dados.graficoDoughnut?.valores || [1],
-              backgroundColor: ['#2575fc', '#82D674', '#ffc107', '#fd7e14', '#dc3545'],
+              backgroundColor: ['#2575fc', '#82D674', '#ffc107', '#fd7e14', '#dc3545', '#6f42c1', '#20c997', '#0dcaf0', '#adb5bd'],
               borderWidth: 0, cutout: '67%'
             }]
           });
@@ -140,6 +140,16 @@ const DashboardSLL = () => {
   const doughnutOptions = {
     maintainAspectRatio: false,
     plugins: { legend: { display: false } }
+  };
+
+  const doughnutColors = ['#2575fc', '#82D674', '#ffc107', '#fd7e14', '#dc3545', '#6f42c1', '#20c997', '#0dcaf0', '#adb5bd'];
+  const linhasLegendaAreas = Math.ceil((doughnutData.labels || []).length / 2);
+  const alturaCardAreas = 330 + Math.max(0, linhasLegendaAreas - 2) * 24;
+  const gridLegendaAreas = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+    columnGap: '1rem',
+    rowGap: '0.4rem'
   };
 
   if (loading) return <div className="d-flex justify-content-center align-items-center vh-100"><div className="spinner-border text-primary"></div></div>;
@@ -244,7 +254,7 @@ const DashboardSLL = () => {
           <div className="row g-4 mb-4">
             {/* Alertas */}
             <div className="col-md-5">
-              <div className="card border-0 shadow-sm p-4 h-100 bg-white text-start rounded-4">
+              <div className="card border-0 shadow-sm p-4 h-100 bg-white text-start rounded-4" style={{ minHeight: `${alturaCardAreas}px` }}>
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <h5 className="fw-bold m-0">Alertas e Notificações</h5>
                   <span className="badge rounded-pill bg-primary">{alertas.length}</span>
@@ -289,22 +299,20 @@ const DashboardSLL = () => {
 
             {/* Distribuição por Área da Service Line */}
             <div className="col-md-7">
-              <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4">
-                <div className="row align-items-center h-100">
-                  <div className="col-5">
-                    <h5 className="fw-bold mb-3">Distribuição por Área da Service Line</h5>
-                    <p className="small text-muted mb-4">Badges atribuídos atualmente</p>
-                    <div className="d-flex flex-column gap-2 small fw-bold text-dark">
-                        {doughnutData.labels && doughnutData.labels.map((lbl, idx) => {
-                             const bgColors = ['#2575fc', '#82D674', '#ffc107', '#fd7e14', '#dc3545'];
-                             return <div key={idx} className="d-flex align-items-center"><i className="bi bi-circle-fill me-2" style={{color: bgColors[idx]}}></i> {lbl}</div>;
-                        })}
-                    </div>
-                  </div>
-                  <div className="col-7 d-flex justify-content-center">
-                    <div style={{ width: '220px', height: '220px' }}>
-                      {doughnutData.datasets.length > 0 && <Pie data={doughnutData} options={doughnutOptions} />}
-                    </div>
+              <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4" style={{ minHeight: `${alturaCardAreas}px` }}>
+                <h5 className="fw-bold mb-2">Distribuição por Área da Service Line</h5>
+                <p className="small text-muted mb-3">Badges atribuídos atualmente</p>
+                <div className="small fw-bold text-dark mb-3" style={gridLegendaAreas}>
+                    {doughnutData.labels && doughnutData.labels.map((lbl, idx) => (
+                      <span key={idx} className="d-inline-flex align-items-center" style={{ minWidth: 0, whiteSpace: 'nowrap' }}>
+                        <i className="bi bi-circle-fill me-2" style={{color: doughnutColors[idx % doughnutColors.length], flex: '0 0 auto'}}></i>
+                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{lbl}</span>
+                      </span>
+                    ))}
+                </div>
+                <div className="d-flex justify-content-center flex-grow-1">
+                  <div style={{ width: '240px', height: '240px' }}>
+                    {doughnutData.datasets.length > 0 && <Pie data={doughnutData} options={doughnutOptions} />}
                   </div>
                 </div>
               </div>

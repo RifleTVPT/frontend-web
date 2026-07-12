@@ -65,11 +65,6 @@ const PedidosPendentesSLL = () => {
         return () => window.clearInterval(atualizacao);
     }, [navigate]);
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        navigate('/');
-    };
-
     // ==========================================
     // MÉTODOS DE EXPORTAÇÃO
     // ==========================================
@@ -83,6 +78,14 @@ const PedidosPendentesSLL = () => {
         })));
         
         const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{
+            'Service Line': minhaSL,
+            Total: pedidosSLL.length,
+            'Aceites Total': kpis.aprovadosTotal,
+            'Rejeitados Total': kpis.rejeitadosTotal,
+            'Taxa Aprovação': `${kpis.taxaAprovacao}%`,
+            'Taxa Rejeição': `${kpis.taxaRejeicao}%`
+        }]), "Resumo");
         XLSX.utils.book_append_sheet(wb, ws, "Pedidos Pendentes");
         XLSX.writeFile(wb, `Pedidos_Pendentes_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.xlsx`);
     };
@@ -90,7 +93,7 @@ const PedidosPendentesSLL = () => {
     const exportarPDF = () => {
         if (pedidosSLL.length === 0) return alert('Sem dados para exportar no momento.');
 
-        const doc = new jsPDF('p', 'mm', 'a4');
+        const doc = new jsPDF('l', 'mm', 'a4');
         let currentY = 20;
 
         // Cabeçalho
@@ -100,6 +103,8 @@ const PedidosPendentesSLL = () => {
         doc.setTextColor(100);
         currentY += 8;
         doc.text(`Gerado em: ${new Date().toLocaleString()}`, 14, currentY);
+        currentY += 6;
+        doc.text(`Resumo: ${pedidosSLL.length} pendentes | ${kpis.aprovadosTotal} aceites | ${kpis.rejeitadosTotal} recusados | Aprovação ${kpis.taxaAprovacao}%`, 14, currentY);
         currentY += 15;
 
         // Desenhar Tabela com AutoTable
@@ -115,7 +120,7 @@ const PedidosPendentesSLL = () => {
             body: corpoTabela,
             theme: 'striped',
             headStyles: { fillColor: [93, 120, 255] },
-            styles: { fontSize: 10 }
+            styles: { fontSize: 8, overflow: 'linebreak' }
         });
 
         doc.save(`Pedidos_Pendentes_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.pdf`);

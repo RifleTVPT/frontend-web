@@ -75,11 +75,6 @@ const GestaoConsultoresSLL = () => {
         carregarDados();
     }, [navigate]);
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        navigate('/');
-    };
-
     // Lógica de Filtros para a Tabela
     const filtrados = consultoresDaSL.filter(c => 
         (pesquisa === '' || c.nome.toLowerCase().includes(pesquisa.toLowerCase())) &&
@@ -94,28 +89,47 @@ const GestaoConsultoresSLL = () => {
         .sort((a, b) => tipoRanking === 'Pontos Totais' ? b.pontos - a.pontos : b.badges - a.badges)
         .slice(0, 5);
 
+    const top5PorPontos = [...filtrados]
+        .sort((a, b) => (b.pontos || 0) - (a.pontos || 0))
+        .slice(0, 5);
+
+    const top5PorBadges = [...filtrados]
+        .sort((a, b) => (b.badges || 0) - (a.badges || 0))
+        .slice(0, 5);
+
+    const mapConsultorExport = (c, index = null) => ({
+        ...(index !== null ? { Posição: index + 1 } : {}),
+        Consultor: c.nome || '',
+        'Service Line': c.sl || minhaSL,
+        Área: c.area || '',
+        Experiência: c.experiencia || '',
+        'Total Badges': c.badges || 0,
+        'Pontos Totais': c.pontos || 0
+    });
+
     // ==========================================
     // MÉTODOS DE EXPORTAÇÃO
     // ==========================================
     const exportarExcel = () => {
         if(filtrados.length === 0) return alert('Sem dados para exportar');
-        const ws = XLSX.utils.json_to_sheet(filtrados.map(c => ({
-            Consultor: c.nome,
-            'Service Line': c.sl,
-            'Área': c.area,
-            'Experiência': c.experiencia,
-            'Total Badges': c.badges,
-            'Pontos Totais': c.pontos
-        })));
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Consultores");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{
+            'Service Line': minhaSL,
+            Pesquisa: pesquisa || 'Todas',
+            Área: areaFiltro,
+            Experiência: experienciaFiltro,
+            Total: filtrados.length
+        }]), "Filtros");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(filtrados.map(c => mapConsultorExport(c))), "Consultores");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(top5PorPontos.map((c, i) => mapConsultorExport(c, i))), "Top 5 Pontos");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(top5PorBadges.map((c, i) => mapConsultorExport(c, i))), "Top 5 Badges");
         XLSX.writeFile(wb, `Lista_Consultores_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.xlsx`);
     };
 
     const exportarPDF = () => {
         if(filtrados.length === 0) return alert('Sem dados para exportar');
 
-        const doc = new jsPDF('p', 'mm', 'a4');
+        const doc = new jsPDF('l', 'mm', 'a4');
         let currentY = 20;
 
         // Cabeçalho
@@ -124,7 +138,7 @@ const GestaoConsultoresSLL = () => {
         doc.setFontSize(10);
         doc.setTextColor(100);
         currentY += 8;
-        doc.text(`Gerado em: ${new Date().toLocaleString()} | Filtros: Área(${areaFiltro})`, 14, currentY);
+        doc.text(`Gerado em: ${new Date().toLocaleString()} | Filtros: Pesquisa(${pesquisa || 'Todas'}) Área(${areaFiltro}) Experiência(${experienciaFiltro})`, 14, currentY);
         currentY += 15;
 
         // Tabela
@@ -142,7 +156,39 @@ const GestaoConsultoresSLL = () => {
             body: corpoTabela,
             theme: 'striped',
             headStyles: { fillColor: [93, 120, 255] },
-            styles: { fontSize: 10 }
+            styles: { fontSize: 8, overflow: 'linebreak' }
+        });
+
+        doc.addPage('l');
+        doc.setFontSize(14);
+        doc.setTextColor(0);
+        doc.text('Top 5 por Pontos', 14, 15);
+        const tabelaTop = (lista) => lista.map((c, i) => [
+            `${i + 1}º`,
+            c.nome || '',
+            c.area || '',
+            c.experiencia || '',
+            c.badges || 0,
+            `${c.pontos || 0} pts`
+        ]);
+        autoTable(doc, {
+            startY: 22,
+            head: [['Posição', 'Consultor', 'Área', 'Experiência', 'Badges', 'Pontos']],
+            body: tabelaTop(top5PorPontos),
+            theme: 'grid',
+            headStyles: { fillColor: [93, 120, 255] },
+            styles: { fontSize: 8, overflow: 'linebreak' }
+        });
+
+        const nextY = doc.lastAutoTable.finalY + 14;
+        doc.text('Top 5 por Número de Badges', 14, nextY);
+        autoTable(doc, {
+            startY: nextY + 7,
+            head: [['Posição', 'Consultor', 'Área', 'Experiência', 'Badges', 'Pontos']],
+            body: tabelaTop(top5PorBadges),
+            theme: 'grid',
+            headStyles: { fillColor: [93, 120, 255] },
+            styles: { fontSize: 8, overflow: 'linebreak' }
         });
 
         doc.save(`Lista_Consultores_${minhaSL.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.pdf`);
