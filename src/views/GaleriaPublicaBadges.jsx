@@ -5,6 +5,7 @@ import PerfilConsultorModal from '../components/PerfilConsultorModal';
 import { getApiOrigin, resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../utils/publicBadgeImage';
 import { abrirPartilhaLinkedIn } from '../utils/linkedinShare';
 import AvatarUtilizador from '../components/AvatarUtilizador';
+import '../assets/public-pages.css';
 
 const GaleriaPublicaBadges = () => {
     const navigate = useNavigate();
@@ -87,31 +88,31 @@ const GaleriaPublicaBadges = () => {
     });
 
     return (
-        <div className="dashboard-scroll" style={{ backgroundColor: '#F4F5F9', minHeight: '100vh', width: '100%' }}>
-            <div className="container-fluid bg-white rounded-4 shadow-sm p-0">
+        <div className="dashboard-scroll public-page">
+            <div className="container-fluid public-gallery-shell p-0">
                 
-                <div className="p-4 text-white d-flex justify-content-between align-items-center" style={{ backgroundColor: '#5D78FF', borderTopLeftRadius: '1rem', borderTopRightRadius: '1rem' }}>
-                    <h2 className="fw-bold m-0">SOFT<span className="text-info">I</span>NSA</h2>
+                <div className="public-topbar">
+                    <h2 className="public-brand">SOFT<span className="text-info">I</span>NSA</h2>
                     <div className="d-flex align-items-center gap-2">
                         <i className="bi bi-person-circle fs-3"></i>
                         <span className="fw-bold">{consultor.nome}</span>
                     </div>
                 </div>
 
-                <div className="p-4 p-md-5">
-                    <div className="d-flex justify-content-between align-items-center mb-5 text-start flex-wrap gap-3">
-                        <h2 className="fw-bold text-dark m-0">Galeria Pública de Badges - {consultor.nome}</h2>
-                        <div className="d-flex align-items-center gap-2 flex-wrap">
+                <div className="public-content">
+                    <div className="public-title-row text-start">
+                        <h2 className="public-title">Galeria Pública de Badges - {consultor.nome}</h2>
+                        <div className="public-actions">
                             <a
                                 href="https://www.softinsa.pt/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="btn btn-outline-primary rounded-pill px-4 fw-bold"
+                                className="btn btn-outline-primary rounded-pill px-4 fw-bold public-action-btn"
                             >
                                 <i className="bi bi-building me-2"></i>Conheça a Softinsa
                             </a>
                             <div className="dropdown">
-                                <button className="btn btn-primary rounded-pill px-4 fw-bold shadow-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style={{backgroundColor: '#5D78FF'}}>
+                                <button className="btn btn-primary rounded-pill px-4 fw-bold shadow-sm dropdown-toggle public-action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" style={{backgroundColor: '#5D78FF'}}>
                                     <i className="bi bi-share-fill me-2"></i>Partilhar Perfil Completo
                                 </button>
                                 <ul className="dropdown-menu shadow border-0 mt-2 rounded-3">
@@ -124,7 +125,7 @@ const GaleriaPublicaBadges = () => {
 
                     <div className="row g-5 text-start">
                         <div className="col-lg-4">
-                            <div className="card border-primary p-4 p-md-5 rounded-4 h-100 text-center shadow-sm bg-white">
+                            <div className="public-profile-card">
                                 <div className="mb-4 d-flex justify-content-center">
                                     <AvatarUtilizador nome={consultor.nome} foto={consultor.urlFoto} tamanho={150} />
                                 </div>
@@ -132,16 +133,16 @@ const GaleriaPublicaBadges = () => {
                                 <p className="text-muted small mb-1">{consultor.cargo}</p>
                                 <p className="text-muted small">{consultor.serviceLine}</p>
                                 
-                                <div className="mt-5">
-                                    <div className="border p-3 rounded-3 mb-3 shadow-sm bg-white">
+                                <div className="public-stat-list">
+                                    <div className="public-stat">
                                         <div className="small text-muted fw-bold">Classificação Global</div>
                                         <div className="h5 fw-bold text-primary m-0">#{consultor.ranking} de {consultor.totalConsultores}</div>
                                     </div>
-                                    <div className="border p-3 rounded-3 mb-3 shadow-sm bg-white">
+                                    <div className="public-stat">
                                         <div className="small text-muted fw-bold">Badges Ativos</div>
                                         <div className="h5 fw-bold text-primary m-0">{consultor.totalBadges} Badges</div>
                                     </div>
-                                    <div className="border p-3 rounded-3 mb-3 shadow-sm bg-white">
+                                    <div className="public-stat">
                                         <div className="small text-muted fw-bold">Pontos Totais</div>
                                         <div className="h5 fw-bold text-primary m-0">{consultor.pontosTotais} Pontos</div>
                                     </div>
@@ -151,26 +152,26 @@ const GaleriaPublicaBadges = () => {
                         </div>
 
                         <div className="col-lg-8 border rounded-4 p-4 bg-white shadow-sm">
-                            <div className="d-flex flex-wrap gap-3 mb-5 justify-content-end align-items-center">
-                                <div className="form-check form-switch me-2">
+                            <div className="public-gallery-filters">
+                                <div className="form-check form-switch">
                                     <input className="form-check-input shadow-sm" type="checkbox" id="flexSwitchCheckEspeciais" checked={mostrarEspeciais} onChange={(e) => setMostrarEspeciais(e.target.checked)} />
                                     <label className="form-check-label fw-bold text-secondary" htmlFor="flexSwitchCheckEspeciais">
                                         Mostrar Conquistas Especiais
                                     </label>
                                 </div>
-                                <select className="form-select w-auto border-0 shadow-sm" value={selectedServiceLine} onChange={(e) => { setSelectedServiceLine(e.target.value); setSelectedArea('Todas'); setSelectedNivel('Todos'); }}>
+                                <select className="form-select border-0 shadow-sm" value={selectedServiceLine} onChange={(e) => { setSelectedServiceLine(e.target.value); setSelectedArea('Todas'); setSelectedNivel('Todos'); }}>
                                     <option value="Todas">Todas as Service Lines</option>
                                     {estrutura.serviceLines.map(sl => (
                                         <option key={sl.id} value={sl.nome}>{sl.nome}</option>
                                     ))}
                                 </select>
-                                <select className="form-select w-auto border-0 shadow-sm" value={selectedArea} onChange={(e) => { setSelectedArea(e.target.value); setSelectedNivel('Todos'); }} disabled={selectedServiceLine === 'Todas'}>
+                                <select className="form-select border-0 shadow-sm" value={selectedArea} onChange={(e) => { setSelectedArea(e.target.value); setSelectedNivel('Todos'); }} disabled={selectedServiceLine === 'Todas'}>
                                     <option value="Todas">Todas as Áreas</option>
                                     {areasDisponiveis.map(a => (
                                         <option key={a.id} value={a.nome}>{a.nome}</option>
                                     ))}
                                 </select>
-                                <select className="form-select w-auto border-0 shadow-sm" value={selectedNivel} onChange={(e) => setSelectedNivel(e.target.value)} disabled={selectedArea === 'Todas'}>
+                                <select className="form-select border-0 shadow-sm" value={selectedNivel} onChange={(e) => setSelectedNivel(e.target.value)} disabled={selectedArea === 'Todas'}>
                                     <option value="Todos">Todos os Níveis</option>
                                     {todosNiveis.map(n => (
                                         <option key={n} value={n}>Nível {n}</option>
@@ -190,7 +191,7 @@ const GaleriaPublicaBadges = () => {
                                                      navigate(`/verificacao-especial/${idUtilizador}/${b.id}`);
                                                  }
                                              }}>
-                                            <div className="d-flex gap-4 align-items-center mb-3">
+                                            <div className="public-badge-card-main">
                                                 {b.tipoBadge === 'Especial' ? (
                                                     <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm overflow-hidden" 
                                                          style={{ width: '80px', height: '80px', flexShrink: 0, backgroundColor: '#F9F1DC', border: '3px solid #D4AF37' }}>

@@ -1,0 +1,260 @@
+.public-page {
+  background-color: #f4f5f9;
+  min-height: 100vh;
+  padding: 3rem;
+  width: 100%;
+}
+
+.public-shell {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2.5rem rgba(15, 23, 42, 0.12);
+  margin: 0 auto 3rem;
+  overflow: hidden;
+}
+
+.public-topbar {
+  align-items: center;
+  background-color: #5d78ff;
+  color: #fff;
+  display: flex;
+  gap: 1.25rem;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+.public-brand {
+  flex: 0 0 auto;
+  font-size: clamp(1.45rem, 4vw, 2rem);
+  font-weight: 800;
+  line-height: 1;
+  margin: 0;
+}
+
+.public-topbar-title {
+  flex: 1 1 auto;
+  font-weight: 700;
+  line-height: 1.25;
+  min-width: 0;
+  text-align: right;
+}
+
+.public-content {
+  padding: 3rem;
+}
+
+.public-title-row {
+  align-items: flex-start;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.public-title {
+  color: #111827;
+  font-size: clamp(1.55rem, 4vw, 2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0;
+  min-width: 0;
+}
+
+.public-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: .75rem;
+  justify-content: flex-end;
+}
+
+.public-action-btn {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  min-height: 44px;
+  white-space: normal;
+}
+
+.public-profile-card,
+.public-detail-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 .25rem 1rem rgba(15, 23, 42, 0.08);
+}
+
+.public-profile-card {
+  border: 1px solid #5d78ff;
+  height: 100%;
+  padding: 3rem;
+  text-align: center;
+}
+
+.public-detail-card {
+  border: 1px solid rgba(93, 120, 255, 0.3);
+  padding: 3rem;
+}
+
+.public-stat-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.public-stat {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: .75rem;
+  box-shadow: 0 .2rem .7rem rgba(15, 23, 42, 0.08);
+  padding: 1rem;
+}
+
+.public-meta-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.public-meta-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.public-meta-item {
+  border-right: 1px solid #dee2e6;
+  min-width: 0;
+  padding: 0 .75rem;
+  overflow-wrap: anywhere;
+}
+
+.public-meta-item:last-child {
+  border-right: 0;
+}
+
+.public-gallery-shell {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 .25rem 1rem rgba(15, 23, 42, 0.08);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.public-gallery-filters {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+  margin-bottom: 3rem;
+}
+
+.public-gallery-filters .form-select {
+  max-width: 100%;
+  min-width: 190px;
+  width: auto;
+}
+
+.public-badge-card-main {
+  align-items: center;
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 991.98px) {
+  .public-page {
+    padding: 1.5rem;
+  }
+
+  .public-content {
+    padding: 2rem;
+  }
+
+  .public-title-row {
+    flex-direction: column;
+  }
+
+  .public-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .public-page {
+    padding: .75rem;
+  }
+
+  .public-shell,
+  .public-gallery-shell {
+    border-radius: .75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .public-topbar {
+    gap: .75rem;
+    padding: 1.25rem;
+  }
+
+  .public-brand {
+    font-size: 1.55rem;
+  }
+
+  .public-topbar-title {
+    font-size: .9rem;
+    text-align: left;
+  }
+
+  .public-content {
+    padding: 1.5rem;
+  }
+
+  .public-actions,
+  .public-actions .btn,
+  .public-actions .dropdown,
+  .public-actions .dropdown-toggle {
+    width: 100%;
+  }
+
+  .public-action-btn {
+    min-height: 46px;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    width: 100%;
+  }
+
+  .public-profile-card,
+  .public-detail-card {
+    padding: 1.5rem;
+  }
+
+  .public-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .public-meta-grid--two {
+    grid-template-columns: 1fr;
+  }
+
+  .public-meta-item {
+    border-bottom: 1px solid #dee2e6;
+    border-right: 0;
+    padding: 0 0 1rem;
+  }
+
+  .public-meta-item:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .public-gallery-filters,
+  .public-gallery-filters .form-check,
+  .public-gallery-filters .form-select {
+    width: 100%;
+  }
+
+  .public-badge-card-main {
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

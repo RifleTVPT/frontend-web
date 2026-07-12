@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../utils/publicBadgeImage';
 import AvatarUtilizador from '../components/AvatarUtilizador';
+import '../assets/public-pages.css';
 const VerificacaoBadgeUnico = () => {
     const { linkUnico } = useParams();
     const [data, setData] = useState(null);
@@ -34,27 +35,27 @@ const VerificacaoBadgeUnico = () => {
     const nivelNameMap = {'A':'Júnior', 'B':'Intermédio', 'C':'Sénior', 'D':'Especialista', 'E':'Líder de Conhecimento'};
 
     return (
-        <div className="dashboard-scroll" style={{ backgroundColor: '#F4F5F9', minHeight: '100vh', padding: '3rem' }}>
-            <div className="container bg-white rounded-4 shadow p-0 mb-5">
-                <div className="p-4 text-white d-flex justify-content-between align-items-center" style={{ backgroundColor: '#5D78FF', borderTopLeftRadius: '1rem', borderTopRightRadius: '1rem' }}>
-                    <h2 className="fw-bold m-0">SOFT<span className="text-info">I</span>NSA</h2>
-                    <span className="fw-bold pe-3">Verificação de Badge Digital</span>
+        <div className="dashboard-scroll public-page">
+            <div className="container public-shell p-0">
+                <div className="public-topbar">
+                    <h2 className="public-brand">SOFT<span className="text-info">I</span>NSA</h2>
+                    <span className="public-topbar-title">Verificação de Badge Digital</span>
                 </div>
 
-                <div className="p-5 text-start">
-                    <div className="d-flex justify-content-between align-items-center mb-5">
-                        <h2 className="fw-bold m-0 text-dark">Verificação Individual de Badge - {consultor.nome}</h2>
-                        <div className="d-flex gap-2">
-                            <a href="https://www.softinsa.pt/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary rounded-pill px-4 fw-bold">
+                <div className="public-content text-start">
+                    <div className="public-title-row">
+                        <h2 className="public-title">Verificação Individual de Badge - {consultor.nome}</h2>
+                        <div className="public-actions">
+                            <a href="https://www.softinsa.pt/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary rounded-pill px-4 fw-bold public-action-btn">
                                 Conheça a Softinsa
                             </a>
-                            <Link to={`/galeria/${consultor.idUtilizador}`} className="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" style={{backgroundColor: '#5D78FF'}}>Ver Galeria Completa</Link>
+                            <Link to={`/galeria/${consultor.idUtilizador}`} className="btn btn-primary rounded-pill px-4 fw-bold shadow-sm public-action-btn" style={{backgroundColor: '#5D78FF'}}>Ver Galeria Completa</Link>
                         </div>
                     </div>
 
                     <div className="row g-5">
                         <div className="col-md-4">
-                            <div className="card border-primary p-5 rounded-4 h-100 text-center shadow-sm bg-white">
+                            <div className="public-profile-card">
                                 <div className="mb-4 d-flex justify-content-center">
                                     <AvatarUtilizador nome={consultor.nome} foto={consultor.urlFoto} tamanho={120} />
                                 </div>
@@ -62,16 +63,16 @@ const VerificacaoBadgeUnico = () => {
                                 <p className="text-muted small mb-1">{consultor.cargo}</p>
                                 <p className="text-muted small">{consultor.serviceLine}</p>
                                 
-                                <div className="mt-4">
-                                    <div className="border p-3 rounded-3 mb-3 shadow-sm bg-white">
+                                <div className="public-stat-list">
+                                    <div className="public-stat">
                                         <div className="small text-muted fw-bold">Classificação Global</div>
                                         <div className="h5 fw-bold text-primary m-0">#{consultor.ranking} de {consultor.totalConsultores}</div>
                                     </div>
-                                    <div className="border p-3 rounded-3 mb-3 shadow-sm bg-white">
+                                    <div className="public-stat">
                                         <div className="small text-muted fw-bold">Badges Ativos</div>
                                         <div className="h5 fw-bold text-primary m-0">{consultor.totalBadges} Badges</div>
                                     </div>
-                                    <div className="border p-3 rounded-3 shadow-sm bg-white">
+                                    <div className="public-stat">
                                         <div className="small text-muted fw-bold">Pontos Totais</div>
                                         <div className="h5 fw-bold text-primary m-0">{consultor.pontosTotais} Pontos</div>
                                     </div>
@@ -79,7 +80,8 @@ const VerificacaoBadgeUnico = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-8 border rounded-4 p-5 bg-white shadow-sm">
+                        <div className="col-md-8">
+                          <div className="public-detail-card">
                             <div className="text-center mb-5">
                                 <div className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden mb-3 shadow-sm position-relative bg-light" style={{width: '180px', height: '180px'}}>
                                   <img 
@@ -98,10 +100,10 @@ const VerificacaoBadgeUnico = () => {
                                 </div>
                             </div>
 
-                            <div className="row text-center mb-5">
-                                <div className="col-4 border-end"><strong>ID do Badge:</strong><br/><span className="text-muted">{badge.codigo}</span></div>
-                                <div className="col-4 border-end"><strong>Emissão:</strong><br/><span className="text-muted">{badge.dataEmissao}</span></div>
-                                <div className="col-4"><strong>Expiração:</strong><br/>
+                            <div className="public-meta-grid">
+                                <div className="public-meta-item"><strong>ID do Badge:</strong><br/><span className="text-muted">{badge.codigo}</span></div>
+                                <div className="public-meta-item"><strong>Emissão:</strong><br/><span className="text-muted">{badge.dataEmissao}</span></div>
+                                <div className="public-meta-item"><strong>Expiração:</strong><br/>
                                   <span className={`badge px-3 py-2 ${badge.dataExpiracao === 'N/A' ? 'bg-success bg-opacity-25 text-success' : 'bg-danger bg-opacity-25 text-danger'}`}>
                                       {badge.dataExpiracao === 'N/A' ? 'Sem expiração' : badge.dataExpiracao}
                                   </span>
@@ -122,6 +124,7 @@ const VerificacaoBadgeUnico = () => {
                                     );
                                 })}
                             </ul>
+                          </div>
                         </div>
                     </div>
                 </div>

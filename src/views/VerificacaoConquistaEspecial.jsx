@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { resolvePublicBadgeImage, useDefaultBadgeImageOnError } from '../utils/publicBadgeImage';
 import AvatarUtilizador from '../components/AvatarUtilizador';
+import '../assets/public-pages.css';
 
 const VerificacaoConquistaEspecial = () => {
     const { idUtilizador, idMarco } = useParams();
@@ -32,27 +33,27 @@ const VerificacaoConquistaEspecial = () => {
     const { consultor, conquista } = data;
 
     return (
-        <div className="dashboard-scroll" style={{ backgroundColor: '#F4F5F9', minHeight: '100vh', padding: '3rem' }}>
-            <div className="container bg-white rounded-4 shadow p-0 mb-5">
-                <div className="p-4 text-white d-flex justify-content-between align-items-center" style={{ backgroundColor: '#5D78FF', borderTopLeftRadius: '1rem', borderTopRightRadius: '1rem' }}>
-                    <h2 className="fw-bold m-0">SOFT<span className="text-info">I</span>NSA</h2>
-                    <span className="fw-bold pe-3">Verificação de Conquista Especial</span>
+        <div className="dashboard-scroll public-page">
+            <div className="container public-shell p-0">
+                <div className="public-topbar">
+                    <h2 className="public-brand">SOFT<span className="text-info">I</span>NSA</h2>
+                    <span className="public-topbar-title">Verificação de Conquista Especial</span>
                 </div>
 
-                <div className="p-5 text-start">
-                    <div className="d-flex justify-content-between align-items-center mb-5">
-                        <h2 className="fw-bold m-0 text-dark">Conquista Especial - {consultor.nome}</h2>
-                        <div className="d-flex gap-2 flex-wrap">
-                            <a href="https://www.softinsa.pt/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary rounded-pill px-4 fw-bold">
+                <div className="public-content text-start">
+                    <div className="public-title-row">
+                        <h2 className="public-title">Conquista Especial - {consultor.nome}</h2>
+                        <div className="public-actions">
+                            <a href="https://www.softinsa.pt/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary rounded-pill px-4 fw-bold public-action-btn">
                                 Conheça a Softinsa
                             </a>
-                            <Link to={`/galeria/${consultor.idUtilizador}`} className="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" style={{backgroundColor: '#5D78FF'}}>Ver Galeria Completa</Link>
+                            <Link to={`/galeria/${consultor.idUtilizador}`} className="btn btn-primary rounded-pill px-4 fw-bold shadow-sm public-action-btn" style={{backgroundColor: '#5D78FF'}}>Ver Galeria Completa</Link>
                         </div>
                     </div>
 
                     <div className="row g-5">
                         <div className="col-md-4">
-                            <div className="card border-primary p-5 rounded-4 h-100 text-center shadow-sm bg-white">
+                            <div className="public-profile-card">
                                 <div className="mb-4 d-flex justify-content-center">
                                     <AvatarUtilizador nome={consultor.nome} foto={consultor.urlFoto} tamanho={120} />
                                 </div>
@@ -60,16 +61,16 @@ const VerificacaoConquistaEspecial = () => {
                                 <p className="text-muted small mb-1">{consultor.cargo}</p>
                                 <p className="text-muted small">{consultor.serviceLine}</p>
                                 
-                                <div className="mt-4">
-                                    <div className="border p-3 rounded-3 mb-3 shadow-sm bg-white">
+                                <div className="public-stat-list">
+                                    <div className="public-stat">
                                         <div className="small text-muted fw-bold">Classificação Global</div>
                                         <div className="h5 fw-bold text-dark m-0">#{consultor.ranking} de {consultor.totalConsultores}</div>
                                     </div>
-                                    <div className="border p-3 rounded-3 mb-3 shadow-sm bg-white">
+                                    <div className="public-stat">
                                         <div className="small text-muted fw-bold">Badges Ativos</div>
                                         <div className="h5 fw-bold text-dark m-0">{consultor.totalBadges} Badges</div>
                                     </div>
-                                    <div className="border p-3 rounded-3 shadow-sm bg-white">
+                                    <div className="public-stat">
                                         <div className="small text-muted fw-bold">Pontos Totais</div>
                                         <div className="h5 fw-bold text-dark m-0">{consultor.pontosTotais} Pontos</div>
                                     </div>
@@ -77,7 +78,8 @@ const VerificacaoConquistaEspecial = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-8 border rounded-4 p-5 bg-white shadow-sm">
+                        <div className="col-md-8">
+                          <div className="public-detail-card">
                             <div className="text-center mb-5">
                                 <div className="bg-white rounded-circle shadow-sm mx-auto mb-4 mt-3 d-flex align-items-center justify-content-center overflow-hidden" style={{width: '180px', height: '180px', border: '3px solid #D4AF37', backgroundColor: '#F9F1DC'}}>
                                     <img
@@ -95,9 +97,9 @@ const VerificacaoConquistaEspecial = () => {
                                 </div>
                             </div>
 
-                            <div className="row text-center mb-5 justify-content-center">
-                                <div className="col-6 border-end"><strong>ID da Conquista:</strong><br/><span className="text-muted">ESP-{conquista.id}</span></div>
-                                <div className="col-6"><strong>Data de Obtenção:</strong><br/><span className="text-muted">{conquista.dataEmissao}</span></div>
+                            <div className="public-meta-grid public-meta-grid--two">
+                                <div className="public-meta-item"><strong>ID da Conquista:</strong><br/><span className="text-muted">ESP-{conquista.id}</span></div>
+                                <div className="public-meta-item"><strong>Data de Obtenção:</strong><br/><span className="text-muted">{conquista.dataEmissao}</span></div>
                             </div>
 
                             <div className="text-center px-4 py-4 rounded-4" style={{ backgroundColor: '#F8F9FA', borderLeft: '5px solid #D4AF37' }}>
@@ -106,6 +108,7 @@ const VerificacaoConquistaEspecial = () => {
                                     "{conquista.descricao}"
                                 </p>
                             </div>
+                          </div>
                         </div>
                     </div>
                 </div>
