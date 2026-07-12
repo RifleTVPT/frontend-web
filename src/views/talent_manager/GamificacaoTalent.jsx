@@ -130,6 +130,22 @@ const GamificacaoTalent = () => {
         }]
     };
 
+    const legendasGraficos = Math.max(barData.datasets.length, pieData.labels.length);
+    const linhasLegenda = Math.ceil(legendasGraficos / 2);
+    const alturaCardGraficos = 350 + Math.max(0, linhasLegenda - 2) * 24;
+
+    const gridLegendaStyle = {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+        columnGap: '1rem',
+        rowGap: '0.4rem'
+    };
+
+    const itemLegendaStyle = {
+        minWidth: 0,
+        whiteSpace: 'nowrap'
+    };
+
     // Preenche o seu array de rankingMock automaticamente com o Top 5
     const rankingMock = dadosApi.rankingCompleto.slice(0, 5).map((r, index) => ({
         pos: `${index + 1}º`,
@@ -183,33 +199,38 @@ const GamificacaoTalent = () => {
                     {/* 2. GRÁFICOS */}
                     <div className="row g-4 mb-5">
                         <div className="col-md-6">
-                            <div className="card border-0 shadow-sm p-4 h-100 rounded-3 bg-white">
+                            <div className="card border-0 shadow-sm p-4 h-100 rounded-3 bg-white" style={{ minHeight: `${alturaCardGraficos}px` }}>
                                 <h6 className="fw-bold m-0">Evolução dos Pontos totais</h6>
-                                <small className="text-muted d-block mb-4">Evolução dos pontos totais das Service Lines ao longo dos últimos 4 meses</small>
-                                <div style={{ height: '280px' }}>
-                                    <Bar data={barData} options={{ responsive: true, maintainAspectRatio: false }} />
+                                <small className="text-muted d-block mb-3">Evolução dos pontos totais das Service Lines ao longo dos últimos 4 meses</small>
+                                <div className="small fw-bold mb-3" style={gridLegendaStyle}>
+                                    {barData.datasets.map((ds, idx) => (
+                                        <span key={idx} className="d-inline-flex align-items-center" style={itemLegendaStyle}>
+                                            <span className="d-inline-block rounded-1 me-2" style={{ width: 18, height: 10, backgroundColor: ds.backgroundColor, flex: '0 0 auto' }}></span>
+                                            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{ds.label}</span>
+                                        </span>
+                                    ))}
+                                </div>
+                                <div style={{ height: '280px', flex: '1 1 auto' }}>
+                                    <Bar data={barData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <div className="card border-0 shadow-sm p-4 h-100 rounded-3 bg-white">
-                                <h6 className="fw-bold mb-4">Badges por Service Line</h6>
-                                <div className="row align-items-center">
-                                    <div className="col-7">
-                                        <div className="mt-3" style={{ height: '240px' }}>
+                            <div className="card border-0 shadow-sm p-4 h-100 rounded-3 bg-white" style={{ minHeight: `${alturaCardGraficos}px` }}>
+                                <h6 className="fw-bold mb-3">Badges por Service Line</h6>
+                                <div className="small fw-bold mb-3" style={gridLegendaStyle}>
+                                    {pieData.labels.map((label, idx) => (
+                                        <span key={idx} className="d-inline-flex align-items-center" style={itemLegendaStyle}>
+                                            <i className="bi bi-circle-fill me-2" style={{color: pieData.datasets[0].backgroundColor[idx % pieData.datasets[0].backgroundColor.length], flex: '0 0 auto'}}></i>
+                                            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{label}</span>
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="row align-items-center flex-grow-1">
+                                    <div className="col-12">
+                                        <div className="mt-2 mx-auto" style={{ height: '260px', maxWidth: '360px' }}>
                                             <Pie data={pieData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
                                         </div>
-                                    </div>
-                                    <div className="col-5">
-                                        <ul className="list-unstyled small">
-                                            {/* Dinâmico baseado nas labels que vierem da API */}
-                                            {pieData.labels.map((label, idx) => (
-                                                <li key={idx} className="mb-2">
-                                                    <i className="bi bi-circle-fill me-2" style={{color: pieData.datasets[0].backgroundColor[idx]}}></i> 
-                                                    {label}
-                                                </li>
-                                            ))}
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
