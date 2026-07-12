@@ -341,14 +341,11 @@ const PerfilUtilizadorAdmin = () => {
                                         <label className="small fw-bold text-muted text-uppercase">Área Favorita (Consultor):</label>
                                         {editMode ? (
                                             <select className="form-select bg-light border-0 py-2 mt-1" value={tempUser.area || 'N/A'} onChange={(e) => setTempUser({...tempUser, area: e.target.value})}>
+                                                <option value="N/A">Selecione a Área</option>
                                                 {estrutura.areas.filter(a => {
                                                     const slObj = estrutura.serviceLines.find(s => s.nome === tempUser.sl);
                                                     return slObj && a.slId === slObj.id;
                                                 }).map(a => <option key={a.id} value={a.nome}>{a.nome}</option>)}
-                                                {estrutura.areas.filter(a => {
-                                                    const slObj = estrutura.serviceLines.find(s => s.nome === tempUser.sl);
-                                                    return slObj && a.slId === slObj.id;
-                                                }).length === 0 && <option value="N/A">N/A</option>}
                                             </select>
                                         ) : <p className="text-dark fw-bold fs-5 mt-1">{user.area}</p>}
                                     </div>

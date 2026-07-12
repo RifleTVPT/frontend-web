@@ -94,7 +94,7 @@ const EstruturaGlobalAdmin = () => {
             carregarDados();
         } catch (error) {
             console.error(error);
-            alert("Erro ao eliminar nível.");
+            alert(error.response?.data?.message || "Erro ao eliminar nível.");
         }
     };
 
