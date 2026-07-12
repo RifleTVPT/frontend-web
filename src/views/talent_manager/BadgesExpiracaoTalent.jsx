@@ -171,6 +171,8 @@ const BadgesExpiracaoTalent = () => {
     // ==============================================
     // LÓGICA DE EXPORTAÇÃO
     // ==============================================
+    const resumoFiltros = () => `Filtros: Service Line (${serviceLine}) | Área (${area}) | Níveis (${niveisAtivos.length ? niveisAtivos.join(', ') : 'Todos'}) | Período (${periodo === 'Todas' ? 'Todos' : `Próximos ${parseInt(periodo) * 30} dias`})`;
+
     const exportarPDF = () => {
         if (dadosFiltrados.length === 0) {
             alert("Não existem dados para exportar.");
@@ -183,6 +185,7 @@ const BadgesExpiracaoTalent = () => {
             doc.setFontSize(10);
             doc.setTextColor(100);
             doc.text(`Gerado a: ${new Date().toLocaleDateString('pt-PT')} | Total: ${dadosFiltrados.length} registos`, 14, 28);
+            doc.text(resumoFiltros(), 14, 35);
 
             const body = dadosFiltrados.map(item => [
                 String(item.consultor),
@@ -194,10 +197,11 @@ const BadgesExpiracaoTalent = () => {
             ]);
 
             autoTable(doc, {
-                startY: 35,
+                startY: 42,
                 head: [['Consultor', 'Service Line', 'Badge', 'Data Atribuição', 'Data Expiração', 'Tempo Restante']],
                 body: body,
                 theme: 'grid',
+                styles: { fontSize: 8, overflow: 'linebreak' },
                 headStyles: { fillColor: [52, 101, 157] } 
             });
 
@@ -224,6 +228,14 @@ const BadgesExpiracaoTalent = () => {
             }));
 
             const wb = XLSX.utils.book_new();
+            const wsFiltros = XLSX.utils.json_to_sheet([{
+                'Service Line': serviceLine,
+                'Área': area,
+                'Níveis': niveisAtivos.length ? niveisAtivos.join(', ') : 'Todos',
+                'Período': periodo === 'Todas' ? 'Todos' : `Próximos ${parseInt(periodo) * 30} dias`,
+                'Total Exportado': dadosFiltrados.length
+            }]);
+            XLSX.utils.book_append_sheet(wb, wsFiltros, "Filtros");
             const ws = XLSX.utils.json_to_sheet(body);
             XLSX.utils.book_append_sheet(wb, ws, "Expirações");
             

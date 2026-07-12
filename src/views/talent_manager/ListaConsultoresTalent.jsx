@@ -79,11 +79,6 @@ const ListaConsultoresTalent = () => {
         fetchDados();
     }, [navigate]);
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        navigate('/');
-    };
-
     // Extração Dinâmica de Filtros a partir da API
     const uniqueServiceLines = ['Todas', ...(estrutura.serviceLines || []).map(sl => sl.nome)];
     const uniqueAreas = ['Todas', ...(estrutura.areas || [])
@@ -106,46 +101,79 @@ const ListaConsultoresTalent = () => {
         .sort((a, b) => tipoRanking === 'Pontos Totais' ? b.pontos - a.pontos : b.badges - a.badges)
         .slice(0, 5);
 
+    const top5PorPontos = [...consultoresBase]
+        .sort((a, b) => (b.pontos || 0) - (a.pontos || 0))
+        .slice(0, 5);
+
+    const top5PorBadges = [...consultoresBase]
+        .sort((a, b) => (b.badges || 0) - (a.badges || 0))
+        .slice(0, 5);
+
+    const mapConsultorExport = (c, index = null) => ({
+        ...(index !== null ? { Posição: index + 1 } : {}),
+        Consultor: c.nome || '',
+        'Service Line': c.sl || '',
+        'Área': c.area || '',
+        'Total Badges': c.badges || 0,
+        'Pontos Totais': c.pontos || 0
+    });
+
     // Exportação Opcional
     const exportarExcel = () => {
         if(listaFiltradaGeral.length === 0) return alert('Sem dados para exportar');
-        const ws = XLSX.utils.json_to_sheet(listaFiltradaGeral.map(c => ({
-            Consultor: c.nome,
-            'Service Line': c.sl,
-            'Área': c.area,
-            'Total Badges': c.badges,
-            'Pontos Totais': c.pontos
-        })));
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Consultores");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(listaFiltradaGeral.map(c => mapConsultorExport(c))), "Consultores");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(top5PorPontos.map((c, i) => mapConsultorExport(c, i))), "Top 5 Pontos");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(top5PorBadges.map((c, i) => mapConsultorExport(c, i))), "Top 5 Badges");
         XLSX.writeFile(wb, `Lista_Consultores_${new Date().toISOString().slice(0,10)}.xlsx`);
     };
 
     const exportarPDF = () => {
         if(listaFiltradaGeral.length === 0) return alert('Sem dados para exportar');
         
-        const doc = new jsPDF();
+        const doc = new jsPDF('l', 'mm', 'a4');
         doc.text(`Lista de Consultores Ativos`, 14, 15);
+        doc.setFontSize(10);
+        doc.text(`Filtros: Service Line (${slFiltro}) | Área (${areaFiltro}) | Pesquisa (${pesquisa || 'Todas'})`, 14, 22);
         
         const tableColumn = ["Consultor", "Service Line", "Área", "Badges", "Pontos"];
-        const tableRows = [];
-
-        listaFiltradaGeral.forEach(item => {
-            tableRows.push([
-                item.nome || '',
-                item.sl || '',
-                item.area || '',
-                item.badges ? item.badges.toString() : '0',
-                item.pontos ? item.pontos.toString() : '0'
-            ]);
-        });
+        const toRows = (lista) => lista.map(item => [
+            item.nome || '',
+            item.sl || '',
+            item.area || '',
+            item.badges ? item.badges.toString() : '0',
+            item.pontos ? item.pontos.toString() : '0'
+        ]);
 
         autoTable(doc, {
             head: [tableColumn],
-            body: tableRows,
-            startY: 20,
+            body: toRows(listaFiltradaGeral),
+            startY: 28,
             theme: 'grid',
-            styles: { fontSize: 8 },
+            styles: { fontSize: 8, overflow: 'linebreak' },
+            headStyles: { fillColor: [93, 120, 255] }
+        });
+
+        doc.addPage('l');
+        doc.setFontSize(14);
+        doc.text('Top 5 por Pontos', 14, 15);
+        autoTable(doc, {
+            head: [['#', ...tableColumn]],
+            body: top5PorPontos.map((c, i) => [`${i + 1}º`, ...toRows([c])[0]]),
+            startY: 22,
+            theme: 'grid',
+            styles: { fontSize: 8, overflow: 'linebreak' },
+            headStyles: { fillColor: [93, 120, 255] }
+        });
+
+        const nextY = doc.lastAutoTable.finalY + 14;
+        doc.text('Top 5 por Número de Badges', 14, nextY);
+        autoTable(doc, {
+            head: [['#', ...tableColumn]],
+            body: top5PorBadges.map((c, i) => [`${i + 1}º`, ...toRows([c])[0]]),
+            startY: nextY + 7,
+            theme: 'grid',
+            styles: { fontSize: 8, overflow: 'linebreak' },
             headStyles: { fillColor: [93, 120, 255] }
         });
 

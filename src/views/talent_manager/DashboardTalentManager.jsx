@@ -345,14 +345,17 @@ const DashboardTalentManager = () => {
 
           {/* Quarta Linha: Ranking de Service Lines */}
           <div className="card border-0 shadow-sm p-4 text-start bg-white mb-5">
-            <h6 className="fw-bold mb-3">Top 5 Service Lines (últimos 30 dias)</h6>
+            <h6 className="fw-bold mb-1">Top 5 Service Lines</h6>
+            <div className="small text-muted mb-3">
+              Pontuação calculada por badges da SL + badges premium dos consultores da SL
+            </div>
             <div className="table-responsive">
                <table className="table table-hover align-middle mb-0">
                   <thead className="table-light">
                     <tr style={{fontSize: '13px'}}>
                        <th className="text-center">Service Line</th>
                        <th className="text-center">Badges Obtidos (total)</th>
-                       <th className="text-center">Pontos totais</th>
+                       <th className="text-center">Pontos da regra</th>
                        <th className="text-center">Ranking</th>
                     </tr>
                   </thead>

@@ -80,11 +80,6 @@ const HistoricoPedidosTalent = () => {
         return () => window.clearInterval(atualizacao);
     }, [navigate]);
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        navigate('/');
-    };
-
     const uniqueServiceLines = ['Todas', ...(estrutura.serviceLines || []).map(sl => sl.nome)];
 
     // Lógica Combinada de Filtros
@@ -105,7 +100,7 @@ const HistoricoPedidosTalent = () => {
 
     // Função de Exportação Excel
     const exportarExcel = (statusFiltro) => {
-        const dados = filtrados.filter(p => statusFiltro === 'Todos' || p.status.includes(statusFiltro));
+        const dados = filtrados.filter(p => statusFiltro === 'Todos' || String(p.status || '').includes(statusFiltro));
         
         if (dados.length === 0) {
             alert(`Sem registos de pedidos ${statusFiltro} para exportar.`);
@@ -123,6 +118,13 @@ const HistoricoPedidosTalent = () => {
         }));
 
         const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{
+            Exportacao: `Pedidos ${statusFiltro}`,
+            Status: filtroStatus,
+            'Service Line': filtroSL,
+            Periodo: periodo === 'Todos' ? 'Todos' : `Últimos ${periodo} meses`,
+            Total: dados.length
+        }]), "Filtros");
         const ws = XLSX.utils.json_to_sheet(body);
         XLSX.utils.book_append_sheet(wb, ws, `Pedidos ${statusFiltro}`);
         XLSX.writeFile(wb, `Historico_Pedidos_${statusFiltro}_${new Date().toISOString().slice(0,10)}.xlsx`);
@@ -130,15 +132,17 @@ const HistoricoPedidosTalent = () => {
 
     // Função de Exportação PDF
     const exportarPDF = (statusFiltro) => {
-        const dados = filtrados.filter(p => statusFiltro === 'Todos' || p.status.includes(statusFiltro));
+        const dados = filtrados.filter(p => statusFiltro === 'Todos' || String(p.status || '').includes(statusFiltro));
         
         if (dados.length === 0) {
             alert(`Sem registos de pedidos ${statusFiltro} para exportar.`);
             return;
         }
 
-        const doc = new jsPDF();
+        const doc = new jsPDF('l', 'mm', 'a4');
         doc.text(`Historico de Pedidos - ${statusFiltro}`, 14, 15);
+        doc.setFontSize(10);
+        doc.text(`Filtros: Status (${filtroStatus}) | Service Line (${filtroSL}) | Periodo (${periodo === 'Todos' ? 'Todos' : `Ultimos ${periodo} meses`})`, 14, 22);
         
         const tableColumn = ["ID", "Consultor", "Service Line", "Badge", "Data Decisao", "Status", "Comentario"];
         const tableRows = [];
@@ -159,9 +163,9 @@ const HistoricoPedidosTalent = () => {
         autoTable(doc, {
             head: [tableColumn],
             body: tableRows,
-            startY: 20,
+            startY: 28,
             theme: 'grid',
-            styles: { fontSize: 8 },
+            styles: { fontSize: 8, overflow: 'linebreak' },
             headStyles: { fillColor: statusFiltro === 'Aceite' ? [25, 135, 84] : [220, 53, 69] }
         });
 

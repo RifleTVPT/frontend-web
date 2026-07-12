@@ -86,11 +86,6 @@ const RelatoriosTalent = () => {
         carregarDados();
     }, [navigate]);
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        navigate('/');
-    };
-
     const uniqueServiceLines = ['Todas', ...(estrutura.serviceLines || []).map(sl => sl.nome)];
     const uniqueAreas = ['Todas', ...(estrutura.areas || [])
         .filter(a => {
@@ -155,6 +150,10 @@ const RelatoriosTalent = () => {
         setOpcoesConteudo(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
+    const resumoFiltros = () => (
+        `Período(${periodo}) | Datas(${dataInicio || 'sem início'} a ${dataFim || 'sem fim'}) | SL(${slFiltro}) | Área(${areaFiltro}) | Níveis(${niveisSelecionados.join(', ') || 'Todos'}) | Pesquisa(${pesquisa || 'Todas'})`
+    );
+
     // ==============================================
     // LÓGICA DE GERAÇÃO E EXPORTAÇÃO
     // ==============================================
@@ -201,27 +200,37 @@ const RelatoriosTalent = () => {
             doc.setFontSize(10);
             doc.setTextColor(100);
             currentY += 8;
-            doc.text(`Gerado a: ${new Date().toLocaleDateString('pt-PT')} | Filtros Aplicados: SL(${slFiltro}) Área(${areaFiltro}) Níveis(${niveisSelecionados.join(',')})`, 14, currentY);
-            currentY += 15;
+            const linhasFiltros = doc.splitTextToSize(`Gerado a: ${new Date().toLocaleDateString('pt-PT')} | ${resumoFiltros()}`, 180);
+            doc.text(linhasFiltros, 14, currentY);
+            currentY += 8 + (linhasFiltros.length * 5);
 
             const desenharTabela = (titulo, head, body) => {
-                if (body && body.length > 0) {
-                    const safeBody = body.map(row => row.map(cell => cell !== null && cell !== undefined ? String(cell) : ''));
-                    doc.setFontSize(14);
-                    doc.setTextColor(0);
-                    doc.text(titulo, 14, currentY);
-                    
-                    autoTable(doc, {
-                        startY: currentY + 5,
-                        head: [head],
-                        body: safeBody,
-                        theme: 'grid',
-                        headStyles: { fillColor: [52, 101, 157] }
-                    });
-                    
-                    currentY = doc.lastAutoTable.finalY + 15;
+                doc.setFontSize(14);
+                doc.setTextColor(0);
+                doc.text(titulo, 14, currentY);
+
+                if (!body || body.length === 0) {
+                    doc.setFontSize(10);
+                    doc.setTextColor(100);
+                    doc.text('Sem dados para os filtros selecionados.', 14, currentY + 7);
+                    currentY += 18;
                     if (currentY > 270) { doc.addPage(); currentY = 20; }
+                    return;
                 }
+
+                const safeBody = body.map(row => row.map(cell => cell !== null && cell !== undefined ? String(cell) : ''));
+                
+                autoTable(doc, {
+                    startY: currentY + 5,
+                    head: [head],
+                    body: safeBody,
+                    theme: 'grid',
+                    styles: { fontSize: 8, overflow: 'linebreak' },
+                    headStyles: { fillColor: [52, 101, 157] }
+                });
+                
+                currentY = doc.lastAutoTable.finalY + 15;
+                if (currentY > 270) { doc.addPage(); currentY = 20; }
             };
 
             if (dados.taxaAprovacao) {
@@ -265,41 +274,51 @@ const RelatoriosTalent = () => {
         try {
             const wb = XLSX.utils.book_new();
 
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{
+                Gerado: new Date().toLocaleDateString('pt-PT'),
+                Periodo: periodo,
+                'Data Início': dataInicio || '',
+                'Data Fim': dataFim || '',
+                'Service Line': slFiltro,
+                'Área': areaFiltro,
+                Níveis: niveisSelecionados.join(', ') || 'Todos',
+                Pesquisa: pesquisa || ''
+            }]), "Filtros");
+
+            const adicionarFolha = (nome, linhas) => {
+                const dadosFolha = Array.isArray(linhas) && linhas.length > 0
+                    ? linhas
+                    : [{ Resultado: 'Sem dados para os filtros selecionados' }];
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(dadosFolha), nome.substring(0, 31));
+            };
+
             if (dados.taxaAprovacao) {
-                const ws = XLSX.utils.json_to_sheet([
+                adicionarFolha("Métricas Pedidos", [
                     { Estado: 'Aceites', Total: dados.taxaAprovacao.aprovados }, 
                     { Estado: 'Recusados', Total: dados.taxaAprovacao.rejeitados }, 
                     { Estado: 'Pendentes', Total: dados.taxaAprovacao.pendentes }
                 ]);
-                XLSX.utils.book_append_sheet(wb, ws, "Métricas Pedidos");
             }
-            if (dados.rankingConsultores && dados.rankingConsultores.length > 0) {
-                const ws = XLSX.utils.json_to_sheet(dados.rankingConsultores.map((r, i) => ({ Posicao: i+1, Nome: r.nome, Pontos: r.pontos })));
-                XLSX.utils.book_append_sheet(wb, ws, "Ranking");
+            if (dados.rankingConsultores) {
+                adicionarFolha("Ranking", dados.rankingConsultores.map((r, i) => ({ Posicao: i+1, Nome: r.nome, Pontos: r.pontos })));
             }
-            if (dados.badgesObtidos && dados.badgesObtidos.length > 0) {
-                const ws = XLSX.utils.json_to_sheet(dados.badgesObtidos);
-                XLSX.utils.book_append_sheet(wb, ws, "Badges Atribuídos");
+            if (dados.badgesObtidos) {
+                adicionarFolha("Badges Atribuídos", dados.badgesObtidos);
             }
-            if (dados.pedidosPendentes && dados.pedidosPendentes.length > 0) {
-                const ws = XLSX.utils.json_to_sheet(dados.pedidosPendentes);
-                XLSX.utils.book_append_sheet(wb, ws, "Pedidos Pendentes");
+            if (dados.pedidosPendentes) {
+                adicionarFolha("Pedidos Pendentes", dados.pedidosPendentes);
             }
-            if (dados.todosPedidos && dados.todosPedidos.length > 0) {
-                const ws = XLSX.utils.json_to_sheet(dados.todosPedidos);
-                XLSX.utils.book_append_sheet(wb, ws, "Todos os Pedidos");
+            if (dados.todosPedidos) {
+                adicionarFolha("Todos os Pedidos", dados.todosPedidos);
             }
-            if (dados.catalogoBadges && dados.catalogoBadges.length > 0) {
-                const ws = XLSX.utils.json_to_sheet(dados.catalogoBadges);
-                XLSX.utils.book_append_sheet(wb, ws, "Catálogo de Badges");
+            if (dados.catalogoBadges) {
+                adicionarFolha("Catálogo de Badges", dados.catalogoBadges);
             }
-            if (dados.historicoDecisoes && dados.historicoDecisoes.length > 0) {
-                const ws = XLSX.utils.json_to_sheet(dados.historicoDecisoes);
-                XLSX.utils.book_append_sheet(wb, ws, "Histórico");
+            if (dados.historicoDecisoes) {
+                adicionarFolha("Histórico", dados.historicoDecisoes);
             }
-            if (dados.badgesExpiracao && dados.badgesExpiracao.length > 0) {
-                const ws = XLSX.utils.json_to_sheet(dados.badgesExpiracao);
-                XLSX.utils.book_append_sheet(wb, ws, "Expirações");
+            if (dados.badgesExpiracao) {
+                adicionarFolha("Expirações", dados.badgesExpiracao);
             }
 
             XLSX.writeFile(wb, `Relatorio_TalentManager_${new Date().toISOString().slice(0,10)}.xlsx`);
