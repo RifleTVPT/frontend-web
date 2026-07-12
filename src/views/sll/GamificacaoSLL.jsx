@@ -317,7 +317,7 @@ const GamificacaoSLL = () => {
                         <div className="col-md-5">
                             <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4" style={{ minHeight: `${alturaCardGraficos}px` }}>
                                 <h5 className="fw-bold mb-4 text-dark">Evolução dos Pontos totais da Equipa</h5>
-                                <div style={{ height: '220px' }}>
+                                <div className="mt-4" style={{ height: '220px' }}>
                                     <Bar data={barChartData} options={{ responsive: true, maintainAspectRatio: false }} />
                                 </div>
                             </div>
@@ -349,7 +349,7 @@ const GamificacaoSLL = () => {
                             <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4">
                                 <h5 className="fw-bold mb-4 text-dark">Objetivos de Incentivo Ativos</h5>
                                 
-                                {dashboardData.objetivos.length > 0 ? dashboardData.objetivos.map((obj, i) => (
+                                {dashboardData.objetivos.length > 0 ? dashboardData.objetivos.slice(0, 3).map((obj, i) => (
                                     <div key={i} className="mb-3 border-bottom pb-3 text-start">
                                         <div className="fw-bold text-dark">{obj.titulo} - {obj.consultor}</div>
                                         <div className="small text-muted mt-1">Objetivo: {obj.descricao}. Meta: {obj.dataMeta}</div>
@@ -372,7 +372,7 @@ const GamificacaoSLL = () => {
                                 
                                 <div className="d-flex justify-content-center align-items-start flex-wrap gap-3 mb-4 mt-3">
                                     {dashboardData.premiumBadges && dashboardData.premiumBadges.length > 0 ? (
-                                        dashboardData.premiumBadges.map((b, i) => (
+                                        dashboardData.premiumBadges.slice(0, 3).map((b, i) => (
                                             <div key={b.id || i} className="text-center px-2">
                                                 <div className="rounded-circle d-flex align-items-center justify-content-center shadow-sm mb-2 mx-auto overflow-hidden position-relative" 
                                                      style={{ width: '70px', height: '70px', backgroundColor: '#F9F1DC', border: '3px solid #D4AF37' }}>
