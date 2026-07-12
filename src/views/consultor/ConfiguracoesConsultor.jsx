@@ -102,22 +102,6 @@ const ConfiguracoesConsultor = () => {
     }
   };
 
-  const handleMudarIdioma = async (novoIdioma) => {
-    const novoPerfil = { ...perfil, idioma: novoIdioma };
-    setPerfil(novoPerfil);
-    setTempPerfil(novoPerfil);
-    try { await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${utilizador.ID_UTILIZADOR}`, novoPerfil); } 
-    catch (error) { console.error("Erro ao mudar idioma:", error); }
-  };
-
-  const handleTogglePref = async (key) => {
-      const novoPerfil = { ...perfil, [key]: !perfil[key] };
-      setPerfil(novoPerfil);
-      setTempPerfil(novoPerfil);
-      try { await axios.put(`https://softinsa-api-riya.onrender.com/users/configuracoes/${utilizador.ID_UTILIZADOR}`, novoPerfil); } 
-      catch (error) { console.error("Erro ao mudar preferência:", error); }
-  };
-
   // --- LÓGICA DE UPLOAD DA FOTO COM MULTER ---
   const handleFotoClick = () => {
     fileInputRef.current.click();
@@ -313,14 +297,6 @@ const ConfiguracoesConsultor = () => {
                         <i className="bi bi-box-arrow-right me-2"></i> Terminar Sessão
                     </button>
                 </div>
-              </div>
-
-              {/* BOTÃO LINKEDIN EXTERNO */}
-              <div className="card border-0 shadow-sm rounded-4 p-4 bg-white text-center">
-                <h5 className="fw-bold mb-3 text-start">Redes Sociais</h5>
-                <a href="https://www.linkedin.com/login" target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary w-100 py-2 rounded-3 fw-bold text-decoration-none">
-                    <i className="bi bi-linkedin me-2"></i> Conectar com LinkedIn
-                </a>
               </div>
 
             </div>

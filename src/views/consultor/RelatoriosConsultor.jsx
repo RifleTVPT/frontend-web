@@ -76,11 +76,6 @@ const RelatoriosConsultor = () => {
     carregarDados();
   }, [navigate]);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('user');
-    navigate('/');
-  };
-
   const limparFiltros = () => {
     setPeriodo('Todos'); setDataInicio(''); setDataFim('');
     setArea('Todas'); setNivel('Todos'); setServiceLine('Todas');
@@ -157,7 +152,15 @@ const RelatoriosConsultor = () => {
       doc.setFontSize(10);
       doc.setTextColor(100);
       currentY += 8;
-      doc.text(`Gerado a: ${new Date().toLocaleDateString('pt-PT')} | Filtros: ${periodo}`, 14, currentY);
+      const filtrosTexto = [
+        `Período: ${periodo}`,
+        `Service Line: ${serviceLine}`,
+        `Área: ${area}`,
+        `Nível: ${nivel}`,
+        dataInicio ? `Desde: ${dataInicio}` : null,
+        dataFim ? `Até: ${dataFim}` : null
+      ].filter(Boolean).join(' | ');
+      doc.text(`Gerado a: ${new Date().toLocaleDateString('pt-PT')} | ${filtrosTexto}`, 14, currentY, { maxWidth: 180 });
       currentY += 15;
 
       // Função segura para desenhar tabelas sem dar erro de "doc.autoTable is not a function"
@@ -197,6 +200,9 @@ const RelatoriosConsultor = () => {
           ['Pendentes', dados.metricas.pendentes]
         ]);
       }
+      if (dados.evolucao) {
+        desenharTabela("Evolução da Pontuação", ['Mês', 'Pontos'], dados.evolucao.map(e => [e.mes, e.pontos]));
+      }
       if (dados.badgesObtidos) {
         desenharTabela("Badges Obtidos", ['Badge', 'Área', 'Pontos', 'Data de Obtenção'], dados.badgesObtidos.map(b => [b.nome, b.area, b.pontos, b.data]));
       }
@@ -212,6 +218,9 @@ const RelatoriosConsultor = () => {
       if (dados.badgesEspeciais) {
         desenharTabela("Conquistas Especiais", ['Título', 'Pontos Bónus', 'Data'], dados.badgesEspeciais.map(m => [m.titulo, m.pontos, m.data]));
       }
+      if (dados.competencias) {
+        desenharTabela("Competências por Área", ['Área', 'Badges Obtidos', 'Pontos'], dados.competencias.map(c => [c.area, c.badges, c.pontos]));
+      }
 
       doc.save(`Relatorio_Personalizado_${nomeConsultor.replace(/\s+/g, '_')}.pdf`);
     } catch (e) {
@@ -226,6 +235,10 @@ const RelatoriosConsultor = () => {
     if (dados.metricas) {
       const ws = XLSX.utils.json_to_sheet([{ Estado: 'Aceites', Total: dados.metricas.aprovados }, { Estado: 'Recusados', Total: dados.metricas.rejeitados }, { Estado: 'Pendentes', Total: dados.metricas.pendentes }]);
       XLSX.utils.book_append_sheet(wb, ws, "Métricas");
+    }
+    if (dados.evolucao && dados.evolucao.length > 0) {
+      const ws = XLSX.utils.json_to_sheet(dados.evolucao);
+      XLSX.utils.book_append_sheet(wb, ws, "Evolução Pontos");
     }
     if (dados.badgesObtidos && dados.badgesObtidos.length > 0) {
       const ws = XLSX.utils.json_to_sheet(dados.badgesObtidos);
@@ -246,6 +259,10 @@ const RelatoriosConsultor = () => {
     if (dados.badgesEspeciais && dados.badgesEspeciais.length > 0) {
       const ws = XLSX.utils.json_to_sheet(dados.badgesEspeciais);
       XLSX.utils.book_append_sheet(wb, ws, "Conquistas Especiais");
+    }
+    if (dados.competencias && dados.competencias.length > 0) {
+      const ws = XLSX.utils.json_to_sheet(dados.competencias);
+      XLSX.utils.book_append_sheet(wb, ws, "Competências");
     }
 
     const nomeConsultor = utilizador?.NOME_COMPLETO_UTILIZADOR || 'Consultor';

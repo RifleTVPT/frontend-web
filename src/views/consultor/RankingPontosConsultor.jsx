@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SidebarConsultor from '../../components/SidebarConsultor';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import TabelaGenerica from '../../components/TabelaGenerica';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Line, Bar } from 'react-chartjs-2';
 import {
@@ -64,11 +64,6 @@ const RankingPontosConsultor = () => {
     carregarEstatisticas();
   }, [navigate]);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('user');
-    navigate('/');
-  };
-
   // ==========================================
   // LÓGICA DE EXPORTAÇÃO (PDF e EXCEL)
   // ==========================================
@@ -84,7 +79,8 @@ const RankingPontosConsultor = () => {
         doc.setFontSize(12);
         doc.text(`Ranking pessoal: ${estatisticas.kpis.ranking} de ${estatisticas.kpis.totalConsultores}`, 14, 40);
         doc.text(`Total de pontos: ${estatisticas.kpis.pontos}`, 14, 47);
-        doc.text(`Catálogo concluído: ${estatisticas.kpis.percentagemBadges}%`, 14, 54);
+        doc.text(`Crescimento vs. mês passado: ${estatisticas.kpis.crescimentoPontos}%`, 14, 54);
+        doc.text(`Catálogo concluído: ${estatisticas.kpis.percentagemBadges}%`, 14, 61);
 
         autoTable(doc, {
           head: [["Mês", "Pontos adquiridos"]],
@@ -92,7 +88,7 @@ const RankingPontosConsultor = () => {
             mes,
             estatisticas.graficoLinha.data[index]
           ]),
-          startY: 64,
+          startY: 71,
           theme: 'grid',
           headStyles: { fillColor: [13, 110, 253] }
         });
@@ -107,6 +103,19 @@ const RankingPontosConsultor = () => {
           startY: doc.lastAutoTable.finalY + 10,
           theme: 'grid',
           headStyles: { fillColor: [52, 73, 94] }
+        });
+
+        autoTable(doc, {
+          head: [["Posição", "Consultor", "Badges", "Pontos"]],
+          body: estatisticas.top5.map(row => [
+            `${row.pos}º`,
+            row.nome,
+            row.badges,
+            row.pontos
+          ]),
+          startY: doc.lastAutoTable.finalY + 10,
+          theme: 'grid',
+          headStyles: { fillColor: [13, 110, 253] }
         });
 
         doc.addPage();
@@ -163,6 +172,15 @@ const RankingPontosConsultor = () => {
           }))
         );
         XLSX.utils.book_append_sheet(workbook, badgesMensais, "Badges Mensais");
+
+        const top5 = XLSX.utils.json_to_sheet(estatisticas.top5.map(row => ({
+          'Posição': row.pos,
+          'Nome do Consultor': row.nome,
+          'Badges Conquistados': row.badges,
+          'Pontos Acumulados': row.pontos,
+          'É o consultor atual': row.isMe ? 'Sim' : 'Não'
+        })));
+        XLSX.utils.book_append_sheet(workbook, top5, "Top 5");
 
         const ranking = XLSX.utils.json_to_sheet(estatisticas.rankingCompleto.map(row => ({
           'Posição': row.pos,

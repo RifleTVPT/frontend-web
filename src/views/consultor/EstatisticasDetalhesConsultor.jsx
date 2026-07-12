@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SidebarConsultor from '../../components/SidebarConsultor';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Radar, Line, Bar, Doughnut } from 'react-chartjs-2';
 import {
@@ -71,24 +71,22 @@ const EstatisticasDetalhesConsultor = () => {
     carregarEstatisticas();
   }, [navigate]);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('user');
-    navigate('/');
-  };
-
   // ==========================================
   // LÓGICA DE EXPORTAÇÃO (PDF COM GRÁFICOS)
   // ==========================================
   const exportarParaPDF = () => {
     try {
         const doc = new jsPDF('p', 'mm', 'a4'); // Formato A4 Vertical
+        let y = 20;
         
         // Cabeçalho
         doc.setFontSize(16);
-        doc.text(`Relatório de Estatísticas - ${utilizador.NOME_COMPLETO_UTILIZADOR}`, 14, 20);
+        doc.text(`Relatório de Estatísticas - ${utilizador.NOME_COMPLETO_UTILIZADOR}`, 14, y);
         doc.setFontSize(10);
         doc.setTextColor(100);
-        doc.text(`Gerado a: ${new Date().toLocaleDateString('pt-PT')}`, 14, 28);
+        y += 8;
+        doc.text(`Gerado a: ${new Date().toLocaleDateString('pt-PT')}`, 14, y);
+        y += 16;
 
         // Capturar as imagens base64 dos gráficos renderizados
         const radarImg = radarRef.current?.toBase64Image();
@@ -96,32 +94,33 @@ const EstatisticasDetalhesConsultor = () => {
         const barImg = barRef.current?.toBase64Image();
         const doughnutImg = doughnutRef.current?.toBase64Image();
 
-        // Colar Imagens no PDF (Organização 2x2)
-        doc.setTextColor(0);
-        if (radarImg) {
+        const adicionarGrafico = (titulo, img) => {
+          if (!img) return;
+          if (y > 155) {
+            doc.addPage();
+            y = 20;
+          }
+          doc.setTextColor(0);
           doc.setFontSize(12);
-          doc.text("Competências por Área", 14, 45);
-          doc.addImage(radarImg, 'PNG', 14, 50, 85, 85);
-        }
-        if (lineImg) {
-          doc.text("Evolução Mensal de Pontos", 110, 45);
-          doc.addImage(lineImg, 'PNG', 110, 50, 85, 85);
-        }
-        if (barImg) {
-          doc.text("Média de Pontos: Empresa vs Eu", 14, 145);
-          doc.addImage(barImg, 'PNG', 14, 150, 85, 85);
-        }
-        if (doughnutImg) {
-          doc.text("Distribuição por Nível", 110, 145);
-          doc.addImage(doughnutImg, 'PNG', 110, 150, 85, 85);
-        }
+          doc.text(titulo, 14, y);
+          y += 6;
+          doc.addImage(img, 'PNG', 14, y, 180, 82);
+          y += 96;
+        };
+
+        // Dois gráficos por página, um por baixo do outro.
+        doc.setTextColor(0);
+        adicionarGrafico("Competências por Área", radarImg);
+        adicionarGrafico("Evolução Mensal de Pontos", lineImg);
+        adicionarGrafico("Média de Pontos: Empresa vs Eu", barImg);
+        adicionarGrafico("Distribuição por Nível", doughnutImg);
 
         // Adicionar uma nova página para colocar as tabelas de dados numéricos
         doc.addPage();
         doc.setFontSize(14);
         doc.text("Dados Analíticos Tabulares", 14, 20);
 
-        // Tabela 1: Evolução Mensal (CORRIGIDA)
+        // Tabela 1: Evolução Mensal
         autoTable(doc, {
           startY: 30,
           head: [['Mês', 'Meus Pontos', 'Média Equipa']],
@@ -134,13 +133,38 @@ const EstatisticasDetalhesConsultor = () => {
           headStyles: { fillColor: [37, 117, 252] }
         });
 
-        // Tabela 2: Distribuição por Nível (CORRIGIDA)
+        // Tabela 2: Competências por Área
+        autoTable(doc, {
+          startY: doc.lastAutoTable.finalY + 15,
+          head: [['Área', 'Proficiência (%)']],
+          body: dados.radar.labels.map((area, index) => [
+            area,
+            dados.radar.data[index]
+          ]),
+          theme: 'grid',
+          headStyles: { fillColor: [37, 117, 252] }
+        });
+
+        // Tabela 3: Distribuição por Nível
         autoTable(doc, {
           startY: doc.lastAutoTable.finalY + 15,
           head: [['Nível de Competência', 'Total de Badges']],
           body: dados.doughnut.labels.map((nivel, index) => [
             nivel, 
             dados.doughnut.data[index]
+          ]),
+          theme: 'grid',
+          headStyles: { fillColor: [52, 101, 157] }
+        });
+
+        // Tabela 4: Comparação Empresa vs Eu
+        autoTable(doc, {
+          startY: doc.lastAutoTable.finalY + 15,
+          head: [['Mês', 'Média da Empresa', 'Eu']],
+          body: dados.barras.labels.map((mes, index) => [
+            mes,
+            dados.barras.equipa[index] || 0,
+            dados.barras.eu[index] || 0
           ]),
           theme: 'grid',
           headStyles: { fillColor: [52, 101, 157] }
@@ -171,7 +195,16 @@ const EstatisticasDetalhesConsultor = () => {
         ws1['!cols'] = [{ wch: 15 }, { wch: 20 }, { wch: 20 }];
         XLSX.utils.book_append_sheet(wb, ws1, "Evolução Mensal");
 
-        // Folha 2: Badges por Nível
+        // Folha 2: Competências por Área
+        const dadosCompetencias = dados.radar.labels.map((area, index) => ({
+          'Área': area,
+          'Proficiência (%)': dados.radar.data[index]
+        }));
+        const wsCompetencias = XLSX.utils.json_to_sheet(dadosCompetencias);
+        wsCompetencias['!cols'] = [{ wch: 35 }, { wch: 20 }];
+        XLSX.utils.book_append_sheet(wb, wsCompetencias, "Competências por Área");
+
+        // Folha 3: Badges por Nível
         const dadosNiveis = dados.doughnut.labels.map((nivel, index) => ({
           'Nível': nivel,
           'Total de Badges': dados.doughnut.data[index]
@@ -179,6 +212,16 @@ const EstatisticasDetalhesConsultor = () => {
         const ws2 = XLSX.utils.json_to_sheet(dadosNiveis);
         ws2['!cols'] = [{ wch: 25 }, { wch: 20 }];
         XLSX.utils.book_append_sheet(wb, ws2, "Badges por Nível");
+
+        // Folha 4: Empresa vs Eu
+        const dadosComparacao = dados.barras.labels.map((mes, index) => ({
+          'Mês': mes,
+          'Média da Empresa': dados.barras.equipa[index] || 0,
+          'Eu': dados.barras.eu[index] || 0
+        }));
+        const wsComparacao = XLSX.utils.json_to_sheet(dadosComparacao);
+        wsComparacao['!cols'] = [{ wch: 15 }, { wch: 20 }, { wch: 15 }];
+        XLSX.utils.book_append_sheet(wb, wsComparacao, "Empresa vs Eu");
 
         XLSX.writeFile(wb, `Estatisticas_${utilizador.NOME_COMPLETO_UTILIZADOR.replace(/\s+/g, '_')}.xlsx`);
     } catch (error) {
