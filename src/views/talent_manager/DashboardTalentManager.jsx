@@ -239,13 +239,16 @@ const DashboardTalentManager = () => {
           <div className="row g-3 mb-4">
             <div className="col-md-6">
               <div className="card border-0 shadow-sm p-4 h-100 bg-white">
-                <div className="d-flex justify-content-between">
-                  <h6 className="fw-bold">Evolução das candidaturas (Por Service Line)</h6>
-                  <div className="small fw-bold">
+                <div>
+                  <h6 className="fw-bold mb-2">Evolução das candidaturas (Por Service Line)</h6>
+                  <div
+                    className="small fw-bold"
+                    style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', columnGap: '1rem', rowGap: '0.35rem' }}
+                  >
                     {lineData.datasets && lineData.datasets.map((ds, idx) => (
-                        <span key={idx} className="me-3">
+                        <span key={idx} className="d-inline-flex align-items-center" style={{ minWidth: 0, whiteSpace: 'nowrap' }}>
                             <i className="bi bi-dot" style={{ color: ds.borderColor, fontSize: '1.2rem', verticalAlign: 'middle' }}></i> 
-                            <span style={{ color: ds.borderColor }}>{ds.label}</span>
+                            <span style={{ color: ds.borderColor, overflow: 'hidden', textOverflow: 'ellipsis' }}>{ds.label}</span>
                         </span>
                     ))}
                   </div>
