@@ -84,6 +84,19 @@ const ListaUtilizadoresAdmin = () => {
         navigate('/');
     };
 
+    const valorEstruturaValido = (valor) => {
+        const normalizado = String(valor || '').trim();
+        return normalizado && !['Todas', 'N/A', 'Global', 'Service Line', 'Área'].includes(normalizado);
+    };
+
+    const resumoFiltrosExportacao = () => ([
+        { Filtro: 'Pesquisa', Valor: pesquisa || 'Sem pesquisa' },
+        { Filtro: 'Função', Valor: filtroFuncao },
+        { Filtro: 'Service Line', Valor: filtroSL },
+        { Filtro: 'Área', Valor: filtroArea },
+        { Filtro: 'Total exportado', Valor: filtrados.length }
+    ]);
+
     // --- LÓGICA DE CRIAÇÃO DE UTILIZADOR ---
     const handleCriarUtilizador = async () => {
         if(!novoUser.nome || !novoUser.email || !novoUser.password || novoUser.perfis.length === 0) {
@@ -94,11 +107,17 @@ const ListaUtilizadoresAdmin = () => {
             return alert('A password temporária e a confirmação não coincidem.');
         }
 
+        const precisaServiceLine = novoUser.perfis.includes('Consultor') || novoUser.perfis.includes('Service Line Leader');
+        if (precisaServiceLine && !valorEstruturaValido(novoUser.sl)) {
+            return alert('Selecione uma Service Line para criar este utilizador.');
+        }
+        if (novoUser.perfis.includes('Consultor') && !valorEstruturaValido(novoUser.area)) {
+            return alert('Selecione uma Área para criar um utilizador Consultor.');
+        }
+
         let finalSL = isDisabled('sl') ? 'Global' : novoUser.sl;
-        if (finalSL === 'Todas') finalSL = 'N/A';
         
         let finalArea = isDisabled('area') ? 'Global' : novoUser.area;
-        if (finalArea === 'Todas') finalArea = 'N/A';
 
         try {
             const payload = {
@@ -141,10 +160,7 @@ const ListaUtilizadoresAdmin = () => {
 
     const handleSLChange = (e) => {
         const sl = e.target.value;
-        const slObj = estrutura.serviceLines.find(s => s.nome === sl);
-        const areasDestaSL = slObj ? estrutura.areas.filter(a => a.slId === slObj.id) : [];
-        const primeiraArea = areasDestaSL.length > 0 ? areasDestaSL[0].nome : 'N/A';
-        setNovoUser({ ...novoUser, sl: sl, area: primeiraArea });
+        setNovoUser({ ...novoUser, sl: sl, area: 'N/A' });
     };
 
     const isDisabled = (campo) => {
@@ -174,6 +190,7 @@ const ListaUtilizadoresAdmin = () => {
             Estado: u.status, 'Último Acesso': u.acesso
         })));
         const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(resumoFiltrosExportacao()), "Filtros");
         XLSX.utils.book_append_sheet(wb, ws, "Utilizadores");
         XLSX.writeFile(wb, `Lista_Utilizadores_${new Date().toISOString().slice(0,10)}.xlsx`);
     };
@@ -183,12 +200,15 @@ const ListaUtilizadoresAdmin = () => {
         const doc = new jsPDF('l', 'mm', 'a4'); 
         doc.setFontSize(18);
         doc.text(`Listagem de Utilizadores`, 14, 20);
+        doc.setFontSize(10);
+        doc.text(`Filtros: Pesquisa=${pesquisa || 'Sem pesquisa'} | Função=${filtroFuncao} | SL=${filtroSL} | Área=${filtroArea}`, 14, 28);
         
         autoTable(doc, {
-            startY: 30,
-            head: [['Nome', 'Perfil', 'Service Line', 'Área', 'Estado', 'Último Acesso']],
+            startY: 34,
+            head: [['Nome', 'Email', 'Perfil', 'Service Line', 'Área', 'Estado', 'Último Acesso']],
             body: filtrados.map(u => [
                 u.nome, 
+                u.email,
                 u.perfis.join(', '), 
                 u.perfis.includes('Consultor') || u.perfis.includes('Service Line Leader') ? (u.sl || 'N/A') : 'Global (Não definida)', 
                 u.perfis.includes('Consultor') ? (u.area || 'N/A') : 'Global (Não definida)', 
@@ -196,6 +216,7 @@ const ListaUtilizadoresAdmin = () => {
                 u.acesso
             ]),
             theme: 'grid',
+            styles: { fontSize: 8, cellWidth: 'wrap', overflow: 'linebreak' },
             headStyles: { fillColor: [93, 120, 255] }
         });
         doc.save(`Lista_Utilizadores_${new Date().toISOString().slice(0,10)}.pdf`);

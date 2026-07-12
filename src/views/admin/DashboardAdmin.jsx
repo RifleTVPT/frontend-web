@@ -76,7 +76,10 @@ const DashboardAdmin = () => {
                             label: 'Média de Acessos',
                             data: dados.graficoBarras.data,
                             backgroundColor: '#3b6ea5',
-                            borderRadius: 4, barThickness: 60, maxBarThickness: 70
+                            borderRadius: 4,
+                            maxBarThickness: 70,
+                            categoryPercentage: 0.7,
+                            barPercentage: 0.8
                         }]
                     });
                 }
@@ -160,8 +163,8 @@ const DashboardAdmin = () => {
                                 titulo="Taxa Aprovação Badges"
                                 valor={`${indicadores.taxaAprovacao} %`}
                                 subtitulo={
-                                    <span className={indicadores.taxaCrescimentoAprovacao >= 0 ? 'text-success' : 'text-danger'}>
-                                        {indicadores.taxaCrescimentoAprovacao >= 0 ? '+ ' : ''}{indicadores.taxaCrescimentoAprovacao || 0} p.p. <span className="text-muted fw-normal">vs mês anterior</span>
+                                    <span className="text-primary">
+                                        pedidos aceites entre pedidos decididos
                                     </span>
                                 }
                                 alinhamento="center"

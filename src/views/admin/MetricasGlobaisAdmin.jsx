@@ -261,7 +261,7 @@ const MetricasGlobaisAdmin = () => {
                                 <h5 className="fw-bold text-dark mb-4 ms-2">Badges por Service Line</h5>
                                 <div style={{ width: '100%', height: '300px' }}>
                                     <ResponsiveContainer>
-                                        <BarChart data={dadosBadgesSL} barSize={40}>
+                                        <BarChart data={dadosBadgesSL} barCategoryGap="25%" barGap={6}>
                                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F0F0F0" />
                                             <XAxis dataKey="sl" axisLine={false} tickLine={false} tick={{fill: '#999', fontSize: 10}} dy={10} />
                                             <YAxis axisLine={false} tickLine={false} tick={{fill: '#999', fontSize: 12}} />
@@ -278,11 +278,11 @@ const MetricasGlobaisAdmin = () => {
                         </div>
                     </div>
                     {/* 3. TABELAS DE DETALHE INFERIORES */}
-                    <div className="row g-5 pb-5">
+                    <div className="row g-5 pb-5 align-items-stretch">
                         {/* Utilizadores Mais Ativos */}
-                        <div className="col-md-6 text-start">
+                        <div className="col-md-6 text-start d-flex flex-column">
                             <h4 className="fw-bold text-dark mb-4">Utilizadores Mais Ativos</h4>
-                            <TabelaGenerica colunas={['Nome utilizador', 'Função', 'Service Line', 'Atividade (Pts/Badges)']} emptyMessage="Sem dados para mostrar.">
+                            <TabelaGenerica className="h-100 mb-0" colunas={['Nome utilizador', 'Função', 'Service Line', 'Atividade (Pts/Badges)']} emptyMessage="Sem dados para mostrar.">
                                 {utilizadoresAtivos.map((u, i) => (
                                     <tr key={i}>
                                         <td className="fw-bold text-dark py-3">{u.nome}</td>
@@ -295,9 +295,9 @@ const MetricasGlobaisAdmin = () => {
                         </div>
 
                         {/* Áreas com mais interesse */}
-                        <div className="col-md-6 text-start">
+                        <div className="col-md-6 text-start d-flex flex-column">
                             <h4 className="fw-bold text-dark mb-4">Áreas com mais interesse</h4>
-                            <TabelaGenerica colunas={['Área', 'Service Line', 'Interações Totais']} emptyMessage="Sem dados para mostrar.">
+                            <TabelaGenerica className="h-100 mb-0" colunas={['Área', 'Service Line', 'Interações Totais']} emptyMessage="Sem dados para mostrar.">
                                 {areasInteresse.map((a, i) => (
                                     <tr key={i}>
                                         <td className="fw-bold text-dark py-3">{a.area}</td>

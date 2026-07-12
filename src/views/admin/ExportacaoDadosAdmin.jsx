@@ -117,104 +117,75 @@ const ExportacaoDadosAdmin = () => {
         }
     };
 
+    const filtrosResumo = () => ([
+        { Filtro: 'Pesquisa', Valor: pesquisa || 'Sem pesquisa' },
+        { Filtro: 'Período', Valor: periodoTempo },
+        { Filtro: 'Data início', Valor: dataInicio || 'Sem limite' },
+        { Filtro: 'Data fim', Valor: dataFim || 'Sem limite' },
+        { Filtro: 'Service Line', Valor: serviceLineFilter },
+        { Filtro: 'Área', Valor: areaFilter },
+        { Filtro: 'Secções selecionadas', Valor: Object.entries(opcoesSelecionadas).filter(([, ativo]) => ativo).map(([id]) => id).join(', ') || 'Nenhuma' }
+    ]);
+
+    const adicionarSecaoPDF = (doc, titulo, head, body, yPos) => {
+        if (yPos > 175) { doc.addPage(); yPos = 20; }
+        doc.setFontSize(13);
+        doc.text(titulo, 14, yPos);
+        autoTable(doc, {
+            startY: yPos + 5,
+            head: [head],
+            body: body.length ? body : [head.map((_, idx) => idx === 0 ? 'Sem dados' : '')],
+            theme: 'grid',
+            styles: { fontSize: 8, overflow: 'linebreak', cellWidth: 'wrap' },
+            headStyles: { fillColor: [93, 120, 255] }
+        });
+        return doc.lastAutoTable.finalY + 12;
+    };
+
     const gerarPDF = (dados) => {
-        const doc = new jsPDF();
+        const doc = new jsPDF('l', 'mm', 'a4');
         doc.setFontSize(18);
         doc.text("Relatório Global - Administração", 14, 20);
         let yPos = 30;
 
+        yPos = adicionarSecaoPDF(
+            doc,
+            'Filtros Aplicados',
+            ['Filtro', 'Valor'],
+            filtrosResumo().map(f => [f.Filtro, f.Valor]),
+            yPos
+        );
+
         if(dados.taxasGlobais) {
-            doc.setFontSize(14);
-            doc.text("Métricas de Aprovação", 14, yPos);
-            autoTable(doc, {
-                startY: yPos + 5,
-                head: [['Aceites', 'Recusados', 'Pendentes']],
-                body: [[dados.taxasGlobais.aprovados, dados.taxasGlobais.rejeitados, dados.taxasGlobais.pendentes]],
-            });
-            yPos = doc.lastAutoTable.finalY + 15;
+            yPos = adicionarSecaoPDF(doc, 'Métricas de Aprovação', ['Aceites', 'Recusados', 'Pendentes'], [[dados.taxasGlobais.aprovados, dados.taxasGlobais.rejeitados, dados.taxasGlobais.pendentes]], yPos);
         }
 
         if(dados.rankingGlobal) {
-            if(yPos > 250) { doc.addPage(); yPos = 20; }
-            doc.setFontSize(14);
-            doc.text("Ranking Global", 14, yPos);
-            autoTable(doc, {
-                startY: yPos + 5,
-                head: [['Consultor', 'Pontos Totais']],
-                body: dados.rankingGlobal.map(r => [r.nome, r.pontos])
-            });
-            yPos = doc.lastAutoTable.finalY + 15;
+            yPos = adicionarSecaoPDF(doc, 'Ranking Global', ['Consultor', 'Pontos Totais'], dados.rankingGlobal.map(r => [r.nome, r.pontos]), yPos);
         }
 
         if(dados.badgesObtidos) {
-            if(yPos > 250) { doc.addPage(); yPos = 20; }
-            doc.setFontSize(14);
-            doc.text("Badges Atribuídos", 14, yPos);
-            autoTable(doc, {
-                startY: yPos + 5,
-                head: [['Consultor', 'Badge', 'Data']],
-                body: dados.badgesObtidos.map(b => [b.consultor, b.badge, b.data])
-            });
-            yPos = doc.lastAutoTable.finalY + 15;
+            yPos = adicionarSecaoPDF(doc, 'Badges Atribuídos', ['Consultor', 'Badge', 'Data'], dados.badgesObtidos.map(b => [b.consultor, b.badge, b.data]), yPos);
         }
 
         if(dados.pedidosPendentes) {
-            if(yPos > 250) { doc.addPage(); yPos = 20; }
-            doc.setFontSize(14);
-            doc.text("Pedidos Pendentes", 14, yPos);
-            autoTable(doc, {
-                startY: yPos + 5,
-                head: [['ID', 'Consultor', 'Badge', 'Data Submissão']],
-                body: dados.pedidosPendentes.map(p => [p.id, p.consultor, p.badge, p.data])
-            });
-            yPos = doc.lastAutoTable.finalY + 15;
+            yPos = adicionarSecaoPDF(doc, 'Pedidos Pendentes', ['ID', 'Consultor', 'Badge', 'Data Submissão'], dados.pedidosPendentes.map(p => [p.id, p.consultor, p.badge, p.data]), yPos);
         }
 
         if(dados.historicoDecisoes) {
-            if(yPos > 250) { doc.addPage(); yPos = 20; }
-            doc.setFontSize(14);
-            doc.text("Histórico de Decisões", 14, yPos);
-            autoTable(doc, {
-                startY: yPos + 5,
-                head: [['ID', 'Consultor', 'Badge', 'Status', 'Data']],
-                body: dados.historicoDecisoes.map(p => [p.id, p.consultor, p.badge, p.status, p.data])
-            });
-            yPos = doc.lastAutoTable.finalY + 15;
+            yPos = adicionarSecaoPDF(doc, 'Histórico de Decisões', ['ID', 'Consultor', 'Badge', 'Status', 'Data'], dados.historicoDecisoes.map(p => [p.id, p.consultor, p.badge, p.status, p.data]), yPos);
         }
 
         if(dados.expiracaoGlobal) {
-            if(yPos > 250) { doc.addPage(); yPos = 20; }
-            doc.setFontSize(14);
-            doc.text("Badges em Expiração", 14, yPos);
-            autoTable(doc, {
-                startY: yPos + 5,
-                head: [['Consultor', 'Badge', 'Expira Em']],
-                body: dados.expiracaoGlobal.map(e => [e.consultor, e.badge, e.expiraEm])
-            });
-            yPos = doc.lastAutoTable.finalY + 15;
+            yPos = adicionarSecaoPDF(doc, 'Badges em Expiração', ['Consultor', 'Badge', 'Expira Em'], dados.expiracaoGlobal.map(e => [e.consultor, e.badge, e.expiraEm]), yPos);
         }
 
         if(dados.evolucaoPontos) {
-            if(yPos > 250) { doc.addPage(); yPos = 20; }
-            doc.setFontSize(14);
-            doc.text("Evolução de Pontos (Últimos)", 14, yPos);
-            autoTable(doc, {
-                startY: yPos + 5,
-                head: [['Consultor', 'Pontos', 'Motivo', 'Data']],
-                body: dados.evolucaoPontos.map(h => [h.consultor, h.pontos, h.motivo, h.data])
-            });
-            yPos = doc.lastAutoTable.finalY + 15;
+            yPos = adicionarSecaoPDF(doc, 'Evolução de Pontos', ['Consultor', 'Pontos', 'Motivo', 'Data'], dados.evolucaoPontos.map(h => [h.consultor, h.pontos, h.motivo, h.data]), yPos);
         }
 
         if(dados.logAcessos) {
-            if(yPos > 250) { doc.addPage(); yPos = 20; }
-            doc.setFontSize(14);
-            doc.text("Log de Atividade (Exportações)", 14, yPos);
-            autoTable(doc, {
-                startY: yPos + 5,
-                head: [['Utilizador', 'Ação / Ficheiro', 'Data Hora']],
-                body: dados.logAcessos.map(l => [l.admin, l.tipo, l.data])
-            });
+            adicionarSecaoPDF(doc, 'Log de Atividade', ['Utilizador', 'Ação / Ficheiro', 'Data Hora'], dados.logAcessos.map(l => [l.admin, l.tipo, l.data]), yPos);
         }
 
         doc.save("Relatorio_Global_Admin.pdf");
@@ -222,6 +193,7 @@ const ExportacaoDadosAdmin = () => {
 
     const gerarExcel = (dados) => {
         const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(filtrosResumo()), "Filtros");
         
         if(dados.taxasGlobais) {
             const ws = XLSX.utils.json_to_sheet([dados.taxasGlobais]);

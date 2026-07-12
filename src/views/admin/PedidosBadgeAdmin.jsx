@@ -131,15 +131,27 @@ const PedidosBadgeAdmin = () => {
         return 'bg-secondary text-white shadow-sm';
     };
 
+    const resumoFiltrosExportacao = () => ([
+        { Filtro: 'Estado', Valor: filtroStatus },
+        { Filtro: 'Service Line', Valor: filtroSL },
+        { Filtro: 'Área', Valor: filtroArea },
+        { Filtro: 'Níveis', Valor: niveisSelecionados.length ? niveisSelecionados.join(', ') : 'Todos' },
+        { Filtro: 'Data início', Valor: dataInicio || 'Sem limite' },
+        { Filtro: 'Data fim', Valor: dataFim || 'Sem limite' },
+        { Filtro: 'Total exportado', Valor: pedidosFiltrados.length }
+    ]);
+
     const exportarPDFExcel = (tipo) => {
         if(pedidosFiltrados.length === 0) return alert('Sem dados para exportar');
         if (tipo === 'pdf') {
             const doc = new jsPDF('l', 'mm', 'a4'); 
             doc.setFontSize(18);
             doc.text(`Histórico de Pedidos de Badge`, 14, 20);
+            doc.setFontSize(9);
+            doc.text(`Filtros: Estado=${filtroStatus} | SL=${filtroSL} | Área=${filtroArea} | Níveis=${niveisSelecionados.length ? niveisSelecionados.join(', ') : 'Todos'} | De=${dataInicio || 'Sem limite'} até ${dataFim || 'Sem limite'}`, 14, 28);
             
             autoTable(doc, {
-                startY: 30,
+                startY: 34,
                 head: [['Consultor', 'Service Line', 'Área', 'Badge/Nível', 'Data', 'Status', 'Comentário']],
                 body: pedidosFiltrados.map(p => [
                     p.consultor, p.sl, p.area, `${p.badge} - ${p.area} (Nível ${p.nivelLetra} - ${p.nivelExtenso})`, 
@@ -147,6 +159,8 @@ const PedidosBadgeAdmin = () => {
                     p.status, p.comentario || 'N/A'
                 ]),
                 theme: 'grid',
+                styles: { fontSize: 8, overflow: 'linebreak', cellWidth: 'wrap' },
+                columnStyles: { 3: { cellWidth: 70 }, 6: { cellWidth: 55 } },
                 headStyles: { fillColor: [93, 120, 255] }
             });
             doc.save(`Pedidos_Badge_${new Date().toISOString().slice(0,10)}.pdf`);
@@ -161,6 +175,7 @@ const PedidosBadgeAdmin = () => {
                 'Comentário': p.comentario || 'N/A'
             })));
             const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(resumoFiltrosExportacao()), "Filtros");
             XLSX.utils.book_append_sheet(wb, ws, "Pedidos");
             XLSX.writeFile(wb, `Pedidos_Badge_${new Date().toISOString().slice(0,10)}.xlsx`);
         }

@@ -91,6 +91,15 @@ const AtividadeHistoricoAdmin = () => {
         return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()} ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
     };
 
+    const resumoFiltrosExportacao = () => ([
+        { Filtro: 'Pesquisa', Valor: pesquisa || 'Sem pesquisa' },
+        { Filtro: 'Perfil', Valor: filtroUser },
+        { Filtro: 'Service Line', Valor: filtroSL },
+        { Filtro: 'Data início', Valor: dataInicio || 'Sem limite' },
+        { Filtro: 'Data fim', Valor: dataFim || 'Sem limite' },
+        { Filtro: 'Total exportado', Valor: atividadesFiltradas.length }
+    ]);
+
     const exportarParaExcel = () => {
         if(atividadesFiltradas.length === 0) return alert('Sem dados para exportar');
         const ws = XLSX.utils.json_to_sheet(atividadesFiltradas.map(a => ({
@@ -102,6 +111,7 @@ const AtividadeHistoricoAdmin = () => {
             'Detalhes': a.detalhes
         })));
         const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(resumoFiltrosExportacao()), "Filtros");
         XLSX.utils.book_append_sheet(wb, ws, "Atividade");
         XLSX.writeFile(wb, `Log_Atividade_Softinsa_${new Date().toISOString().slice(0,10)}.xlsx`);
     };
@@ -112,6 +122,8 @@ const AtividadeHistoricoAdmin = () => {
         
         doc.setFontSize(16);
         doc.text("Atividade e Histórico dos Utilizadores", 14, 15);
+        doc.setFontSize(9);
+        doc.text(`Filtros: Pesquisa=${pesquisa || 'Sem pesquisa'} | Perfil=${filtroUser} | SL=${filtroSL} | De=${dataInicio || 'Sem limite'} até ${dataFim || 'Sem limite'}`, 14, 22);
         
         const tableColumn = ["Nome", "Perfil", "Service Line", "Data e Hora", "Ação", "Detalhes"];
         const tableRows = atividadesFiltradas.map(a => [
@@ -126,8 +138,9 @@ const AtividadeHistoricoAdmin = () => {
         autoTable(doc, {
             head: [tableColumn],
             body: tableRows,
-            startY: 20,
-            styles: { fontSize: 8 },
+            startY: 28,
+            styles: { fontSize: 8, overflow: 'linebreak', cellWidth: 'wrap' },
+            columnStyles: { 5: { cellWidth: 90 } },
             headStyles: { fillColor: [93, 120, 255] }
         });
 

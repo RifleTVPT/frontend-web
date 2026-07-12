@@ -92,7 +92,22 @@ const PerfilUtilizadorAdmin = () => {
         }
     };
 
+    const valorEstruturaValido = (valor) => {
+        const normalizado = String(valor || '').trim();
+        return normalizado && !['Global', 'N/A', 'Todas', 'Service Line', 'Área'].includes(normalizado);
+    };
+
     const handleSalvarPerfil = async () => {
+        const perfisSelecionados = tempUser.perfis || [];
+        if ((perfisSelecionados.includes('Consultor') || perfisSelecionados.includes('Service Line Leader')) && !valorEstruturaValido(tempUser.sl)) {
+            alert('Selecione uma Service Line antes de guardar este perfil.');
+            return;
+        }
+        if (perfisSelecionados.includes('Consultor') && !valorEstruturaValido(tempUser.area)) {
+            alert('Selecione uma Área antes de guardar um perfil de Consultor.');
+            return;
+        }
+
         const passwordPreenchida = novaPasswordAdmin || confirmarPasswordAdmin;
         if (passwordPreenchida) {
             if (novaPasswordAdmin !== confirmarPasswordAdmin) {
@@ -106,11 +121,19 @@ const PerfilUtilizadorAdmin = () => {
         }
 
         const removedProfiles = user.perfis.filter(p => !tempUser.perfis.includes(p));
+        const addedProfiles = tempUser.perfis.filter(p => !user.perfis.includes(p));
+        const mensagensConfirmacao = [];
         if (removedProfiles.length > 0) {
-            const msg = `Está prestes a remover os seguintes perfis: ${removedProfiles.join(', ')}.\nSe voltar a adicioná-los no futuro, o utilizador perderá o histórico ligado a este perfil.\n\nDeseja mesmo continuar?`;
-            if (!window.confirm(msg)) {
-                return;
-            }
+            mensagensConfirmacao.push(`Vai remover: ${removedProfiles.join(', ')}.`);
+            mensagensConfirmacao.push('Ao remover o perfil de Consultor, os badges, conquistas premium e pontuação desse perfil são eliminados.');
+            mensagensConfirmacao.push('Ao voltar a adicionar um perfil removido, esse perfil começa novamente sem histórico próprio.');
+        }
+        if (addedProfiles.length > 0) {
+            mensagensConfirmacao.push(`Vai adicionar: ${addedProfiles.join(', ')}.`);
+            mensagensConfirmacao.push('Confirme que a Service Line/Área selecionada corresponde à alocação correta do utilizador.');
+        }
+        if (mensagensConfirmacao.length > 0 && !window.confirm(`${mensagensConfirmacao.join('\n')}\n\nDeseja continuar?`)) {
+            return;
         }
 
         try {
@@ -174,10 +197,7 @@ const PerfilUtilizadorAdmin = () => {
 
     const handleSLChange = (e) => {
         const sl = e.target.value;
-        const slObj = estrutura.serviceLines.find(s => s.nome === sl);
-        const areasDestaSL = slObj ? estrutura.areas.filter(a => a.slId === slObj.id) : [];
-        const primeiraArea = areasDestaSL.length > 0 ? areasDestaSL[0].nome : 'N/A';
-        setTempUser({ ...tempUser, sl: sl, area: primeiraArea });
+        setTempUser({ ...tempUser, sl: sl, area: 'N/A' });
     };
 
     if (loading || !user) return <div className="d-flex justify-content-center align-items-center vh-100"><div className="spinner-border text-primary"></div></div>;
