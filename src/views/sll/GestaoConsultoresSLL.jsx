@@ -25,7 +25,6 @@ const GestaoConsultoresSLL = () => {
 
     const [pesquisa, setPesquisa] = useState('');
     const [areaFiltro, setAreaFiltro] = useState('Todas');
-    const [experienciaFiltro, setExperienciaFiltro] = useState('Todas');
     const [tipoRanking, setTipoRanking] = useState('Pontos Totais');
 
     useEffect(() => {
@@ -78,12 +77,8 @@ const GestaoConsultoresSLL = () => {
     // Lógica de Filtros para a Tabela
     const filtrados = consultoresDaSL.filter(c => 
         (pesquisa === '' || c.nome.toLowerCase().includes(pesquisa.toLowerCase())) &&
-        (areaFiltro === 'Todas' || c.area === areaFiltro) &&
-        (experienciaFiltro === 'Todas' || c.experiencia === experienciaFiltro)
+        (areaFiltro === 'Todas' || c.area === areaFiltro)
     );
-    const experienciasDisponiveis = ['Todas', ...new Set(
-        consultoresDaSL.map(c => c.experiencia).filter(Boolean)
-    )];
 
     const top5Ranking = [...filtrados]
         .sort((a, b) => tipoRanking === 'Pontos Totais' ? b.pontos - a.pontos : b.badges - a.badges)
@@ -102,7 +97,6 @@ const GestaoConsultoresSLL = () => {
         Consultor: c.nome || '',
         'Service Line': c.sl || minhaSL,
         Área: c.area || '',
-        Experiência: c.experiencia || '',
         'Total Badges': c.badges || 0,
         'Pontos Totais': c.pontos || 0
     });
@@ -117,7 +111,6 @@ const GestaoConsultoresSLL = () => {
             'Service Line': minhaSL,
             Pesquisa: pesquisa || 'Todas',
             Área: areaFiltro,
-            Experiência: experienciaFiltro,
             Total: filtrados.length
         }]), "Filtros");
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(filtrados.map(c => mapConsultorExport(c))), "Consultores");
@@ -138,21 +131,20 @@ const GestaoConsultoresSLL = () => {
         doc.setFontSize(10);
         doc.setTextColor(100);
         currentY += 8;
-        doc.text(`Gerado em: ${new Date().toLocaleString()} | Filtros: Pesquisa(${pesquisa || 'Todas'}) Área(${areaFiltro}) Experiência(${experienciaFiltro})`, 14, currentY);
+        doc.text(`Gerado em: ${new Date().toLocaleString()} | Filtros: Pesquisa(${pesquisa || 'Todas'}) Área(${areaFiltro})`, 14, currentY);
         currentY += 15;
 
         // Tabela
         const corpoTabela = filtrados.map(c => [
             c.nome,
             c.area,
-            c.experiencia,
             c.badges,
             `${c.pontos} pts`
         ]);
 
         autoTable(doc, {
             startY: currentY,
-            head: [['Consultor', 'Área', 'Experiência', 'Badges Concluídos', 'Pontos Totais']],
+            head: [['Consultor', 'Área', 'Badges Concluídos', 'Pontos Totais']],
             body: corpoTabela,
             theme: 'striped',
             headStyles: { fillColor: [93, 120, 255] },
@@ -167,13 +159,12 @@ const GestaoConsultoresSLL = () => {
             `${i + 1}º`,
             c.nome || '',
             c.area || '',
-            c.experiencia || '',
             c.badges || 0,
             `${c.pontos || 0} pts`
         ]);
         autoTable(doc, {
             startY: 22,
-            head: [['Posição', 'Consultor', 'Área', 'Experiência', 'Badges', 'Pontos']],
+            head: [['Posição', 'Consultor', 'Área', 'Badges', 'Pontos']],
             body: tabelaTop(top5PorPontos),
             theme: 'grid',
             headStyles: { fillColor: [93, 120, 255] },
@@ -184,7 +175,7 @@ const GestaoConsultoresSLL = () => {
         doc.text('Top 5 por Número de Badges', 14, nextY);
         autoTable(doc, {
             startY: nextY + 7,
-            head: [['Posição', 'Consultor', 'Área', 'Experiência', 'Badges', 'Pontos']],
+            head: [['Posição', 'Consultor', 'Área', 'Badges', 'Pontos']],
             body: tabelaTop(top5PorBadges),
             theme: 'grid',
             headStyles: { fillColor: [93, 120, 255] },
@@ -220,14 +211,9 @@ const GestaoConsultoresSLL = () => {
                                     <span className="input-group-text bg-white border-0 pe-4"><i className="bi bi-search text-muted"></i></span>
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-5">
                                 <select className="form-select border-0 shadow-sm rounded-3 py-2" value={areaFiltro} onChange={(e) => setAreaFiltro(e.target.value)}>
                                     {areasDisponiveis.map(a => <option key={a} value={a}>{a === 'Todas' ? 'Todas as Áreas' : a}</option>)}
-                                </select>
-                            </div>
-                            <div className="col-md-3">
-                                <select className="form-select border-0 shadow-sm rounded-3 py-2" value={experienciaFiltro} onChange={(e) => setExperienciaFiltro(e.target.value)}>
-                                    {experienciasDisponiveis.map(exp => <option key={exp} value={exp}>{exp === 'Todas' ? 'Todas as Experiências' : exp}</option>)}
                                 </select>
                             </div>
                             <div className="col-md-2 text-end">
@@ -259,12 +245,11 @@ const GestaoConsultoresSLL = () => {
                             <h5 className="fw-bold m-0">Lista de Consultores ({filtrados.length})</h5>
                         </div>
                         <div className="mb-3">
-                            <TabelaGenerica colunas={['Consultor', 'Área', 'Experiência', 'Badges Concluídos', 'Pontos Totais', 'Ações']} emptyMessage="Nenhum consultor corresponde aos filtros.">
+                            <TabelaGenerica colunas={['Consultor', 'Área', 'Badges Concluídos', 'Pontos Totais', 'Ações']} emptyMessage="Nenhum consultor corresponde aos filtros.">
                                 {filtrados.map((c) => (
                                     <tr key={c.id}>
                                         <td className="fw-bold text-dark py-3">{c.nome}</td>
                                         <td className="text-muted py-3">{c.area}</td>
-                                        <td className="text-muted py-3">{c.experiencia}</td>
                                         <td className="fw-bold py-3">{c.badges}</td>
                                         <td className="fw-bold text-primary py-3">{c.pontos}</td>
                                         <td className="py-3">
