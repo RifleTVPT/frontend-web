@@ -109,8 +109,8 @@ const Registo = () => {
     };
 
     return (
-        <div className="container-fluid vh-100 p-0 overflow-hidden bg-white">
-            <div className="d-flex h-100 flex-nowrap">
+        <div className="container-fluid auth-page p-0 bg-white">
+            <div className="d-flex auth-layout flex-nowrap">
                 
                 {/* LADO ESQUERDO: FORMULÁRIO (Igual ao Login) */}
                 <div className="login-form-side d-flex flex-column justify-content-center align-items-center px-5 bg-white shadow-lg" style={{ overflowY: 'auto' }}>

@@ -1,24 +1,36 @@
 html, body, #root {
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.auth-page {
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.auth-layout {
+    min-height: 100vh;
 }
 
 /* Form Side (40% do ecrã) */
 .login-form-side {
     width: 55%;
     min-width: 500px;
-    height: 100vh;
+    min-height: 100vh;
     z-index: 10;
     background-color: white !important;
+    overflow-y: auto;
 }
 
 /* Banner Side (60% do ecrã) */
 .login-banner-side {
     width: 20%;
-    height: 100vh;
+    min-height: 100vh;
     /* Pintamos o fundo com a mesma cor da imagem para continuidade */
     background-color: #4C6EF5; 
     
@@ -59,4 +71,45 @@ html, body, #root {
     border-radius: 30px !important;
     background-color: white !important;
     padding: 10px !important;
+}
+
+@media (max-width: 991.98px) {
+    .auth-page {
+        min-height: 100dvh;
+    }
+
+    .auth-layout {
+        min-height: 100dvh;
+    }
+
+    .login-form-side {
+        width: 100%;
+        min-width: 0;
+        min-height: 100dvh;
+        padding: 32px 24px !important;
+        justify-content: flex-start !important;
+        box-shadow: none !important;
+    }
+
+    .login-banner-side {
+        display: none;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .login-form-side {
+        padding: 24px 18px 36px !important;
+    }
+
+    .login-form-side h2 {
+        font-size: 2rem !important;
+    }
+
+    .login-input {
+        padding: 11px 14px !important;
+    }
+
+    .login-btn-primary {
+        padding: 11px !important;
+    }
 }
