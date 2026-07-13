@@ -888,3 +888,86 @@
         padding-right: 3.2rem !important;
     }
 }
+
+@media (max-width: 767.98px) {
+    .admin-responsive-actions {
+        flex-wrap: wrap !important;
+        gap: 0.85rem !important;
+    }
+
+    .admin-responsive-actions .btn {
+        width: 100%;
+        max-width: 240px;
+        min-height: 46px;
+        padding: 0.72rem 1rem !important;
+        border-radius: 16px !important;
+        font-size: 0.95rem !important;
+        line-height: 1.2 !important;
+        white-space: normal;
+    }
+
+    .admin-badge-requisitos-header {
+        align-items: flex-start !important;
+        gap: 1rem;
+    }
+
+    .admin-badge-requisitos-header h3 {
+        font-size: 1.55rem !important;
+        line-height: 1.15;
+    }
+
+    .admin-badge-requisitos-header .btn {
+        width: auto;
+        min-width: 150px;
+        max-width: 170px;
+        min-height: 44px;
+        padding: 0.65rem 0.9rem !important;
+        border-radius: 16px !important;
+        font-size: 0.9rem !important;
+        line-height: 1.15;
+        white-space: normal;
+    }
+
+    .admin-estrutura-nivel-actions {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .admin-estrutura-nivel-actions .btn {
+        padding: 0.5rem 0.85rem !important;
+        font-size: 0.85rem !important;
+        line-height: 1.15;
+        white-space: normal;
+    }
+
+    .admin-log-export {
+        margin-top: 1rem;
+        justify-content: flex-start !important;
+    }
+
+    .admin-log-export .dropdown,
+    .admin-log-export .btn {
+        width: 100%;
+    }
+
+    .admin-conquista-modal .modal-dialog {
+        margin: 0.75rem;
+        max-height: calc(100dvh - 1.5rem);
+    }
+
+    .admin-conquista-modal .modal-content {
+        max-height: calc(100dvh - 1.5rem);
+        overflow: hidden;
+    }
+
+    .admin-conquista-modal form {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .admin-conquista-modal .modal-body {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}

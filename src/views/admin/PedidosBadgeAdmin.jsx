@@ -274,7 +274,7 @@ const PedidosBadgeAdmin = () => {
                                     ))}
                                 </div>
                             </div>
-                            <div className="col-md-4 d-flex align-items-end justify-content-end">
+                            <div className="admin-log-export col-md-4 d-flex align-items-end justify-content-end">
                                 <div className="dropdown w-100">
                                     <button className="btn btn-secondary py-2 rounded-3 fw-bold shadow-sm dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ backgroundColor: '#2B3A4A', border: 'none' }}>
                                         <i className="bi bi-download me-2"></i> Exportar Dados ({pedidosFiltrados.length})

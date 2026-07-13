@@ -146,7 +146,7 @@ const DetalhesBadgeAdmin = () => {
                                     </p>
                                 </div>
                                 
-                                <div className="d-flex gap-3 mt-auto justify-content-center w-100 pb-2">
+                                <div className="admin-responsive-actions d-flex gap-3 mt-auto justify-content-center w-100 pb-2">
                                     <button onClick={() => setEditMode(true)} className="btn btn-primary px-5 py-2 rounded-3 fw-bold shadow-sm" style={{ backgroundColor: '#5D78FF', border: 'none' }}>
                                         <i className="bi bi-pencil-square me-2"></i> Editar Conteúdo
                                     </button>
@@ -159,7 +159,7 @@ const DetalhesBadgeAdmin = () => {
                     </div>
 
                     {/* SECÇÃO DE REQUISITOS */}
-                    <div className="d-flex justify-content-between align-items-center mb-4 mt-5">
+                    <div className="admin-badge-requisitos-header d-flex justify-content-between align-items-center mb-4 mt-5">
                         <h3 className="fw-bold m-0 text-dark" style={{ fontSize: '1.8rem' }}>Requisitos para Obtenção</h3>
                         <button onClick={() => setEditMode(true)} className="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" style={{ backgroundColor: '#5D78FF', border: 'none' }}>
                             + Adicionar Requisito

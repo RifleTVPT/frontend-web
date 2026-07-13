@@ -75,7 +75,7 @@ const CriarConquistaAdmin = ({ show, onClose, onCreated }) => {
     const tipoInfo = TIPOS.find(t => t.value === tipo);
 
     return (
-        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 1050 }}>
+        <div className="admin-conquista-modal modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 1050 }}>
             <div className="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
                 <div className="modal-content rounded-4 border-0 shadow-lg">
                     {/* Header */}
@@ -238,7 +238,7 @@ const CriarConquistaAdmin = ({ show, onClose, onCreated }) => {
                         </div>
 
                         {/* Footer - botões centralizados, Criar à esquerda */}
-                        <div className="modal-footer border-0 px-4 pb-4 pt-0 justify-content-center gap-3">
+                        <div className="admin-responsive-actions modal-footer border-0 px-4 pb-4 pt-0 justify-content-center gap-3">
                             <button type="submit" className="btn btn-primary px-5 py-2 rounded-pill fw-bold shadow-sm" disabled={loading || !tipo || !titulo}>
                                 {loading ? (
                                     <><span className="spinner-border spinner-border-sm me-2"></span>A Criar...</>

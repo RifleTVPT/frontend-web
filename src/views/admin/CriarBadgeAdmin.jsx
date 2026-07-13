@@ -419,7 +419,7 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                         </div>
                     </div>
 
-                    <div className="text-center mt-5 d-flex justify-content-center gap-4 border-top pt-4">
+                    <div className="admin-responsive-actions text-center mt-5 d-flex justify-content-center gap-4 border-top pt-4">
                         <button onClick={handleSubmeter} className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg fs-5" style={{backgroundColor: '#5D78FF', border: 'none'}}>
                             {initialData ? 'Atualizar Badge' : 'Criar Novo Badge'}
                         </button>

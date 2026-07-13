@@ -225,7 +225,7 @@ const EstruturaGlobalAdmin = () => {
                             <label className="fw-bold text-muted small text-uppercase mb-2">Descrição</label>
                             <textarea ref={descRef} className="form-control border-light bg-light py-3 rounded-3" rows="6" defaultValue={data.desc}></textarea>
                         </div>
-                        <div className="d-flex gap-4 justify-content-center mt-4">
+                        <div className="admin-responsive-actions d-flex gap-4 justify-content-center mt-4">
                             <button onClick={handleSalvar} className="btn btn-primary px-5 py-2 rounded-pill fw-bold fs-5 d-flex align-items-center gap-2" style={{backgroundColor: '#5D78FF'}}>
                                 <i className="bi bi-check-lg"></i> {isEditMode ? 'Guardar Alterações' : 'Criar Learning Path'}
                             </button>
@@ -286,7 +286,7 @@ const EstruturaGlobalAdmin = () => {
                             <label className="fw-bold text-muted small text-uppercase mb-2">Descrição</label>
                             <textarea ref={descRef} className="form-control border-light bg-light py-3 rounded-3" rows="5" defaultValue={data.desc}></textarea>
                         </div>
-                        <div className="d-flex gap-4 justify-content-center mt-4">
+                        <div className="admin-responsive-actions d-flex gap-4 justify-content-center mt-4">
                             <button onClick={handleSalvar} className="btn btn-primary px-5 py-2 rounded-pill fw-bold fs-5 d-flex align-items-center gap-2" style={{backgroundColor: '#5D78FF'}}>
                                 <i className="bi bi-check-lg"></i> {isEditMode ? 'Guardar Alterações' : 'Criar Service Line'}
                             </button>
@@ -346,7 +346,7 @@ const EstruturaGlobalAdmin = () => {
                                     <div className="mt-2">
                                         <div className="d-flex justify-content-between align-items-center mb-3">
                                             <label className="fw-bold text-muted small text-uppercase m-0">Níveis Ativos para esta Área</label>
-                                            <div className="d-flex gap-2">
+                                            <div className="admin-estrutura-nivel-actions d-flex gap-2">
                                                 <button className="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold" onClick={() => eliminarNivelMaisAlto(areaMock.id)}>- Remover Topo</button>
                                                 <button className="btn btn-sm btn-light border rounded-pill px-3 fw-bold" onClick={() => adicionarNovoNivelGlobal(areaMock.id)}>+ Novo Nível</button>
                                             </div>
@@ -395,7 +395,7 @@ const EstruturaGlobalAdmin = () => {
                                 )}
                             </div>
                         </div>
-                        <div className="d-flex gap-4 justify-content-center mt-5 pt-4 border-top">
+                        <div className="admin-responsive-actions d-flex gap-4 justify-content-center mt-5 pt-4 border-top">
                             <button onClick={handleSalvar} className="btn btn-primary px-5 py-2 rounded-pill fw-bold fs-5 shadow d-flex align-items-center gap-2" style={{backgroundColor: '#5D78FF', border: 'none'}}>
                                 <i className="bi bi-check-lg"></i> {isEditMode ? 'Guardar Alterações' : 'Criar Nova Área'}
                             </button>
