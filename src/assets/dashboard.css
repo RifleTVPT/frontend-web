@@ -538,3 +538,119 @@
         top: 106px;
     }
 }
+
+@media (max-width: 991.98px) {
+    .app-sidebar h3 {
+        font-size: 0 !important;
+        line-height: 1 !important;
+        letter-spacing: 0 !important;
+        color: transparent !important;
+        position: relative;
+        min-width: 120px;
+        text-align: center;
+    }
+
+    .app-sidebar h3::before {
+        content: "SOFTINSA" !important;
+        display: block !important;
+        color: #fff !important;
+        font-size: 1.25rem !important;
+        letter-spacing: 1px !important;
+        font-weight: 800 !important;
+    }
+
+    .dashboard-header {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        text-align: center;
+        margin-top: 0.4rem;
+    }
+
+    .dashboard-header-title {
+        order: 1;
+        width: 100%;
+        align-items: center !important;
+        text-align: center;
+    }
+
+    .dashboard-header-title h4 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dashboard-header-greeting {
+        order: 2;
+        width: 100%;
+        justify-self: center;
+        text-align: center;
+    }
+
+    .dashboard-header-greeting a {
+        justify-content: center;
+    }
+
+    .dashboard-header-actions {
+        order: 3;
+        width: auto;
+        justify-self: center;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+        margin-top: 0.15rem;
+    }
+
+    .dashboard-user-profile {
+        border-left: 1px solid #dee2e6 !important;
+        padding-left: 0.75rem !important;
+        max-width: min(260px, calc(100vw - 120px));
+    }
+
+    .dashboard-notification-slot {
+        display: flex;
+        align-items: center;
+        order: 2;
+    }
+
+    .dashboard-journey-row {
+        display: grid !important;
+        grid-template-columns: 1fr auto;
+        align-items: start !important;
+        gap: 0.75rem !important;
+    }
+
+    .dashboard-journey-row .lh-sm {
+        text-align: left;
+        min-width: 0;
+    }
+
+    .dashboard-journey-row .text-end {
+        width: auto;
+        text-align: right !important;
+        display: block;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .dashboard-header-title h4 {
+        font-size: 1.2rem;
+    }
+
+    .dashboard-user-profile {
+        max-width: min(230px, calc(100vw - 95px));
+    }
+
+    .dashboard-journey-row {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-journey-row .text-end {
+        text-align: left !important;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+}

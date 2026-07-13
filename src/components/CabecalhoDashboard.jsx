@@ -95,9 +95,7 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
 
             {/* Lado Direito */}
             <div className="dashboard-header-actions d-flex align-items-center gap-4">
-               <NotificationSystem />
-               
-               <div className="d-flex align-items-center gap-2 border-start ps-3 text-start">
+               <div className="dashboard-user-profile d-flex align-items-center gap-2 border-start ps-3 text-start">
                   <img 
                     src={avatarSrc} 
                     onError={(e) => { e.target.onerror = null; e.target.src = avatarFallback; }}
@@ -115,6 +113,9 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
                         <i className="bi bi-box-arrow-right me-1"></i>Terminar sessão
                     </span>
                   </div>
+               </div>
+               <div className="dashboard-notification-slot">
+                 <NotificationSystem />
                </div>
             </div>
         </header>
