@@ -33,6 +33,7 @@ const EstatisticasDetalhesConsultor = () => {
   const lineRef = useRef(null);
   const barRef = useRef(null);
   const doughnutRef = useRef(null);
+  const isSmallScreen = typeof window !== 'undefined' && window.innerWidth <= 767;
 
   useEffect(() => {
     const userLocal = JSON.parse(sessionStorage.getItem('user'));
@@ -302,7 +303,18 @@ const EstatisticasDetalhesConsultor = () => {
               <div className="consultor-radar-card card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
                 <h6 className="fw-bold text-center mb-3">As minhas competências por Área</h6>
                 <div className="consultor-radar-chart" style={{ height: '300px' }}>
-                  <Radar ref={radarRef} data={radarData} options={{ maintainAspectRatio: false, scales: { r: { suggestMin: 0, suggestMax: 100 } } }} />
+                  <Radar ref={radarRef} data={radarData} options={{
+                    maintainAspectRatio: false,
+                    layout: { padding: isSmallScreen ? { left: 28, right: 42, top: 12, bottom: 12 } : 0 },
+                    scales: {
+                      r: {
+                        suggestMin: 0,
+                        suggestMax: 100,
+                        pointLabels: { font: { size: isSmallScreen ? 9 : 12 } },
+                        ticks: { font: { size: isSmallScreen ? 9 : 11 }, backdropPadding: 1 }
+                      }
+                    }
+                  }} />
                 </div>
               </div>
             </div>
@@ -335,8 +347,18 @@ const EstatisticasDetalhesConsultor = () => {
                   <div className="consultor-doughnut-chart" style={{ width: '100%', maxWidth: '420px', height: '230px', marginLeft: 'auto', marginRight: 'auto' }}>
                     <Doughnut ref={doughnutRef} data={doughnutData} options={{ 
                       maintainAspectRatio: false,
-                      layout: { padding: { left: 40 } },
-                      plugins: { legend: { position: 'right', align: 'start', labels: { padding: 30, boxWidth: 15 } } },
+                      layout: { padding: isSmallScreen ? { left: 0, right: 24 } : { left: 40 } },
+                      plugins: {
+                        legend: {
+                          position: 'right',
+                          align: 'start',
+                          labels: {
+                            padding: isSmallScreen ? 10 : 30,
+                            boxWidth: isSmallScreen ? 10 : 15,
+                            font: { size: isSmallScreen ? 10 : 12 }
+                          }
+                        }
+                      },
                       cutout: '65%'
                     }} />
                   </div>

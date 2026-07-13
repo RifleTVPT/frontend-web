@@ -1236,7 +1236,7 @@
 
     .consultor-radar-chart {
         width: 100%;
-        max-width: 330px;
+        max-width: 360px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -1253,7 +1253,7 @@
 
     .consultor-doughnut-chart {
         max-width: 100% !important;
-        height: 250px !important;
+        height: 260px !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
@@ -1286,6 +1286,26 @@
 
     .consultor-timeline-summary-inner .rounded-circle {
         display: none;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .app-sidebar .list-group > a,
+    .app-sidebar .list-group > div,
+    .app-sidebar button,
+    .app-sidebar button.mt-2 {
+        margin-top: 0 !important;
+        align-self: center !important;
+    }
+
+    .app-sidebar button {
+        line-height: 1 !important;
+        vertical-align: middle !important;
+    }
+
+    .app-sidebar button span {
+        min-height: 20px;
+        align-items: center !important;
     }
 }
 
