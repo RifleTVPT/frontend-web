@@ -808,16 +808,21 @@
 
 @media (max-width: 767.98px) {
     .admin-profile-edit-action {
-        width: 100%;
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
         text-align: left !important;
-        margin-top: 1rem;
-        padding-left: 0;
+        margin-top: 1.35rem !important;
+        padding-left: 0 !important;
     }
 
     .admin-profile-edit-action .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
         max-width: 260px;
-        justify-content: center;
+        margin-left: 0 !important;
     }
 
     .admin-modal-actions {
@@ -848,6 +853,26 @@
         border-radius: 18px !important;
         font-size: 1rem !important;
         line-height: 1.25;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .admin-profile-edit-action {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        text-align: left !important;
+        margin-top: 1.35rem !important;
+        padding-left: 0 !important;
+    }
+
+    .admin-profile-edit-action .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 260px;
+        margin-left: 0 !important;
     }
 }
 
