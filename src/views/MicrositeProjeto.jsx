@@ -30,12 +30,12 @@ const perfis = [
 
 const funcionalidades = [
   'Catálogo global de badges normais e premium',
-  'Upload de evidências com ficheiros persistentes na cloud',
+  'Upload de evidências com ficheiros guardados na cloud',
   'Workflow auditável: consultor, Talent Manager e Service Line Leader',
   'Certificados PDF personalizados e páginas públicas de verificação',
   'Partilha de badges no LinkedIn e galeria pública do consultor',
   'Ranking, pontos, conquistas especiais e recomendações',
-  'Notificações web, push mobile e emails transacionais',
+  'Notificações web, push mobile e emails automáticos',
   'Exportações PDF/Excel para apoio à análise de gestão'
 ];
 
@@ -57,8 +57,8 @@ const MicrositeProjeto = () => {
         <a href="#topo" className="microsite-brand">
           <span className="brand-mark">SB</span>
           <span>
-            <strong>Softinsa Badges</strong>
-            <small>Projeto PINT / PDM 2025-2026</small>
+            <strong>Plataforma de Badges da Softinsa</strong>
+            <small>Projeto PINT 2025-26 / Nº 30023-29990-29998-30010</small>
           </span>
         </a>
         <div className="microsite-nav-actions">
@@ -91,7 +91,9 @@ const MicrositeProjeto = () => {
 
         <div className="hero-panel" aria-label="Resumo do projeto">
           <div className="orbit-card main-badge">
-            <i className="bi bi-award-fill"></i>
+            <div className="badge-emblem" aria-hidden="true">
+              <i className="bi bi-award-fill"></i>
+            </div>
             <strong>Badge Verificável</strong>
             <span>Certificado, pontos, validade e link público único.</span>
           </div>
@@ -102,6 +104,10 @@ const MicrositeProjeto = () => {
           <div className="mini-stat">
             <strong>1</strong>
             <span>App Mobile Consultor</span>
+          </div>
+          <div className="mini-stat">
+            <strong>7</strong>
+            <span>Utilizadores Iniciais</span>
           </div>
           <div className="mini-stat">
             <strong>15+</strong>
@@ -117,8 +123,8 @@ const MicrositeProjeto = () => {
         </div>
         <div className="text-stack">
           <p>
-            O enunciado propõe uma plataforma semelhante ao Credly, capaz de gerir credenciais de competências,
-            apoiar a validação de formações externas e dar visibilidade às certificações dos colaboradores.
+            A plataforma de Badges da Softinsa é uma solução semelhante ao Credly, capaz de gerir credenciais
+            de competências, apoiar a validação de formações externas e dar visibilidade às certificações dos colaboradores.
           </p>
           <p>
             A solução implementa a Jornada Técnica com Service Lines, áreas, níveis e requisitos, permitindo que
@@ -166,7 +172,7 @@ const MicrositeProjeto = () => {
       <section className="workflow-section">
         <div className="section-heading">
           <span className="section-kicker">Workflow</span>
-          <h2>Da submissão à publicação do badge.</h2>
+          <h2>Desde a submissão à publicação do badge.</h2>
         </div>
         <div className="workflow-steps">
           <div>
@@ -177,17 +183,17 @@ const MicrositeProjeto = () => {
           <div>
             <span>02</span>
             <h3>Análise Talent</h3>
-            <p>O Talent Manager valida os ficheiros, aprova para SLL ou devolve para correção.</p>
+            <p>O Talent Manager valida os ficheiros, aprova para SLL ou rejeita o pedido quando as evidências não cumprem os requisitos.</p>
           </div>
           <div>
             <span>03</span>
             <h3>Validação SLL</h3>
-            <p>O Service Line Leader aprova, recusa ou devolve o pedido com feedback.</p>
+            <p>O Service Line Leader aprova, recusa ou devolve o pedido com feedback para correção pelo Consultor.</p>
           </div>
           <div>
             <span>04</span>
             <h3>Publicação</h3>
-            <p>O badge fica disponível em Meus Badges, certificado, galeria e página pública.</p>
+            <p>O badge fica disponível em Meus Badges, podendo gerar certificado, partilhar no LinkedIn e na assinatura de email, além de ter galeria e página pública.</p>
           </div>
         </div>
       </section>
@@ -251,8 +257,7 @@ const MicrositeProjeto = () => {
           <span className="section-kicker">Acesso à solução</span>
           <h2>Links de entrega do projeto.</h2>
           <p>
-            A plataforma Web está disponível publicamente. O APK será disponibilizado neste microsite
-            depois da geração final da build mobile.
+            A plataforma Web está disponível publicamente e o APK da aplicação mobile do consultor pode ser descarregado diretamente a partir deste microsite.
           </p>
         </div>
         <div className="access-actions">
@@ -264,7 +269,6 @@ const MicrositeProjeto = () => {
             <i className="bi bi-phone"></i>
             APK Android
           </a>
-          <Link to="/" className="text-link">Ir para Login</Link>
         </div>
       </section>
     </main>

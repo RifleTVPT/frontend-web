@@ -34,15 +34,39 @@
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  background: #4f56f6;
-  color: white;
+  background:
+    radial-gradient(circle at 50% 42%, #ffffff 0 18%, transparent 19%),
+    linear-gradient(135deg, #5d78ff, #1d4ed8);
+  color: transparent;
+  font-size: 0;
   font-weight: 900;
+  position: relative;
+  box-shadow: 0 12px 28px rgba(79, 86, 246, 0.28);
+}
+
+.brand-mark::before {
+  content: "";
+  width: 24px;
+  height: 28px;
+  border: 3px solid #fff;
+  border-radius: 13px 13px 9px 9px;
+  clip-path: polygon(50% 0, 92% 14%, 92% 58%, 50% 100%, 8% 58%, 8% 14%);
+}
+
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f4c430;
 }
 
 .microsite-brand small {
   display: block;
   color: #667085;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
 }
 
 .microsite-nav-actions {
@@ -184,15 +208,22 @@
   text-align: center;
 }
 
-.main-badge i {
+.badge-emblem {
   display: grid;
   width: 92px;
   height: 92px;
   place-items: center;
   border-radius: 50%;
-  color: #f4c430;
-  background: #101828;
+  color: white;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18), transparent 35%),
+    linear-gradient(135deg, #5d78ff, #1d4ed8);
   font-size: 3rem;
+  box-shadow: 0 18px 34px rgba(37, 99, 235, 0.28);
+}
+
+.badge-emblem i {
+  color: white;
 }
 
 .main-badge strong {
@@ -208,13 +239,24 @@
   min-height: 130px;
   padding: 1.2rem;
   border-radius: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .mini-stat strong {
   display: block;
   color: #4f56f6;
-  font-size: 2.5rem;
+  font-size: 3rem;
   line-height: 1;
+}
+
+.mini-stat span {
+  margin-top: 0.45rem;
+  font-size: 1.05rem;
+  line-height: 1.35;
 }
 
 .section-grid,
@@ -233,6 +275,7 @@
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
   gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
 }
 
 .section-grid h2,
@@ -246,6 +289,7 @@
 .text-stack {
   display: grid;
   gap: 1rem;
+  padding-top: calc(1.4rem + 1rem);
 }
 
 .structure-band {
