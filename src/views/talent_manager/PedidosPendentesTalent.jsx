@@ -175,7 +175,7 @@ const PedidosPendentesTalent = () => {
                         <div className="row g-3">
                             <div className="col-md-12">
                                 <div className="position-relative">
-                                    <input type="text" className="form-control border-0 bg-light py-2 ps-4 rounded-pill" placeholder="Pesquisar por ID / Consultor / Badge" value={pesquisa} onChange={(e) => setPesquisa(e.target.value)} />
+                                    <input type="text" className="talent-search-input form-control border-0 bg-light py-2 ps-4 rounded-pill" placeholder="Pesquisar por ID / Consultor / Badge" value={pesquisa} onChange={(e) => setPesquisa(e.target.value)} />
                                     <i className="bi bi-search position-absolute end-0 top-50 translate-middle-y me-3 text-muted"></i>
                                 </div>
                             </div>

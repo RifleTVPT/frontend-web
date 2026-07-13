@@ -324,11 +324,11 @@ const DashboardTalentManager = () => {
               </div>
             </div>
 
-            <div className="col-md-6 d-flex">
+            <div className="talent-dashboard-badges-chart col-md-6 d-flex">
               <div className="card border-0 shadow-sm p-4 w-100 bg-white d-flex flex-column">
                 <h6 className="fw-bold mb-3 text-start">Badges Obtidos (Por Nível)</h6>
                 <div className="row align-items-center flex-grow-1 m-0">
-                   <div className="col-6 text-start px-0">
+                   <div className="talent-dashboard-badges-legend col-6 text-start px-0">
                       <div className="dashboard-chart-legend d-flex flex-wrap gap-2 text-dark mt-1" style={{fontSize: '14.5px'}}>
                           {doughnutData.labels && doughnutData.labels.map((lbl, idx) => {
                                const bgColors = ['#0d6efd', '#0dcaf0', '#ffc107', '#fd7e14', '#dc3545', '#6f42c1', '#20c997'];
@@ -336,7 +336,7 @@ const DashboardTalentManager = () => {
                           })}
                       </div>
                    </div>
-                   <div className="col-6 d-flex justify-content-center align-items-center">
+                   <div className="talent-dashboard-badges-doughnut col-6 d-flex justify-content-center align-items-center">
                       <div style={{width: '190px', height: '190px', marginTop: '-15px'}}>
                         {doughnutData.datasets.length > 0 && <Doughnut data={doughnutData} plugins={[percentagePlugin]} options={{ maintainAspectRatio: false, plugins: { legend: { display: false } } }} />}
                       </div>

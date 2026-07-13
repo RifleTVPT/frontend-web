@@ -313,7 +313,7 @@ const BadgesExpiracaoTalent = () => {
                     </div>
 
                     {/* LINHA 2: Níveis e Botão Exportar (Alinhado com a Service Line à esquerda do seu container) */}
-                    <div className="row mb-5 align-items-end">
+                    <div className="talent-expiracao-export-row row mb-5 align-items-end">
                         <div className="col-md-9">
                             <label className="form-label fw-bold small text-uppercase text-muted ms-2">Nível de Competência</label>
                             <div className="d-flex gap-2 ms-2 flex-wrap">
@@ -399,7 +399,7 @@ const BadgesExpiracaoTalent = () => {
                                     </td>
                                     <td className="py-3">
                                         <button 
-                                            className="btn btn-primary btn-sm px-3 rounded-pill fw-bold shadow-sm"
+                                            className="talent-notificar-btn btn btn-primary btn-sm px-3 rounded-pill fw-bold shadow-sm"
                                             onClick={() => handleNotificar(item)}
                                         >
                                             <i className="bi bi-bell-fill me-2"></i>Notificar

@@ -261,7 +261,7 @@ const AnalisarEvidenciasTalent = () => {
                                 value={feedback}
                                 onChange={(e) => setFeedback(e.target.value)}
                             ></textarea>
-                            <div className="d-flex justify-content-center gap-4">
+                            <div className="talent-decision-actions d-flex justify-content-center gap-4">
                                 <button 
                                     onClick={() => handleAcao('SLL')} 
                                     className="btn btn-success px-5 py-2 rounded-pill fw-bold shadow-sm"
@@ -278,7 +278,7 @@ const AnalisarEvidenciasTalent = () => {
                         </div>
                     ) : (
                         <div className="text-center mb-5 p-4 bg-white rounded-4 shadow-sm border-top border-5 border-success">
-                            <div className="alert alert-success d-inline-block px-5 rounded-pill fw-bold mb-0">
+                            <div className="talent-archived-alert alert alert-success d-inline-block px-5 rounded-pill fw-bold mb-0">
                                 <i className="bi bi-shield-check me-2"></i> 
                                 Este pedido já foi processado e arquivado no histórico.
                             </div>

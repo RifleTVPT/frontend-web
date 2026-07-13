@@ -209,7 +209,7 @@ const HistoricoPedidosTalent = () => {
                     </div>
 
                     {/* Filtros Status e Botões Lado a Lado (Justify Content Start para alinhar à esquerda!) */}
-                    <div className="row align-items-center mb-5 mt-2">
+                    <div className="talent-historico-actions-row row align-items-center mb-5 mt-2">
                         <div className="col-md-6">
                             <label className="fw-bold text-muted small text-uppercase d-block mb-3">Status do Pedido</label>
                             {/* Rádios sem fundo e maiores */}
@@ -230,7 +230,7 @@ const HistoricoPedidosTalent = () => {
                         </div>
 
                         {/* Botões de Exportação alinhados à esquerda desta coluna em dropdowns */}
-                        <div className="col-md-6 d-flex flex-row justify-content-start gap-3 mt-4 mt-md-0 pt-md-4">
+                        <div className="talent-historico-export-actions col-md-6 d-flex flex-row justify-content-start gap-3 mt-4 mt-md-0 pt-md-4">
                             <div className="dropdown">
                                 <button className="btn btn-outline-success py-2 px-4 rounded-pill fw-bold shadow-sm d-flex align-items-center bg-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-download me-2 fs-5"></i> Exportar Aceites

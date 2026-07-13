@@ -369,6 +369,129 @@
     }
 }
 
+@media (max-width: 767.98px) {
+    .talent-dashboard-badges-chart .row {
+        align-items: center !important;
+    }
+
+    .talent-dashboard-badges-legend {
+        flex: 0 0 46% !important;
+        width: 46% !important;
+        max-width: 46% !important;
+    }
+
+    .talent-dashboard-badges-legend .dashboard-chart-legend {
+        font-size: 0.78rem !important;
+        gap: 0.35rem !important;
+    }
+
+    .talent-dashboard-badges-legend .dashboard-chart-legend > div {
+        width: 100%;
+        line-height: 1.15;
+    }
+
+    .talent-dashboard-badges-legend i {
+        font-size: 0.92rem !important;
+        margin-right: 0.35rem !important;
+    }
+
+    .talent-dashboard-badges-doughnut {
+        flex: 0 0 54% !important;
+        width: 54% !important;
+        max-width: 54% !important;
+    }
+
+    .talent-dashboard-badges-doughnut > div {
+        width: 145px !important;
+        height: 145px !important;
+        margin-top: 0 !important;
+    }
+
+    .talent-expiracao-export-row .col-md-3 {
+        margin-top: 1.25rem;
+    }
+
+    .talent-notificar-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.35rem;
+        min-height: 34px;
+        padding: 0.45rem 0.75rem !important;
+        font-size: 0.78rem !important;
+        line-height: 1 !important;
+        white-space: nowrap;
+    }
+
+    .talent-notificar-btn i {
+        margin-right: 0 !important;
+    }
+
+    .talent-search-input {
+        padding-right: 3rem !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .talent-decision-actions {
+        flex-wrap: wrap !important;
+        gap: 0.9rem !important;
+    }
+
+    .talent-decision-actions .btn {
+        width: 100%;
+        max-width: 220px;
+        min-height: 44px;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0.65rem 0.9rem !important;
+        border-radius: 16px !important;
+        font-size: 0.92rem !important;
+        line-height: 1.15 !important;
+        white-space: normal;
+    }
+
+    .talent-historico-actions-row .d-flex.gap-4 {
+        flex-wrap: wrap;
+        gap: 0.85rem !important;
+    }
+
+    .talent-historico-export-actions {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.75rem !important;
+        padding-top: 0 !important;
+    }
+
+    .talent-historico-export-actions .dropdown,
+    .talent-historico-export-actions .btn {
+        width: 100%;
+    }
+
+    .talent-historico-export-actions .btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 42px;
+        padding: 0.6rem 0.9rem !important;
+        font-size: 0.9rem !important;
+        line-height: 1.1 !important;
+        white-space: nowrap;
+    }
+
+    .talent-archived-alert {
+        width: 100%;
+        max-width: 360px;
+        padding: 0.8rem 1rem !important;
+        border-radius: 16px !important;
+        font-size: 0.9rem !important;
+        line-height: 1.25 !important;
+        white-space: normal;
+    }
+}
+
 @media (max-width: 575.98px) {
     .app-sidebar {
         width: 62px !important;
