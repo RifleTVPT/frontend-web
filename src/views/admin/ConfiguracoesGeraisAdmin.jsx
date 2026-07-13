@@ -215,7 +215,7 @@ const ConfiguracoesGeraisAdmin = () => {
                             <h5 className="fw-bold m-0"><i className="bi bi-person-circle me-2 text-primary"></i>Dados Pessoais e Segurança</h5>
                         </div>
                         <div className="admin-settings-profile-body d-flex align-items-start gap-4">
-                            <div className="text-center">
+                            <div className="admin-settings-photo text-center">
                                 <div className="position-relative cursor-pointer" onClick={handleFotoClick}>
                                     <img src={avatarPreviewSrc} className="rounded-circle shadow-sm border" style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="Avatar" />
                                     <button className="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle"><i className="bi bi-camera"></i></button>
@@ -318,10 +318,10 @@ const ConfiguracoesGeraisAdmin = () => {
 
 
                     {/* BOTÕES DE ACÇÃO FIXOS */}
-                    <div className="d-flex justify-content-center gap-4 mt-5 pb-5">
+                    <div className="admin-responsive-actions d-flex justify-content-center gap-4 mt-5 pb-5">
                         <button 
                             className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg fs-5" 
-                            style={{backgroundColor: '#5D78FF', border: 'none', minWidth: '280px'}}
+                            style={{backgroundColor: '#5D78FF', border: 'none'}}
                             onClick={handleSave}
                             disabled={saving}
                         >
@@ -329,7 +329,6 @@ const ConfiguracoesGeraisAdmin = () => {
                         </button>
                         <button 
                             className="btn btn-outline-secondary px-5 py-3 rounded-pill fw-bold border-2 fs-5" 
-                            style={{minWidth: '280px'}}
                             onClick={() => window.location.reload()}
                         >
                             Cancelar Alterações
