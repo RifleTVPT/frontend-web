@@ -20,7 +20,7 @@ const CartaoEstatistica = ({
     const textSubClass = fundoEscuro ? 'opacity-75' : 'text-muted';
 
     return (
-        <div className={`card border-0 shadow-sm p-4 rounded-3 h-100 d-flex flex-column ${cardBgClass} ${isCenter ? 'text-center' : 'text-start'}`}>
+        <div className={`dashboard-kpi-card card border-0 shadow-sm p-4 rounded-3 h-100 d-flex flex-column ${cardBgClass} ${isCenter ? 'text-center' : 'text-start'}`}>
             <div className={`small mb-2 ${textTituloClass}`}>
                 {icone && <i className={`bi ${icone} me-2`}></i>}
                 {titulo}

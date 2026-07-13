@@ -72,9 +72,9 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
     );
 
     return (
-        <header className="d-flex justify-content-between align-items-center mb-4 position-relative">
+        <header className="dashboard-header d-flex justify-content-between align-items-center mb-4 position-relative">
             {/* Lado Esquerdo */}
-            <div className="d-flex align-items-center gap-3">
+            <div className="dashboard-header-title d-flex align-items-center gap-3">
                 <h4 className="fw-bold text-dark m-0">{titulo}</h4>
                 {iconeEsquerda && (
                     <span className="text-primary fw-bold small bg-primary bg-opacity-10 px-3 py-1 rounded-pill">
@@ -84,7 +84,7 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
             </div>
             
             {/* Centro Perfeito - Casa com Olá Nome */}
-            <div className="position-absolute start-50 translate-middle-x">
+            <div className="dashboard-header-greeting position-absolute start-50 translate-middle-x">
                {!ocultarSaudacao && (
                  <Link to={homeResolvida} className="text-decoration-none fw-bold text-primary d-flex align-items-center gap-2">
                    <i className="bi bi-house-fill fs-5 mb-1"></i> 
@@ -94,7 +94,7 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
             </div>
 
             {/* Lado Direito */}
-            <div className="d-flex align-items-center gap-4">
+            <div className="dashboard-header-actions d-flex align-items-center gap-4">
                <NotificationSystem />
                
                <div className="d-flex align-items-center gap-2 border-start ps-3 text-start">

@@ -80,7 +80,7 @@ const SidebarConsultor = () => {
   const avatarSrc = resolveAssetUrl(avatarUrl) || avatarFallback;
 
   return (
-    <div className="d-flex flex-column text-white shadow" style={{ width: '280px', minHeight: '100vh', backgroundColor: azulFundo, position: 'sticky', top: 0 }}>
+    <div className="app-sidebar d-flex flex-column text-white shadow" style={{ width: '280px', minHeight: '100vh', backgroundColor: azulFundo, position: 'sticky', top: 0 }}>
       
       {/* HEADER: LOGO SOFTINSA */}
       <div className="p-4 mb-3 text-center border-bottom border-white-50">

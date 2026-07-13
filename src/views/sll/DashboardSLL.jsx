@@ -211,7 +211,7 @@ const DashboardSLL = () => {
                 <h5 className="fw-bold mb-4 text-primary">A Aguardar Validação SLL ({pedidosPendentes.length})</h5>
                 <div className="flex-grow-1">
                     {pedidosPendentes.length > 0 ? pedidosPendentes.slice(0, 4).map((pedido, i) => (
-                    <div key={i} className="d-flex align-items-center justify-content-between gap-3 mb-3 border rounded-4 p-3 bg-light bg-opacity-50 shadow-sm">
+                    <div key={i} className="dashboard-action-row d-flex align-items-center justify-content-between gap-3 mb-3 border rounded-4 p-3 bg-light bg-opacity-50 shadow-sm">
                         <div className="d-flex align-items-center gap-3 overflow-hidden">
                           <div className="bg-white rounded-circle border border-primary border-opacity-25 shadow-sm d-flex align-items-center justify-content-center overflow-hidden flex-shrink-0" style={{width: '56px', height: '56px'}}>
                             <img
@@ -302,7 +302,7 @@ const DashboardSLL = () => {
               <div className="card border-0 shadow-sm p-4 h-100 bg-white rounded-4" style={{ minHeight: `${alturaCardAreas}px` }}>
                 <h5 className="fw-bold mb-2">Distribuição por Área da Service Line</h5>
                 <p className="small text-muted mb-3">Badges atribuídos atualmente</p>
-                <div className="small fw-bold text-dark mb-3" style={gridLegendaAreas}>
+                <div className="dashboard-chart-legend small fw-bold text-dark mb-3" style={gridLegendaAreas}>
                     {doughnutData.labels && doughnutData.labels.map((lbl, idx) => (
                       <span key={idx} className="d-inline-flex align-items-center" style={{ minWidth: 0, whiteSpace: 'nowrap' }}>
                         <i className="bi bi-circle-fill me-2" style={{color: doughnutColors[idx % doughnutColors.length], flex: '0 0 auto'}}></i>

@@ -178,7 +178,7 @@ const DashboardAdmin = () => {
                         <div className="row g-4">
                             {atividades.length > 0 ? atividades.map((item, idx) => (
                                 <div key={idx} className="col-md-6">
-                                    <div className="d-flex align-items-center justify-content-between p-3 border border-light rounded-4 shadow-sm" style={{borderLeft: `5px solid ${item.type === 'reg' ? '#ffc107' : '#2575fc'}`}}>
+                                    <div className="dashboard-action-row d-flex align-items-center justify-content-between p-3 border border-light rounded-4 shadow-sm" style={{borderLeft: `5px solid ${item.type === 'reg' ? '#ffc107' : '#2575fc'}`}}>
                                         <div className="d-flex align-items-center gap-3 text-start">
                                             {item.type === 'badge' ? (
                                                 <img

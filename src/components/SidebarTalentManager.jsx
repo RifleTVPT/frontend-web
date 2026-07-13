@@ -78,7 +78,7 @@ const SidebarTalentManager = () => {
   const avatarSrc = resolveAssetUrl(avatarUrl) || avatarFallback;
 
   return (
-    <div className="d-flex flex-column text-white shadow" 
+    <div className="app-sidebar d-flex flex-column text-white shadow" 
          style={{ width: '280px', minHeight: '100vh', backgroundColor: azulFundo, position: 'sticky', top: 0 }}>
       
       {/* HEADER: LOGO SOFTINSA */}

@@ -263,7 +263,7 @@ const DashboardTalentManager = () => {
               <div className="card border-0 shadow-sm p-4 h-100 text-start bg-white">
                 <h6 className="fw-bold mb-3">Pedidos Pendentes ({stats.validacoesPendentes})</h6>
                 {pedidosPendentes.length > 0 ? pedidosPendentes.map((pedido, i) => (
-                  <div key={i} className="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                  <div key={i} className="dashboard-action-row d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
                     <div className="d-flex align-items-center gap-3">
                        {pedido.urlImagem ? (
                           <>
@@ -309,7 +309,7 @@ const DashboardTalentManager = () => {
                 <h6 className="fw-bold mb-3">Avisos e Lembretes Recentes</h6>
                 <div className="flex-grow-1 overflow-auto">
                 {avisos.length > 0 ? avisos.map((aviso, idx) => (
-                  <div key={idx} className={`d-flex align-items-center p-3 mb-2 border-start border-4 shadow-sm rounded-3 ${aviso.tipoCSS}`}>
+                  <div key={idx} className={`dashboard-notice-item d-flex align-items-center p-3 mb-2 border-start border-4 shadow-sm rounded-3 ${aviso.tipoCSS}`}>
                       <i className={`bi ${aviso.icone} fs-3 px-3`} style={{color: aviso.corIcone}}></i>
                       <div>
                         <div className="fw-bold small">{aviso.titulo}</div>
@@ -329,10 +329,10 @@ const DashboardTalentManager = () => {
                 <h6 className="fw-bold mb-3 text-start">Badges Obtidos (Por Nível)</h6>
                 <div className="row align-items-center flex-grow-1 m-0">
                    <div className="col-6 text-start px-0">
-                      <div className="d-flex flex-wrap gap-2 text-dark mt-1" style={{fontSize: '14.5px'}}>
+                      <div className="dashboard-chart-legend d-flex flex-wrap gap-2 text-dark mt-1" style={{fontSize: '14.5px'}}>
                           {doughnutData.labels && doughnutData.labels.map((lbl, idx) => {
                                const bgColors = ['#0d6efd', '#0dcaf0', '#ffc107', '#fd7e14', '#dc3545', '#6f42c1', '#20c997'];
-                               return <div key={idx} className="d-flex align-items-center fw-bold" style={{width: '45%'}}><i className="bi bi-circle-fill me-2 fs-5" style={{color: bgColors[idx]}}></i> {lbl}</div>;
+                               return <div key={idx} className="d-flex align-items-center fw-bold"><i className="bi bi-circle-fill me-2 fs-5" style={{color: bgColors[idx]}}></i> {lbl}</div>;
                           })}
                       </div>
                    </div>

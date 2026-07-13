@@ -83,7 +83,7 @@ const SidebarSLL = () => {
   const avatarSrc = resolveAssetUrl(avatarUrl) || avatarFallback;
 
   return (
-        <div className="d-flex flex-column text-white shadow" style={{ width: '280px', minHeight: '100vh', backgroundColor: azulFundo, position: 'sticky', top: 0 }}>
+        <div className="app-sidebar d-flex flex-column text-white shadow" style={{ width: '280px', minHeight: '100vh', backgroundColor: azulFundo, position: 'sticky', top: 0 }}>
             <div className="p-4 mb-3 text-center border-bottom border-white-50">
                 <div style={{ height: '50px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <h3 className="fw-bold m-0" style={{ letterSpacing: '2px' }}>SOFT<span className="text-info">I</span>NSA</h3>

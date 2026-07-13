@@ -206,7 +206,7 @@ const DashboardConsultor = () => {
                 <small className="text-muted mb-3 d-block">Próximos passos na sua evolução</small>
                 
                 {badgesRecomendados.length > 0 ? badgesRecomendados.map((badge, i) => (
-                  <div key={i} className="d-flex align-items-center gap-2 mb-2 border-bottom pb-2">
+                  <div key={i} className="dashboard-recommended-item d-flex align-items-center gap-2 mb-2 border-bottom pb-2">
                     <img 
                       src={resolvePublicBadgeImage(badge.URL_IMAGEM)}
                       onError={useDefaultBadgeImageOnError}
@@ -261,7 +261,7 @@ const DashboardConsultor = () => {
 
                     return jornadaOrdenada.map((item, idx) => (
                       <div key={idx} className="mb-4">
-                        <div className="d-flex justify-content-between align-items-end small mb-2">
+                        <div className="dashboard-journey-row d-flex justify-content-between align-items-end small mb-2">
                           <div className="lh-sm">
                             <span className="fw-bold d-block text-dark" style={{fontSize: '13px'}}>{item.nome}</span>
                             <span className="text-muted" style={{fontSize: '11px'}}>{item.serviceLine} - {item.area} <span className="badge bg-light text-secondary ms-1 border">Nível {item.nivel}</span></span>
@@ -286,7 +286,7 @@ const DashboardConsultor = () => {
                 <h6 className="fw-bold mb-3">Avisos e Lembretes Recentes</h6>
                 
                 {avisos.length > 0 ? avisos.map((aviso, idx) => (
-                  <div key={idx} className={`d-flex align-items-center p-3 mb-2 border-start border-4 shadow-sm rounded-3 ${aviso.tipoCSS}`}>
+                  <div key={idx} className={`dashboard-notice-item d-flex align-items-center p-3 mb-2 border-start border-4 shadow-sm rounded-3 ${aviso.tipoCSS}`}>
                       <i className={`bi ${aviso.icone} fs-3 px-3`} style={{color: aviso.corIcone}}></i>
                       <div>
                         <div className="fw-bold small">{aviso.titulo}</div>
