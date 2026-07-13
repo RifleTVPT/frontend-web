@@ -165,7 +165,7 @@ const CatalogoBadges = () => {
           <div className="position-relative mb-4">
             <input 
               type="text" 
-              className="form-control py-2 ps-4 rounded-3 border-0 shadow-sm" 
+              className="consultor-search-input form-control py-2 ps-4 rounded-3 border-0 shadow-sm" 
               placeholder="Pesquisar por nome de Badge..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -173,7 +173,7 @@ const CatalogoBadges = () => {
             <i className="bi bi-search position-absolute end-0 top-50 translate-middle-y me-3 text-muted"></i>
           </div>
 
-          <div className="row mb-4">
+          <div className="consultor-filter-row row mb-4">
             {/* DROPDOWN SERVICE LINE LIGADO AO ESTADO */}
             <div className="col-md-6">
               <label className="form-label fw-bold h5 titulo-seccao">Filtrar por Service Line</label>

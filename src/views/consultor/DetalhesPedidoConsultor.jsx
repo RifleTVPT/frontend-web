@@ -173,7 +173,7 @@ const DetalhesPedidoConsultor = () => {
                         href={ev.url.startsWith('http') ? ev.url : `https://softinsa-api-riya.onrender.com${ev.url}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn btn-primary btn-sm rounded-3 px-3"
+                        className="consultor-download-action btn btn-primary btn-sm rounded-3 px-3"
                       >
                         <i className="bi bi-download me-2"></i> Ver / Download
                       </a>

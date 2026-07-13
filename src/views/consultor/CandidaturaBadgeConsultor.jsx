@@ -312,9 +312,9 @@ const CandidaturaBadgeConsultor = () => {
             ocultarSaudacao={true}
           />
 
-          <div className="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+          <div className="consultor-badge-detail-card card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
             <div className="row align-items-center">
-              <div className="col-md-4 text-start border-end pe-5">
+              <div className="consultor-detail-media col-md-4 text-start border-end pe-5">
                 <div className="d-flex justify-content-center w-100 mb-3">
                   <div className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden position-relative bg-light" style={{width: '150px', height: '150px'}}>
                     <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '7rem', zIndex: 1 }}></i>
@@ -364,7 +364,7 @@ const CandidaturaBadgeConsultor = () => {
                 </div>
               </div>
 
-              <div className="col-md-8 ps-5">
+              <div className="consultor-detail-text col-md-8 ps-5">
                 <h5 className="titulo-dados-grande">Descrição</h5>
                 <p className="text-muted small mb-4">{badgeInfo.descricao}</p>
                 
@@ -463,7 +463,7 @@ const CandidaturaBadgeConsultor = () => {
               </label>
             </div>
 
-            <div className="d-flex gap-3">
+            <div className="consultor-submit-actions d-flex gap-3">
               <button 
                 className={`btn px-5 py-3 rounded-3 fw-bold text-white shadow-sm ${podeSubmeter && !submitting ? 'btn-primary' : 'btn-secondary opacity-50 cursor-not-allowed'}`}
                 onClick={handleSubmit} 

@@ -170,7 +170,7 @@ const MeusBadgesConsultor = () => {
           <div className="input-group mb-4 shadow-sm rounded-pill overflow-hidden bg-white border">
             <input 
               type="text" 
-              className="form-control border-0 px-4 py-3 shadow-none" 
+              className="consultor-search-input form-control border-0 px-4 py-3 shadow-none" 
               placeholder="Pesquisar por nome de badge" 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -178,7 +178,7 @@ const MeusBadgesConsultor = () => {
             <i className="bi bi-search position-absolute end-0 top-50 translate-middle-y me-3 text-muted"></i>
           </div>
 
-          <div className="row mb-4 align-items-end">
+          <div className="consultor-meusbadges-filters row mb-4 align-items-end">
             <div className="col text-start pe-2">
               <label className="form-label fw-bold h6 text-secondary">Service Line</label>
               <select 
@@ -218,7 +218,7 @@ const MeusBadgesConsultor = () => {
             </div>
           </div>
 
-          <div className="mb-5 d-flex gap-2 justify-content-start flex-wrap align-items-center">
+          <div className="consultor-niveis-filter mb-5 d-flex gap-2 justify-content-start flex-wrap align-items-center">
              <span className="text-secondary fw-bold me-2">Níveis disponíveis:</span>
              {todosNiveis.length === 0 ? <span className="text-muted small">Selecione uma área para ver os níveis</span> : null}
              {todosNiveis.map(n => (

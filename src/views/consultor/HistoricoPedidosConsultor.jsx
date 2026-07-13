@@ -185,7 +185,7 @@ const HistoricoPedidosConsultor = () => {
             linkHome="/dashboard"
           />
 
-          <div className="row mb-4">
+          <div className="consultor-filter-row row mb-4">
             <div className="col-md-3">
               <label className="form-label fw-bold h5 titulo-seccao">Status</label>
               <select className="form-select border-0 shadow-sm py-2" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>

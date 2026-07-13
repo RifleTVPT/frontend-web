@@ -68,9 +68,9 @@ const DetalhesBadge = () => {
             ocultarSaudacao={true}
           />
 
-          <div className="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+          <div className="consultor-badge-detail-card card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
             <div className="row align-items-center">
-              <div className="col-md-4 text-start border-end pe-5">
+              <div className="consultor-detail-media col-md-4 text-start border-end pe-5">
                 <div className="d-flex justify-content-center w-100 mb-3">
                   <div className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden position-relative bg-light" style={{width: '150px', height: '150px'}}>
                     <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '7rem', zIndex: 1 }}></i>
@@ -110,7 +110,7 @@ const DetalhesBadge = () => {
                   <p className="mb-1"><strong>Pontos:</strong> {badgeData.pontos} pontos</p>
                 </div>
               </div>
-              <div className="col-md-8 ps-5">
+              <div className="consultor-detail-text col-md-8 ps-5">
                 <h4 className="titulo-dados-grande mb-3">Descrição</h4>
                 <p className="text-muted leading-relaxed small">{badgeData.descricao}</p>
               </div>
@@ -167,7 +167,7 @@ const DetalhesBadge = () => {
           )}
 
           <div className="text-center pb-5 mt-5">
-            <Link to={`/candidatar/${badgeData.id}`} className="btn btn-primary btn-lg px-5 rounded-3 shadow fw-bold text-decoration-none">
+            <Link to={`/candidatar/${badgeData.id}`} className="consultor-primary-action btn btn-primary btn-lg px-5 rounded-3 shadow fw-bold text-decoration-none">
               <i className="bi bi-file-earmark-text me-2"></i> Candidatar-me ao Badge
             </Link>
           </div>

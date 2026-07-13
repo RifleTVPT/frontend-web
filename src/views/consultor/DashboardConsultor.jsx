@@ -261,12 +261,12 @@ const DashboardConsultor = () => {
 
                     return jornadaOrdenada.map((item, idx) => (
                       <div key={idx} className="mb-4">
-                        <div className="dashboard-journey-row small mb-2" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', alignItems: 'end', gap: '0.75rem', width: '100%' }}>
+                        <div className="consultor-journey-row dashboard-journey-row small mb-2" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', alignItems: 'end', gap: '0.75rem', width: '100%' }}>
                           <div className="lh-sm" style={{ textAlign: 'left', minWidth: 0 }}>
                             <span className="fw-bold d-block text-dark" style={{fontSize: '13px'}}>{item.nome}</span>
                             <span className="text-muted" style={{fontSize: '11px'}}>{item.serviceLine} - {item.area} <span className="badge bg-light text-secondary ms-1 border">Nível {item.nivel}</span></span>
                           </div>
-                          <div className="text-end" style={{ textAlign: 'right' }}>
+                          <div className="consultor-journey-actions text-end" style={{ textAlign: 'right' }}>
                               <span className="text-primary fw-bold d-block">{item.percentagem}%</span>
                               <Link to={`/candidatar/${item.idBadge}`} className="btn btn-sm btn-outline-primary py-0 px-2 mt-1" style={{fontSize: '10px'}}><i className="bi bi-pencil me-1"></i>Continuar</Link>
                           </div>

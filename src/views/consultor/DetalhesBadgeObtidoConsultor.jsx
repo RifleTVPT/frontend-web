@@ -177,9 +177,9 @@ const DetalhesBadgeObtidoConsultor = () => {
             ocultarSaudacao={true}
           />
 
-          <div className="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+          <div className="consultor-badge-detail-card card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
             <div className="row align-items-center text-start">
-              <div className="col-md-4 text-center border-end">
+              <div className="consultor-detail-media col-md-4 text-center border-end">
                 <Link to={`/verificacao/${encodeURIComponent(badgeData.linkUnico)}`} target="_blank" rel="noopener noreferrer" className="rounded-circle border border-primary d-inline-flex align-items-center justify-content-center overflow-hidden mb-3 shadow-sm hover-overlay position-relative bg-light" style={{width: '180px', height: '180px', display: 'inline-block'}}>
                   <i className="bi bi-trophy-fill text-warning position-absolute" style={{ fontSize: '7rem', zIndex: 1, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}></i>
                   {(() => {
@@ -220,7 +220,7 @@ const DetalhesBadgeObtidoConsultor = () => {
                 </div>
               </div>
 
-              <div className="col-md-8 ps-5">
+              <div className="consultor-detail-text col-md-8 ps-5">
                 <h4 className="fw-bold mb-3">Descrição</h4>
                 <p className="text-muted small leading-relaxed">{badgeData.descricao}</p>
               </div>

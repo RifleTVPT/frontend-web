@@ -96,7 +96,7 @@ const ConquistasEspeciaisConsultor = () => {
           <div className="position-relative mb-5">
             <input 
               type="text" 
-              className="form-control py-3 ps-4 rounded-3 border-0 shadow-sm" 
+              className="consultor-search-input form-control py-3 ps-4 rounded-3 border-0 shadow-sm" 
               placeholder="Pesquisar nas conquistas por título ou descrição..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
