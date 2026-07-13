@@ -319,7 +319,7 @@ const RankingPontosConsultor = () => {
           </TabelaGenerica>
 
           {/* Ações com Dropdown de Exportação */}
-          <div className="d-flex justify-content-center gap-3 pb-5">
+          <div className="consultor-ranking-actions d-flex justify-content-center gap-3 pb-5">
             <button className="btn btn-primary px-5 rounded-3 fw-bold shadow-sm" onClick={() => setShowFullRanking(true)}>
               Ver Todos os Consultores
             </button>

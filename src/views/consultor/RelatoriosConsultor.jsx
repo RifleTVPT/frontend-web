@@ -369,7 +369,7 @@ const RelatoriosConsultor = () => {
           </div>
 
           {/* BOTÕES DE GERAÇÃO */}
-          <div className="d-flex justify-content-center gap-4 mt-5 pb-5">
+          <div className="consultor-report-actions d-flex justify-content-center gap-4 mt-5 pb-5">
             <button 
               className="btn btn-primary px-5 py-2 rounded-3 fw-bold shadow-sm d-flex align-items-center gap-2"
               onClick={() => gerarRelatorio('PDF')}

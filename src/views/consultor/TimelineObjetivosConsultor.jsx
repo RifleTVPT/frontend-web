@@ -131,8 +131,8 @@ const TimelineObjetivosConsultor = () => {
           />
 
           {/* KPI Header Cards DINÂMICOS */}
-          <div className="card border-0 shadow-sm rounded-pill py-2 px-4 mb-5 mx-auto bg-white" style={{ width: 'fit-content' }}>
-            <div className="d-flex align-items-center gap-4">
+          <div className="consultor-timeline-summary card border-0 shadow-sm rounded-pill py-2 px-4 mb-5 mx-auto bg-white" style={{ width: 'fit-content' }}>
+            <div className="consultor-timeline-summary-inner d-flex align-items-center gap-4">
               <div className="d-flex align-items-center gap-2">
                 <div className="bg-danger bg-opacity-10 p-2 rounded-circle">🎯</div>
                 <span className="fw-bold">Total de Objetivos: {total}</span>
@@ -281,7 +281,7 @@ const TimelineObjetivosConsultor = () => {
                     Desejo receber notificações e lembretes sobre este objetivo
                   </label>
                 </div>
-                <div className="d-flex gap-3 justify-content-center">
+                <div className="consultor-modal-actions d-flex gap-3 justify-content-center">
                   <button className="btn btn-secondary px-5 rounded-3 fw-bold shadow-sm" onClick={() => setShowModal(false)}>Cancelar</button>
                   <button className="btn btn-primary px-5 rounded-3 fw-bold shadow-sm" onClick={handleCriarObjetivo}>Ativar Objetivo e Adicionar</button>
                 </div>

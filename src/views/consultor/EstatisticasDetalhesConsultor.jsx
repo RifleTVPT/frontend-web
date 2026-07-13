@@ -299,9 +299,9 @@ const EstatisticasDetalhesConsultor = () => {
           <div className="row g-4 mb-4 mt-2">
             {/* Radar: Competências */}
             <div className="col-md-6">
-              <div className="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+              <div className="consultor-radar-card card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
                 <h6 className="fw-bold text-center mb-3">As minhas competências por Área</h6>
-                <div style={{ height: '300px' }}>
+                <div className="consultor-radar-chart" style={{ height: '300px' }}>
                   <Radar ref={radarRef} data={radarData} options={{ maintainAspectRatio: false, scales: { r: { suggestMin: 0, suggestMax: 100 } } }} />
                 </div>
               </div>
@@ -309,7 +309,7 @@ const EstatisticasDetalhesConsultor = () => {
 
             {/* Linha: Evolução Mensal */}
             <div className="col-md-6">
-              <div className="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+              <div className="consultor-doughnut-card card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
                 <h6 className="fw-bold text-center mb-3">Evolução Mensal de Pontos</h6>
                 <div style={{ height: '300px' }}>
                   <Line ref={lineRef} data={lineData} options={{ maintainAspectRatio: false, scales: { y: { min: 0 } } }} />
@@ -331,8 +331,8 @@ const EstatisticasDetalhesConsultor = () => {
             <div className="col-md-6">
               <div className="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
                 <h6 className="fw-bold text-center mb-3">Distribuição de Badges por Nível</h6>
-                <div className="d-flex justify-content-center align-items-center" style={{ height: '300px' }}>
-                  <div style={{ width: '100%', maxWidth: '420px', height: '230px', marginLeft: 'auto', marginRight: 'auto' }}>
+                <div className="consultor-doughnut-wrap d-flex justify-content-center align-items-center" style={{ height: '300px' }}>
+                  <div className="consultor-doughnut-chart" style={{ width: '100%', maxWidth: '420px', height: '230px', marginLeft: 'auto', marginRight: 'auto' }}>
                     <Doughnut ref={doughnutRef} data={doughnutData} options={{ 
                       maintainAspectRatio: false,
                       layout: { padding: { left: 40 } },
