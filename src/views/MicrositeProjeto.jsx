@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../assets/microsite.css';
 
 const appUrl = 'https://softinsa-plataforma.onrender.com';
-const apkUrl = '/downloads/softinsa-badges-consultor.apk';
+const apkUrl = '/downloads/Softinsa-Badges-Consultor.apk';
 
 const perfis = [
   {
