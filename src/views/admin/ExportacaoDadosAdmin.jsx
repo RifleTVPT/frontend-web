@@ -287,13 +287,13 @@ const ExportacaoDadosAdmin = () => {
                                     <option>Ano Corrente</option>
                                 </select>
                             </div>
-                            <div className="admin-date-label col-md-1 text-end fw-bold text-muted">Data Início:</div>
+                            <div className="admin-date-label col-md-1 text-start fw-bold text-muted">Data Início:</div>
                             <div className="col-md-3">
                                 <div className="input-group shadow-sm rounded-3 overflow-hidden border-0">
                                     <input type="date" className="form-control border-0 py-3 fs-5" value={dataInicio} onChange={(e) => setDataInicio(e.target.value)} />
                                 </div>
                             </div>
-                            <div className="admin-date-label col-md-1 text-end fw-bold text-muted">Data Fim:</div>
+                            <div className="admin-date-label col-md-1 text-start fw-bold text-muted">Data Fim:</div>
                             <div className="col-md-3">
                                 <div className="input-group shadow-sm rounded-3 overflow-hidden border-0">
                                     <input type="date" className="form-control border-0 py-3 fs-5" value={dataFim} onChange={(e) => setDataFim(e.target.value)} />

@@ -416,7 +416,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
                     </div>
 
                     {/* BOTÕES DE AÇÃO */}
-                    <div className="d-flex justify-content-center gap-4 mb-5 pt-3">
+                    <div className="admin-responsive-actions d-flex justify-content-center gap-4 mb-5 pt-3">
                         <button 
                             className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg fs-5" 
                             style={{backgroundColor: '#5D78FF', border: 'none', minWidth: '280px'}}

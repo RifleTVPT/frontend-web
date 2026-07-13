@@ -210,11 +210,11 @@ const ConfiguracoesGeraisAdmin = () => {
                     />
 
                     {/* DADOS PESSOAIS */}
-                    <div className="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+                    <div className="admin-settings-profile-card card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
                         <div className="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
                             <h5 className="fw-bold m-0"><i className="bi bi-person-circle me-2 text-primary"></i>Dados Pessoais e Segurança</h5>
                         </div>
-                        <div className="d-flex align-items-start gap-4">
+                        <div className="admin-settings-profile-body d-flex align-items-start gap-4">
                             <div className="text-center">
                                 <div className="position-relative cursor-pointer" onClick={handleFotoClick}>
                                     <img src={avatarPreviewSrc} className="rounded-circle shadow-sm border" style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="Avatar" />
@@ -223,7 +223,7 @@ const ConfiguracoesGeraisAdmin = () => {
                                 <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleFotoChange} />
                                 <small className="text-primary d-block mt-2 cursor-pointer fw-bold" onClick={handleFotoClick}>Mudar Foto</small>
                             </div>
-                            <div className="flex-grow-1">
+                            <div className="admin-settings-profile-fields flex-grow-1">
                                 <div className="row g-3">
                                     <div className="col-md-6">
                                         <label className="form-label small fw-bold text-muted">Nome Completo</label>
@@ -248,7 +248,7 @@ const ConfiguracoesGeraisAdmin = () => {
                                 </div>
                                 <div className="mt-3">
                                     {!editando ? (
-                                        <div className="d-flex gap-2">
+                                        <div className="admin-settings-inline-actions d-flex gap-2">
                                             <button className="btn btn-primary btn-sm px-4 rounded-pill fw-bold" onClick={() => setEditando(true)}>
                                                 <i className="bi bi-pencil-square me-2"></i> Editar Perfil
                                             </button>
@@ -257,7 +257,7 @@ const ConfiguracoesGeraisAdmin = () => {
                                             </button>
                                         </div>
                                     ) : (
-                                        <div className="d-flex gap-2 mt-3">
+                                        <div className="admin-settings-inline-actions d-flex gap-2 mt-3">
                                             <button className="btn btn-primary px-4 rounded-pill fw-bold" onClick={handleSalvarPerfil}>Guardar Alterações</button>
                                             <button className="btn btn-outline-secondary px-4 rounded-pill fw-bold" onClick={() => { setEditando(false); setTempPerfil(perfil); }}>Cancelar</button>
                                         </div>

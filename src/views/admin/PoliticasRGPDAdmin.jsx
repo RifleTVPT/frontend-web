@@ -119,7 +119,7 @@ const PoliticasRGPDAdmin = () => {
                         <div className="bg-primary p-3 d-flex justify-content-between align-items-center">
                             <h5 className="text-white m-0 fw-bold"><i className="bi bi-file-earmark-text me-2"></i>Termos e Condições de Utilização</h5>
                             {!isEditingTermos && (
-                                <button onClick={() => setIsEditingTermos(true)} className="btn btn-sm btn-light rounded-pill px-3 fw-bold">
+                                <button onClick={() => setIsEditingTermos(true)} className="admin-compact-action-btn btn btn-sm btn-light rounded-pill px-3 fw-bold">
                                     <i className="bi bi-pencil-square me-2"></i>Editar Texto
                                 </button>
                             )}
@@ -151,7 +151,7 @@ const PoliticasRGPDAdmin = () => {
                         <div className="bg-primary p-3 d-flex justify-content-between align-items-center">
                             <h5 className="text-white m-0 fw-bold"><i className="bi bi-shield-check me-2"></i>Políticas RGPD de Privacidade</h5>
                             {!isEditingPoliticas && (
-                                <button onClick={() => setIsEditingPoliticas(true)} className="btn btn-sm btn-light rounded-pill px-3 fw-bold">
+                                <button onClick={() => setIsEditingPoliticas(true)} className="admin-compact-action-btn btn btn-sm btn-light rounded-pill px-3 fw-bold">
                                     <i className="bi bi-pencil-square me-2"></i>Editar Conteúdo
                                 </button>
                             )}
@@ -178,7 +178,7 @@ const PoliticasRGPDAdmin = () => {
                     </div>
 
                     {/* BOTÕES GLOBAIS */}
-                    <div className="d-flex justify-content-center gap-4 mt-4">
+                    <div className="admin-responsive-actions d-flex justify-content-center gap-4 mt-4">
                         <button 
                             className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg fs-5" 
                             style={{backgroundColor: '#5D78FF', border: 'none', minWidth: '300px'}}

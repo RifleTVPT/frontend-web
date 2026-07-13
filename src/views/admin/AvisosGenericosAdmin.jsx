@@ -246,7 +246,7 @@ const AvisosGenericosAdmin = () => {
                                     <td className="text-muted py-4">{a.visibilidade}</td>
                                     <td className="text-muted py-4">{a.data}</td>
                                     <td className="py-4">
-                                        <div className="d-flex flex-column gap-1 align-items-center">
+                                        <div className="admin-table-actions d-flex flex-column gap-1 align-items-center">
                                             <button onClick={() => handleEdit(a)} className="btn btn-primary btn-sm rounded-pill px-4 fw-bold w-75 shadow-sm" style={{backgroundColor: '#5D78FF', fontSize: '11px', border: 'none'}}>Editar Conteúdo</button>
                                             <button onClick={() => toggleStatus(a.id)} className="btn btn-danger btn-sm rounded-pill px-4 fw-bold w-75 shadow-sm" style={{backgroundColor: '#E85353', fontSize: '11px', border: 'none'}}>Desativar Aviso</button>
                                         </div>
