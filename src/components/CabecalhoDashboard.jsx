@@ -84,7 +84,7 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
             </div>
             
             {/* Centro Perfeito - Casa com Olá Nome */}
-            <div className="dashboard-header-greeting position-absolute start-50 translate-middle-x">
+            <div className="dashboard-header-greeting">
                {!ocultarSaudacao && (
                  <Link to={homeResolvida} className="text-decoration-none fw-bold text-primary d-flex align-items-center gap-2">
                    <i className="bi bi-house-fill fs-5 mb-1"></i> 

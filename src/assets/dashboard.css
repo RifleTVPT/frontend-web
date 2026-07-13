@@ -121,6 +121,9 @@
 
 .dashboard-header-greeting {
     white-space: nowrap;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
 }
 
 .dashboard-kpi-card {
@@ -172,8 +175,6 @@
     }
 
     .dashboard-header-greeting {
-        position: static !important;
-        transform: none !important;
         order: 3;
         width: 100%;
     }
@@ -446,7 +447,7 @@
     .app-sidebar .list-group {
         display: flex !important;
         flex-direction: row !important;
-        align-items: stretch;
+        align-items: center !important;
         gap: 0.5rem;
         width: 100%;
         overflow-x: auto;
@@ -466,7 +467,10 @@
 
     .app-sidebar button {
         width: auto !important;
-        min-height: 42px;
+        height: 44px !important;
+        min-height: 44px !important;
+        display: inline-flex !important;
+        align-items: center !important;
         justify-content: center !important;
         gap: 0.4rem;
         padding: 10px 12px !important;
@@ -696,10 +700,11 @@
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        gap: 0.35rem !important;
+        gap: 0.5rem !important;
         text-align: center !important;
-        position: static !important;
-        margin-bottom: 1.35rem !important;
+        position: relative !important;
+        margin-top: 0 !important;
+        margin-bottom: 1.5rem !important;
     }
 
     .dashboard-header-title,
@@ -717,6 +722,7 @@
         align-items: center !important;
         justify-content: center !important;
         gap: 0.5rem !important;
+        min-height: 1.65rem;
     }
 
     .dashboard-header-title h4 {
@@ -727,7 +733,9 @@
     .dashboard-header-greeting {
         display: flex !important;
         justify-content: center !important;
-        margin-top: 0.15rem !important;
+        margin-top: 0 !important;
+        line-height: 1.25 !important;
+        min-height: 1.4rem;
     }
 
     .dashboard-header-greeting a {
@@ -739,7 +747,7 @@
         align-items: center !important;
         justify-content: center !important;
         gap: 0.75rem !important;
-        margin-top: 0.45rem !important;
+        margin-top: 0.6rem !important;
     }
 
     .dashboard-user-profile {
@@ -762,6 +770,8 @@
         grid-template-columns: minmax(0, 1fr) auto !important;
         align-items: end !important;
         gap: 0.75rem !important;
+        width: 100% !important;
+        justify-content: normal !important;
     }
 
     .dashboard-journey-row .lh-sm {
