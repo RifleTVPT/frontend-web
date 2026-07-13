@@ -654,3 +654,139 @@
         width: 100%;
     }
 }
+
+/* Regras finais para mobile/tablet pequeno: mantem a navegação e cabeçalho estáveis. */
+@media (max-width: 991.98px) {
+    .app-sidebar h3 {
+        width: 140px !important;
+        min-width: 140px !important;
+        height: 24px !important;
+        margin: 0 auto !important;
+        position: relative !important;
+        color: transparent !important;
+        font-size: 0 !important;
+        line-height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .app-sidebar h3 * {
+        display: none !important;
+    }
+
+    .app-sidebar h3::before {
+        content: "SOFTINSA" !important;
+        position: absolute !important;
+        inset: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #fff !important;
+        font-size: 1.25rem !important;
+        line-height: 1 !important;
+        letter-spacing: 1px !important;
+        font-weight: 800 !important;
+    }
+
+    .dashboard-scroll {
+        padding-top: 1.65rem !important;
+    }
+
+    .dashboard-header {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 0.35rem !important;
+        text-align: center !important;
+        position: static !important;
+        margin-bottom: 1.35rem !important;
+    }
+
+    .dashboard-header-title,
+    .dashboard-header-greeting,
+    .dashboard-header-actions {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        order: initial !important;
+    }
+
+    .dashboard-header-title {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+    }
+
+    .dashboard-header-title h4 {
+        text-align: center !important;
+        margin: 0 !important;
+    }
+
+    .dashboard-header-greeting {
+        display: flex !important;
+        justify-content: center !important;
+        margin-top: 0.15rem !important;
+    }
+
+    .dashboard-header-greeting a {
+        justify-content: center !important;
+    }
+
+    .dashboard-header-actions {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.75rem !important;
+        margin-top: 0.45rem !important;
+    }
+
+    .dashboard-user-profile {
+        border-left: 0 !important;
+        border-right: 1px solid #dee2e6 !important;
+        padding-left: 0 !important;
+        padding-right: 0.8rem !important;
+        max-width: min(280px, calc(100vw - 115px)) !important;
+    }
+
+    .dashboard-notification-slot {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-width: 34px;
+    }
+
+    .dashboard-journey-row {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        align-items: end !important;
+        gap: 0.75rem !important;
+    }
+
+    .dashboard-journey-row .lh-sm {
+        text-align: left !important;
+        min-width: 0 !important;
+    }
+
+    .dashboard-journey-row .text-end {
+        width: auto !important;
+        display: block !important;
+        text-align: right !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .dashboard-journey-row {
+        grid-template-columns: 1fr !important;
+        align-items: start !important;
+    }
+
+    .dashboard-journey-row .text-end {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        text-align: left !important;
+    }
+}
