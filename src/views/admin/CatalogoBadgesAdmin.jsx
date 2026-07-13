@@ -177,7 +177,7 @@ const CatalogoBadgesAdmin = () => {
                             <div className="position-relative shadow-sm">
                                 <input 
                                     type="text" 
-                                    className="form-control border-0 py-3 ps-4 rounded-3" 
+                                    className="admin-search-input form-control border-0 py-3 ps-4 rounded-3" 
                                     placeholder="Pesquisar por Nome / Service Line / Área" 
                                     value={pesquisa}
                                     onChange={(e) => setPesquisa(e.target.value)}

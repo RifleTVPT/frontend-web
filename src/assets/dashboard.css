@@ -804,6 +804,8 @@
 .admin-search-input {
     padding-right: 3.25rem !important;
     text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 @media (max-width: 767.98px) {
@@ -896,6 +898,9 @@
     }
 
     .admin-responsive-actions .btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         width: 100%;
         max-width: 240px;
         min-height: 46px;
@@ -941,7 +946,7 @@
     }
 
     .admin-log-export {
-        margin-top: 1rem;
+        margin-top: 1.45rem;
         justify-content: flex-start !important;
     }
 
@@ -969,5 +974,20 @@
     .admin-conquista-modal .modal-body {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+    }
+
+    .admin-date-label {
+        text-align: left !important;
+        margin-bottom: 0.45rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .admin-responsive-actions .btn {
+        max-width: 220px;
+    }
+
+    .admin-log-export {
+        margin-top: 1.75rem;
     }
 }

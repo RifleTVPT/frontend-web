@@ -310,7 +310,7 @@ const MetricasGlobaisAdmin = () => {
                     </div>
 
                     {/* Botões de Exportação Centralizados */}
-                    <div className="d-flex justify-content-center gap-3 mb-5 mt-2">
+                    <div className="admin-responsive-actions d-flex justify-content-center gap-3 mb-5 mt-2">
                         <button onClick={handleExportPDF} className="btn btn-primary px-5 py-3 rounded-3 fw-bold shadow d-flex align-items-center gap-2" style={{backgroundColor: '#5D78FF', border: 'none'}}>
                             <i className="bi bi-file-earmark-pdf-fill fs-5"></i> Exportar para PDF
                         </button>

@@ -287,13 +287,13 @@ const ExportacaoDadosAdmin = () => {
                                     <option>Ano Corrente</option>
                                 </select>
                             </div>
-                            <div className="col-md-1 text-end fw-bold text-muted">Data Início:</div>
+                            <div className="admin-date-label col-md-1 text-end fw-bold text-muted">Data Início:</div>
                             <div className="col-md-3">
                                 <div className="input-group shadow-sm rounded-3 overflow-hidden border-0">
                                     <input type="date" className="form-control border-0 py-3 fs-5" value={dataInicio} onChange={(e) => setDataInicio(e.target.value)} />
                                 </div>
                             </div>
-                            <div className="col-md-1 text-end fw-bold text-muted">Data Fim:</div>
+                            <div className="admin-date-label col-md-1 text-end fw-bold text-muted">Data Fim:</div>
                             <div className="col-md-3">
                                 <div className="input-group shadow-sm rounded-3 overflow-hidden border-0">
                                     <input type="date" className="form-control border-0 py-3 fs-5" value={dataFim} onChange={(e) => setDataFim(e.target.value)} />
@@ -373,7 +373,7 @@ const ExportacaoDadosAdmin = () => {
                     </div>
 
                     {/* BOTÕES DE GERAÇÃO */}
-                    <div className="d-flex justify-content-center gap-5 mt-5 pt-5 pb-5">
+                    <div className="admin-responsive-actions d-flex justify-content-center gap-5 mt-5 pt-5 pb-5">
                         <button 
                             className="btn btn-primary px-5 py-3 rounded-3 fw-bold shadow-lg d-flex align-items-center gap-3 fs-5 border-0 transition-all hover-up" 
                             style={{ backgroundColor: '#5D78FF' }}

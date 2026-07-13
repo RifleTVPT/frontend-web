@@ -148,7 +148,7 @@ const DetalhesPedidoBadgeAdmin = () => {
                         </TabelaGenerica>
                     </div>
 
-                    <div className="d-flex justify-content-center gap-4 mb-5">
+                    <div className="admin-responsive-actions d-flex justify-content-center gap-4 mb-5">
                         {pedido.status !== 'Aceite' && pedido.status !== 'Recusado' && pedido.status !== 'Eliminado' && (
                             <button onClick={handleEliminar} className="btn btn-danger px-5 py-3 rounded-pill fw-bold fs-5 shadow" style={{backgroundColor: '#D9534F', border: 'none', minWidth: '220px'}}>Eliminar Pedido</button>
                         )}
