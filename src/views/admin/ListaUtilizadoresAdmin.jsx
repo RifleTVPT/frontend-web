@@ -302,21 +302,28 @@ const ListaUtilizadoresAdmin = () => {
                     <h5 className="fw-bold mb-3 text-dark">Lista de Utilizadores Registados ({filtrados.length})</h5>
                     <div className="mb-4">
                         <TabelaGenerica colunas={['Nome Utilizador', 'Função / Perfil', 'Service Line', 'Área', 'Último Acesso', 'Estado da Conta', 'Ações']} emptyMessage="Nenhum utilizador encontrado.">
-                            {filtrados && filtrados.map(u => (
-                                <tr key={u.id}>
-                                    <td className="fw-bold text-center ps-4">{u.nome}</td>
-                                    <td>{u.perfis.join(' / ')}</td>
-                                    <td className="text-muted small">{u.perfis.includes('Consultor') || u.perfis.includes('Service Line Leader') ? (u.sl || 'N/A') : 'Global (Não definida)'}</td>
-                                    <td className="text-muted small">{u.perfis.includes('Consultor') ? (u.area || 'N/A') : 'Global (Não definida)'}</td>
-                                    <td className="small">{u.acesso}</td>
-                                    <td>{getStatusBadge(u.status)}</td>
-                                    <td>
-                                        <button onClick={() => navigate(`/admin/utilizadores/perfil/${u.id}`)} 
-                                                className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm"
-                                                style={{backgroundColor: '#5D78FF', border: 'none'}}>Ver Perfil</button>
-                                    </td>
-                                </tr>
-                            ))}
+                            {filtrados && filtrados.map(u => {
+                                const contaRecusada = String(u.status || '').toLowerCase().includes('recus');
+                                return (
+                                    <tr key={u.id}>
+                                        <td className="fw-bold text-center ps-4">{u.nome}</td>
+                                        <td>{u.perfis.join(' / ')}</td>
+                                        <td className="text-muted small">{u.perfis.includes('Consultor') || u.perfis.includes('Service Line Leader') ? (u.sl || 'N/A') : 'Global (Não definida)'}</td>
+                                        <td className="text-muted small">{u.perfis.includes('Consultor') ? (u.area || 'N/A') : 'Global (Não definida)'}</td>
+                                        <td className="small">{u.acesso}</td>
+                                        <td>{getStatusBadge(u.status)}</td>
+                                        <td>
+                                            {contaRecusada ? (
+                                                <span className="text-muted small fw-bold">Sem ações</span>
+                                            ) : (
+                                                <button onClick={() => navigate(`/admin/utilizadores/perfil/${u.id}`)}
+                                                        className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm"
+                                                        style={{backgroundColor: '#5D78FF', border: 'none'}}>Ver Perfil</button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </TabelaGenerica>
                     </div>
                 </div>

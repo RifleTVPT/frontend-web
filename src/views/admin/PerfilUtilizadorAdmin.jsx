@@ -209,6 +209,7 @@ const PerfilUtilizadorAdmin = () => {
     const textStatus = (user.status || '').toLowerCase();
     const isInativo = textStatus.includes('inativ');
     const isAtivo = textStatus.includes('ativ') && !isInativo;
+    const isRecusado = textStatus.includes('recus');
 
     return (
         <div className="d-flex bg-light min-vh-100">
@@ -305,18 +306,20 @@ const PerfilUtilizadorAdmin = () => {
                                     {user.perfis.map(p => <span key={p} className="badge bg-primary rounded-pill px-3">{p}</span>)}
                                 </div>
                             </div>
-                            <div className="col-md-auto text-end">
-                                <button onClick={() => {
-                                    if (editMode) {
-                                        setTempUser({...user, perfis: [...user.perfis]});
-                                        setNovaPasswordAdmin('');
-                                        setConfirmarPasswordAdmin('');
-                                    }
-                                    setEditMode(!editMode);
-                                }} className={`btn ${editMode ? 'btn-outline-secondary' : 'btn-primary'} rounded-pill px-4 fw-bold shadow-sm`} style={!editMode ? {backgroundColor: '#5D78FF', border: 'none'} : {}}>
-                                    <i className={`bi ${editMode ? 'bi-x-lg' : 'bi-pencil-square'} me-2`}></i> {editMode ? 'Cancelar Edição' : 'Editar Perfil'}
-                                </button>
-                            </div>
+                            {!isRecusado && (
+                                <div className="col-md-auto text-end">
+                                    <button onClick={() => {
+                                        if (editMode) {
+                                            setTempUser({...user, perfis: [...user.perfis]});
+                                            setNovaPasswordAdmin('');
+                                            setConfirmarPasswordAdmin('');
+                                        }
+                                        setEditMode(!editMode);
+                                    }} className={`btn ${editMode ? 'btn-outline-secondary' : 'btn-primary'} rounded-pill px-4 fw-bold shadow-sm`} style={!editMode ? {backgroundColor: '#5D78FF', border: 'none'} : {}}>
+                                        <i className={`bi ${editMode ? 'bi-x-lg' : 'bi-pencil-square'} me-2`}></i> {editMode ? 'Cancelar Edição' : 'Editar Perfil'}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -385,7 +388,13 @@ const PerfilUtilizadorAdmin = () => {
                     )}
 
                     {/* BOTÕES DE ACÇÃO FINAIS */}
-                    {editMode ? (
+                    {isRecusado ? (
+                        <div className="d-flex justify-content-center mt-4 pt-4 border-top">
+                            <div className="alert alert-secondary border-0 rounded-4 px-4 py-3 fw-bold mb-0">
+                                Conta recusada. Não existem ações disponíveis para este registo.
+                            </div>
+                        </div>
+                    ) : editMode ? (
                         <div className="d-flex justify-content-center gap-4 mt-5 pb-5">
                             <button className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg" style={{backgroundColor: '#5D78FF', border: 'none'}} onClick={handleSalvarPerfil}>Guardar Alterações</button>
                             <button className="btn btn-light bg-white border px-5 py-3 rounded-pill fw-bold text-muted shadow-sm" onClick={() => {setEditMode(false); setTempUser({...user, perfis: [...user.perfis]}); setNovaPasswordAdmin(''); setConfirmarPasswordAdmin('');}}>Cancelar Alterações</button>
