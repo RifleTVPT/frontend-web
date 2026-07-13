@@ -117,8 +117,8 @@ const DetalhesBadge = () => {
             </div>
           </div>
 
-          <h5 className="fw-bold mb-3 text-dark mt-5">Requisitos para Obtenção</h5>
-          <div className="row g-3 mb-5">
+          <h5 className="consultor-requisitos-title fw-bold mb-3 text-dark mt-5">Requisitos para Obtenção</h5>
+          <div className="consultor-requisitos-grid row g-3 mb-5">
             {badgeData.requisitos && badgeData.requisitos.map((req, index) => {
               const tituloFinal = (!req.titulo || req.titulo.match(/^Requisito \d+$/i)) 
                                   ? `Requisito ${badgeData.nivel}${index + 1}` 

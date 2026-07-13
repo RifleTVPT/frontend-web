@@ -1129,9 +1129,15 @@
     }
 
     .consultor-detail-media .fonte-dados-grande,
-    .consultor-detail-media .ps-2 {
+    .consultor-detail-media .ps-2,
+    .consultor-detail-media .ps-4,
+    .consultor-detail-media .text-start {
         padding-left: 0 !important;
         text-align: left !important;
+        width: 100%;
+        max-width: 330px;
+        margin-left: auto;
+        margin-right: auto;
         margin-top: 0.75rem;
     }
 
@@ -1139,6 +1145,10 @@
         padding-left: 0 !important;
         margin-top: 1.35rem;
         text-align: left !important;
+        width: 100%;
+        max-width: 330px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .consultor-detail-text p,
@@ -1148,6 +1158,20 @@
 
     .consultor-detail-text .ps-2 {
         padding-left: 0 !important;
+    }
+
+    .consultor-requisitos-title,
+    .consultor-requisitos-grid {
+        width: 100%;
+        max-width: 330px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: left !important;
+    }
+
+    .consultor-requisitos-grid > [class*="col-"] {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 
     .consultor-primary-action,
