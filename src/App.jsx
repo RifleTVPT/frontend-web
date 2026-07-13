@@ -7,6 +7,7 @@ import RecuperarPassword from './views/RecuperarPassword';
 import GaleriaPublicaBadges from './views/GaleriaPublicaBadges';
 import VerificacaoBadgeUnico from './views/VerificacaoBadgeUnico';
 import VerificacaoConquistaEspecial from './views/VerificacaoConquistaEspecial';
+import MicrositeProjeto from './views/MicrositeProjeto';
 
 // --- CONSULTOR ---
 import DashboardConsultor from './views/consultor/DashboardConsultor';
@@ -87,6 +88,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/microsite" element={<MicrositeProjeto />} />
           <Route path="/primeiro-acesso" element={<PrimeiroAcesso />} />
           <Route path="/recuperar-password" element={<RecuperarPassword />} />
           <Route path="/registo" element={<Registo />} />

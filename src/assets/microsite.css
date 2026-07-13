@@ -1,0 +1,529 @@
+.microsite-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #101828;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.microsite-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 4rem);
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid rgba(16, 24, 40, 0.08);
+  backdrop-filter: blur(14px);
+}
+
+.microsite-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #101828;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #4f56f6;
+  color: white;
+  font-weight: 900;
+}
+
+.microsite-brand small {
+  display: block;
+  color: #667085;
+  font-size: 0.75rem;
+}
+
+.microsite-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 700;
+}
+
+.microsite-nav-actions a {
+  color: #344054;
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.microsite-nav-actions .nav-cta {
+  color: white;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  background: #4f56f6;
+}
+
+.microsite-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 5vw, 5rem);
+  background:
+    radial-gradient(circle at 15% 15%, rgba(79, 86, 246, 0.16), transparent 32%),
+    linear-gradient(135deg, #ffffff 0%, #edf2ff 100%);
+}
+
+.eyebrow,
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.38rem 0.75rem;
+  border-radius: 999px;
+  color: #3645d9;
+  background: rgba(79, 86, 246, 0.12);
+  font-weight: 800;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.hero-copy h1,
+.section-grid h2,
+.section-heading h2,
+.mobile-copy h2,
+.tech-section h2,
+.access-section h2 {
+  margin: 1rem 0;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.hero-copy h1 {
+  max-width: 820px;
+  font-size: clamp(2.5rem, 6vw, 5.2rem);
+}
+
+.hero-copy p,
+.text-stack p,
+.mobile-copy p,
+.tech-section p,
+.access-section p {
+  color: #475467;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.hero-actions,
+.access-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+
+.primary-action,
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 48px;
+  padding: 0.85rem 1.1rem;
+  border-radius: 999px;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.primary-action {
+  color: white;
+  background: #4f56f6;
+  box-shadow: 0 14px 30px rgba(79, 86, 246, 0.28);
+}
+
+.secondary-action {
+  color: #3440d0;
+  background: white;
+  border: 1px solid rgba(79, 86, 246, 0.28);
+}
+
+.hero-panel {
+  min-height: 520px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-content: center;
+}
+
+.orbit-card,
+.mini-stat,
+.profile-card,
+.structure-card,
+.workflow-steps > div,
+.feature-item,
+.access-section,
+.tech-section,
+.mobile-section {
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 18px 44px rgba(16, 24, 40, 0.08);
+}
+
+.main-badge {
+  grid-column: span 2;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  border-radius: 34px;
+  text-align: center;
+}
+
+.main-badge i {
+  display: grid;
+  width: 92px;
+  height: 92px;
+  place-items: center;
+  border-radius: 50%;
+  color: #f4c430;
+  background: #101828;
+  font-size: 3rem;
+}
+
+.main-badge strong {
+  font-size: 1.5rem;
+}
+
+.main-badge span,
+.mini-stat span {
+  color: #667085;
+}
+
+.mini-stat {
+  min-height: 130px;
+  padding: 1.2rem;
+  border-radius: 26px;
+}
+
+.mini-stat strong {
+  display: block;
+  color: #4f56f6;
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.section-grid,
+.microsite-section,
+.workflow-section,
+.features-section,
+.structure-band,
+.mobile-section,
+.tech-section,
+.access-section {
+  margin: 0 auto;
+  padding: clamp(2.5rem, 5vw, 5rem) clamp(1rem, 5vw, 5rem);
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.section-grid h2,
+.section-heading h2,
+.mobile-copy h2,
+.tech-section h2,
+.access-section h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+}
+
+.text-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.structure-band {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.structure-card {
+  padding: 1.4rem;
+  border-radius: 24px;
+}
+
+.structure-card i,
+.profile-card i {
+  color: #4f56f6;
+  font-size: 2rem;
+}
+
+.structure-arrow {
+  display: grid;
+  place-items: center;
+  color: #4f56f6;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.section-heading {
+  max-width: 900px;
+  margin-bottom: 1.8rem;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.profile-card {
+  min-height: 240px;
+  padding: 1.5rem;
+  border-radius: 26px;
+}
+
+.profile-card h3,
+.structure-card h3,
+.workflow-steps h3 {
+  margin: 1rem 0 0.5rem;
+  font-weight: 900;
+}
+
+.profile-card p,
+.structure-card p,
+.workflow-steps p {
+  color: #667085;
+  line-height: 1.65;
+}
+
+.workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.workflow-steps > div {
+  padding: 1.4rem;
+  border-radius: 24px;
+}
+
+.workflow-steps span {
+  color: #4f56f6;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 1rem;
+  border-radius: 18px;
+  font-weight: 750;
+}
+
+.feature-item i {
+  color: #16a34a;
+  font-size: 1.25rem;
+  flex: 0 0 auto;
+}
+
+.mobile-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 2rem;
+  align-items: center;
+  background: #101828;
+  color: white;
+}
+
+.mobile-section p {
+  color: #d0d5dd;
+}
+
+.apk-action {
+  width: fit-content;
+}
+
+.phone-preview {
+  justify-self: center;
+  width: 240px;
+  padding: 0.8rem;
+  border-radius: 34px;
+  background: #111827;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+}
+
+.phone-top {
+  width: 72px;
+  height: 6px;
+  margin: 0.3rem auto 0.8rem;
+  border-radius: 999px;
+  background: #475467;
+}
+
+.phone-screen {
+  min-height: 410px;
+  padding: 1rem;
+  border-radius: 26px;
+  background: linear-gradient(180deg, #366aa6 0 22%, #f2f4f7 22% 100%);
+}
+
+.phone-screen > span {
+  display: block;
+  margin: 1.2rem 0 2.5rem;
+  text-align: center;
+  color: white;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.phone-card,
+.phone-row,
+.phone-screen button {
+  border-radius: 16px;
+  background: white;
+}
+
+.phone-card {
+  height: 110px;
+  box-shadow: 0 12px 20px rgba(16,24,40,0.12);
+}
+
+.phone-row {
+  height: 18px;
+  margin-top: 1rem;
+}
+
+.phone-row.short {
+  width: 68%;
+}
+
+.phone-screen button {
+  width: 100%;
+  margin-top: 1.4rem;
+  border: 0;
+  color: white;
+  background: #1688e8;
+  padding: 0.8rem;
+  font-weight: 800;
+}
+
+.tech-section,
+.access-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+  margin: clamp(1rem, 4vw, 4rem);
+  border-radius: 34px;
+}
+
+.tech-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tech-cloud span {
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  color: #3440d0;
+  background: #eef0ff;
+  font-weight: 850;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  color: #3440d0;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+@media (max-width: 1100px) {
+  .profile-grid,
+  .workflow-steps,
+  .feature-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .microsite-nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .microsite-nav-actions {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+  }
+
+  .microsite-hero,
+  .section-grid,
+  .mobile-section,
+  .tech-section,
+  .access-section {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-panel {
+    min-height: auto;
+  }
+
+  .structure-band {
+    grid-template-columns: 1fr;
+  }
+
+  .structure-arrow {
+    transform: rotate(90deg);
+  }
+
+  .phone-preview {
+    width: min(260px, 100%);
+  }
+}
+
+@media (max-width: 560px) {
+  .profile-grid,
+  .workflow-steps,
+  .feature-list {
+    grid-template-columns: 1fr;
+  }
+
+  .main-badge {
+    grid-column: span 1;
+  }
+
+  .hero-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions,
+  .access-actions {
+    flex-direction: column;
+  }
+
+  .primary-action,
+  .secondary-action {
+    width: 100%;
+  }
+}
