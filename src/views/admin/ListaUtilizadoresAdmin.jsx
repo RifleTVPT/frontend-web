@@ -242,7 +242,7 @@ const ListaUtilizadoresAdmin = () => {
                     <div className="row g-3 mb-4 align-items-center">
                         <div className="col-md-9">
                             <div className="position-relative shadow-sm">
-                                <input type="text" className="form-control border-0 py-3 ps-4 rounded-3" 
+                                <input type="text" className="form-control admin-search-input border-0 py-3 ps-4 rounded-3" 
                                        placeholder="Pesquisar por Nome / Service Line" 
                                        value={pesquisa} onChange={(e) => setPesquisa(e.target.value)} />
                                 <i className="bi bi-search position-absolute end-0 top-50 translate-middle-y me-3 text-muted"></i>
@@ -430,7 +430,7 @@ const ListaUtilizadoresAdmin = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-12 text-center mt-5 mb-2">
+                                <div className="admin-modal-actions col-12 text-center mt-5 mb-2">
                                     <button onClick={handleCriarUtilizador} className="btn btn-primary px-5 py-2 rounded-pill fw-bold shadow-sm me-3" style={{backgroundColor: '#5D78FF', border: 'none'}}>Criar Utilizador</button>
                                     <button className="btn btn-outline-secondary px-5 py-2 rounded-pill fw-bold" onClick={() => setShowModal(false)}>Cancelar</button>
                                 </div>

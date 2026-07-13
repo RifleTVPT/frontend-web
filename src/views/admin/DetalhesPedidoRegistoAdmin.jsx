@@ -116,7 +116,7 @@ const DetalhesPedidoRegistoAdmin = () => {
                         </div>
                     </div>
 
-                    <div className="d-flex justify-content-center gap-4">
+                    <div className="admin-request-actions d-flex justify-content-center gap-4">
                         <button className="btn btn-success px-5 py-3 rounded-pill fw-bold fs-5 shadow" style={{backgroundColor: '#82D674', border: 'none'}} onClick={handleAceitar}>
                             Aceitar Pedido e Criar Conta
                         </button>

@@ -307,7 +307,7 @@ const PerfilUtilizadorAdmin = () => {
                                 </div>
                             </div>
                             {!isRecusado && (
-                                <div className="col-md-auto text-end">
+                                <div className="admin-profile-edit-action col-md-auto text-end">
                                     <button onClick={() => {
                                         if (editMode) {
                                             setTempUser({...user, perfis: [...user.perfis]});

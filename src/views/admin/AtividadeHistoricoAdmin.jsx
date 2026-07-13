@@ -167,7 +167,7 @@ const AtividadeHistoricoAdmin = () => {
                         <div className="position-relative shadow-sm">
                             <input 
                                 type="text" 
-                                className="form-control border-0 py-3 ps-4 fs-5 rounded-4" 
+                                className="form-control admin-search-input border-0 py-3 ps-4 fs-5 rounded-4" 
                                 placeholder="Pesquisar por Utilizador / Tipo de Ação / Service Line..."
                                 value={pesquisa}
                                 onChange={(e) => setPesquisa(e.target.value)}

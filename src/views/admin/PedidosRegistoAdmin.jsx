@@ -108,7 +108,7 @@ const PedidosRegistoAdmin = () => {
                         <div className="position-relative shadow-sm">
                             <input 
                                 type="text" 
-                                className="form-control border-0 py-3 ps-4 rounded-3 fs-5" 
+                                className="form-control admin-search-input border-0 py-3 ps-4 rounded-3 fs-5" 
                                 placeholder="Pesquisar por Nome ou Email do Candidato..." 
                                 value={pesquisa}
                                 onChange={(e) => setPesquisa(e.target.value)}
