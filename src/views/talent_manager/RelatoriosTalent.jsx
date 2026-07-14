@@ -462,7 +462,7 @@ const RelatoriosTalent = () => {
                     </div>
 
                     {/* BOTÕES DE GERAÇÃO */}
-                    <div className="d-flex justify-content-center gap-4 mt-4 pb-5">
+                    <div className="talent-report-actions d-flex justify-content-center gap-4 mt-4 pb-5">
                         <button 
                             className="btn px-5 py-3 rounded-pill fw-bold shadow-sm d-flex align-items-center gap-3 text-white" 
                             style={{ backgroundColor: '#dc3545', border: 'none' }}

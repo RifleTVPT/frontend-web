@@ -221,8 +221,8 @@ const TimelineGlobalTalent = () => {
           {consultorSelecionadoId ? (
             <>
               {/* KPI Header Cards */}
-              <div className="card border-0 shadow-sm rounded-pill py-2 px-4 mb-5 mx-auto bg-white" style={{ width: 'fit-content' }}>
-                <div className="d-flex align-items-center gap-4">
+              <div className="talent-timeline-summary card border-0 shadow-sm rounded-pill py-2 px-4 mb-5 mx-auto bg-white" style={{ width: 'fit-content' }}>
+                <div className="talent-timeline-summary-inner d-flex align-items-center gap-4">
                   <div className="d-flex align-items-center gap-2">
                     <div className="bg-danger bg-opacity-10 p-2 rounded-circle">🎯</div>
                     <span className="fw-bold text-dark">Total de Objetivos: {total}</span>

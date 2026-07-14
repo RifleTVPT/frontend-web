@@ -269,7 +269,7 @@ const ConfiguracoesTalent = () => {
                 </div>
 
                 {editando && (
-                  <div className="d-flex gap-3 mt-5">
+                  <div className="talent-config-actions d-flex gap-3 mt-5">
                     <button className="btn btn-primary px-5 rounded-3 fw-bold" onClick={handleSalvarPerfil} disabled={salvando}>
                         {salvando ? 'A Gravar...' : 'Guardar Alterações'}
                     </button>

@@ -221,7 +221,7 @@ const ListaConsultoresTalent = () => {
                                     {uniqueAreas.map(area => <option key={area} value={area}>{area === 'Todas' ? 'Todas as Áreas' : area}</option>)}
                                 </select>
                             </div>
-                            <div className="col-md-5 text-end d-flex justify-content-end align-items-center">
+                            <div className="talent-list-export col-md-5 text-end d-flex justify-content-end align-items-center">
                                 <div className="dropdown w-50">
                                     <button className="btn btn-primary rounded-3 w-100 py-2 fs-6 fw-bold shadow-sm d-flex align-items-center justify-content-center dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style={{backgroundColor: '#5D78FF', border: 'none'}}>
                                         <i className="bi bi-download me-2 fs-5"></i> Exportar
@@ -267,8 +267,8 @@ const ListaConsultoresTalent = () => {
                     </section>
 
                     {/* QUADRO DE HONRA: TOP 5 RANKING */}
-                    <section className="mb-5 p-4 bg-white rounded-4 shadow-sm border border-primary border-opacity-25">
-                        <div className="d-flex justify-content-between align-items-center mb-4">
+                    <section className="talent-top5-section mb-5 p-4 bg-white rounded-4 shadow-sm border border-primary border-opacity-25">
+                        <div className="talent-top5-header d-flex justify-content-between align-items-center mb-4">
                             <h5 className="fw-bold m-0"><i className="bi bi-trophy-fill text-warning me-2"></i>Top 5 Global</h5>
                             <div className="d-flex align-items-center gap-2">
                                 <span className="small fw-bold text-muted">Ordernar por:</span>
