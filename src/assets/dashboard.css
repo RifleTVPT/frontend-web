@@ -493,13 +493,25 @@
     }
 
     .talent-list-export {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
         justify-content: flex-start !important;
         text-align: left !important;
+        display: flex !important;
     }
 
     .talent-list-export .dropdown {
         width: 100% !important;
         max-width: 220px;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        display: block !important;
+        text-align: left !important;
+    }
+
+    .talent-list-export .btn {
+        justify-content: center !important;
     }
 
     .talent-profile-header {
