@@ -261,7 +261,7 @@ const ConfiguracoesSLL = () => {
                 </div>
 
                 {editando && (
-                  <div className="d-flex gap-3 mt-5">
+                  <div className="sll-config-actions d-flex gap-3 mt-5">
                     <button className="btn btn-primary px-5 rounded-3 fw-bold shadow-sm" onClick={handleSalvarPerfil} disabled={salvando}>
                         {salvando ? 'A Gravar...' : 'Guardar Alterações'}
                     </button>

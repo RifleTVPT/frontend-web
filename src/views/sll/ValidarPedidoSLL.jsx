@@ -240,7 +240,7 @@ const ValidarPedidoSLL = () => {
                                 onChange={(e) => setFeedback(e.target.value)}
                             ></textarea>
                             
-                            <div className="sll-decision-actions d-flex justify-content-between gap-3 flex-wrap">
+                            <div className="sll-decision-actions d-flex justify-content-center gap-3 flex-wrap">
                                 <button onClick={() => handleAcaoSLL('APROVAR')} className="btn btn-success px-5 py-3 fs-5 rounded-pill fw-bold shadow-sm flex-grow-1" style={{backgroundColor: '#82D674', border: 'none'}}>Aprovar Pedido</button>
                                 <button onClick={() => handleAcaoSLL('REJEITAR')} className="btn btn-danger px-5 py-3 fs-5 rounded-pill fw-bold shadow-sm flex-grow-1" style={{backgroundColor: '#E85353', border: 'none'}}>Rejeitar Pedido</button>
                                 <button onClick={() => handleAcaoSLL('VOLTA')} className="btn btn-warning px-5 py-3 fs-5 rounded-pill fw-bold shadow-sm text-white flex-grow-1" style={{backgroundColor: '#F3D458', border: 'none'}}>Enviar para Correção</button>

@@ -83,8 +83,8 @@ const PerfilConsultorSLL = () => {
                     </Link>
 
                     {/* Perfil Header */}
-                    <div className="d-flex align-items-center mb-5 bg-white p-4 rounded-4 shadow-sm border-start border-5 border-primary">
-                        <div className="bg-light rounded-circle shadow-sm d-flex align-items-center justify-content-center overflow-hidden" style={{ width: '90px', height: '90px' }}>
+                    <div className="sll-profile-header d-flex align-items-center mb-5 bg-white p-4 rounded-4 shadow-sm border-start border-5 border-primary">
+                        <div className="sll-profile-avatar bg-light rounded-circle shadow-sm d-flex align-items-center justify-content-center overflow-hidden" style={{ width: '90px', height: '90px' }}>
                             <AvatarUtilizador
                                 nome={dadosPerfil.nome}
                                 foto={dadosPerfil.avatarConsultor}

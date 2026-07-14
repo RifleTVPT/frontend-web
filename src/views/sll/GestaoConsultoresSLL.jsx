@@ -266,8 +266,8 @@ const GestaoConsultoresSLL = () => {
                         </div>
                     </section>
 
-                    <section className="mb-5 p-4 bg-white rounded-4 shadow-sm border border-primary border-opacity-25">
-                        <div className="d-flex justify-content-between align-items-center mb-4">
+                    <section className="sll-top5-section mb-5 p-4 bg-white rounded-4 shadow-sm border border-primary border-opacity-25">
+                        <div className="sll-top5-header d-flex justify-content-between align-items-center mb-4">
                             <h5 className="fw-bold m-0"><i className="bi bi-trophy-fill text-warning me-2"></i>Top 5 da Service Line - {minhaSL}</h5>
                             <div className="d-flex align-items-center gap-2">
                                 <span className="small fw-bold text-muted">Ordernar por:</span>
