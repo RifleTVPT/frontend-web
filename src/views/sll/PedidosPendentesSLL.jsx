@@ -211,7 +211,7 @@ const PedidosPendentesSLL = () => {
                     </div>
 
                     {/* BOTÕES DE EXPORTAÇÃO (Excel e PDF) */}
-                    <div className="d-flex justify-content-center mt-5 mb-5 pb-4">
+                    <div className="sll-export-list d-flex justify-content-center mt-5 mb-5 pb-4">
                         <div className="dropdown">
                             <button className="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2" 
                                     style={{backgroundColor: '#5D78FF', border: 'none', fontSize: '1.1rem', minWidth: '400px'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">

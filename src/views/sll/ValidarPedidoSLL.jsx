@@ -154,7 +154,7 @@ const ValidarPedidoSLL = () => {
                                 <div className="mt-auto">
                                     <button 
                                         onClick={() => navigate(`/sll/badges/detalhes/${pedido.idBadge}`)} 
-                                        className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm w-50"
+                                        className="sll-badge-detail-btn btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm w-50"
                                     >
                                         Ver Detalhes do Badge
                                     </button>
@@ -240,7 +240,7 @@ const ValidarPedidoSLL = () => {
                                 onChange={(e) => setFeedback(e.target.value)}
                             ></textarea>
                             
-                            <div className="d-flex justify-content-between gap-3 flex-wrap">
+                            <div className="sll-decision-actions d-flex justify-content-between gap-3 flex-wrap">
                                 <button onClick={() => handleAcaoSLL('APROVAR')} className="btn btn-success px-5 py-3 fs-5 rounded-pill fw-bold shadow-sm flex-grow-1" style={{backgroundColor: '#82D674', border: 'none'}}>Aprovar Pedido</button>
                                 <button onClick={() => handleAcaoSLL('REJEITAR')} className="btn btn-danger px-5 py-3 fs-5 rounded-pill fw-bold shadow-sm flex-grow-1" style={{backgroundColor: '#E85353', border: 'none'}}>Rejeitar Pedido</button>
                                 <button onClick={() => handleAcaoSLL('VOLTA')} className="btn btn-warning px-5 py-3 fs-5 rounded-pill fw-bold shadow-sm text-white flex-grow-1" style={{backgroundColor: '#F3D458', border: 'none'}}>Enviar para Correção</button>
@@ -248,7 +248,7 @@ const ValidarPedidoSLL = () => {
                         </div>
                     ) : (
                         <div className="text-center mb-5 p-4 bg-white rounded-4 shadow-sm border-top border-5 border-success">
-                            <div className="alert alert-success d-inline-block px-5 rounded-pill fw-bold mb-0 fs-5">
+                            <div className="sll-finalized-alert alert alert-success d-inline-block px-5 rounded-pill fw-bold mb-0 fs-5">
                                 <i className="bi bi-check-all me-2"></i> Este processo já foi finalizado e a decisão está registada.
                             </div>
                         </div>

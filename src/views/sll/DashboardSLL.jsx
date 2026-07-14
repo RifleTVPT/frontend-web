@@ -338,7 +338,7 @@ const DashboardSLL = () => {
           </div>
 
           {/* Export Footer */}
-          <div className="text-center mt-5 mb-5 pb-4">
+          <div className="sll-dashboard-export text-center mt-5 mb-5 pb-4">
              <button onClick={() => navigate('/sll/consultores/relatorios')} className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-sm" style={{backgroundColor: '#5D78FF', border: 'none', fontSize: '1.1rem'}}>
                  <i className="bi bi-file-earmark-bar-graph me-2"></i>Exportar Relatórios de Performance Detalhados
              </button>

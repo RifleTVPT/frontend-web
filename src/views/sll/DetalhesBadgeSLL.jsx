@@ -126,7 +126,7 @@ const DetalhesBadgeSLL = () => {
                       );
                   })()}
                 </div>
-                <div className="text-start w-75 small">
+                <div className="sll-detail-data text-start w-75 small">
                   {/* Apresenta a Letra formatada no Card */}
                   <p className="mb-1"><strong>Nível:</strong> Nível {letraAtual}</p>
                   <p className="mb-1"><strong>Área:</strong> {badgeData.area}</p>
@@ -142,7 +142,7 @@ const DetalhesBadgeSLL = () => {
                   <p className="mb-1"><strong>Pontos:</strong> {badgeData.pontos} pontos</p>
                 </div>
               </div>
-              <div className="col-md-8 ps-md-5">
+              <div className="sll-detail-description col-md-8 ps-md-5">
                 <h4 className="fw-bold mb-4">Descrição do Badge</h4>
                 <p className="text-muted" style={{ lineHeight: '1.8' }}>{badgeData.descricao}</p>
               </div>

@@ -284,7 +284,7 @@ const BadgesExpiracaoSLL = () => {
 
                         <div className="col-md-7 text-start">
                             <label className="form-label fw-bold text-dark h5 mb-3 d-block">Nível de Competência</label>
-                            <div className="d-flex gap-2 text-start">
+                            <div className="sll-niveis-filter d-flex gap-2 text-start">
                                 {todosNiveis.map(n => (
                                     <button key={n} onClick={() => toggleNivel(n)}
                                         className={`btn btn-sm shadow-sm fw-bold px-3 rounded-3 border-0 transition-all py-2 ${niveisAtivos.includes(n) ? 'btn-primary' : 'bg-white text-muted'}`}
@@ -319,7 +319,7 @@ const BadgesExpiracaoSLL = () => {
                                     </td>
                                     <td className="py-3">
                                         <button 
-                                            className="btn btn-outline-primary btn-sm px-3 rounded-pill fw-bold"
+                                            className="sll-notificar-btn btn btn-outline-primary btn-sm px-3 rounded-pill fw-bold"
                                             onClick={() => handleNotificar(item)}
                                         >
                                             <i className="bi bi-bell-fill me-2"></i>Notificar

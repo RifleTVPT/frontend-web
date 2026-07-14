@@ -281,7 +281,7 @@ const HistoricoPedidosSLL = () => {
 
                             <div>
                                 <label className="fw-bold h5 mb-3 d-block">Nível de Competência</label>
-                                <div className="d-flex gap-2">
+                                <div className="sll-niveis-filter d-flex gap-2">
                                     {todosNiveis.length === 0 && <span className="text-muted small py-2">Sem níveis configurados na sua Service Line</span>}
                                     {todosNiveis.map(n => (
                                         <button key={n} onClick={() => toggleNivel(n)}
@@ -331,7 +331,7 @@ const HistoricoPedidosSLL = () => {
                     </div>
 
                     {/* BOTÕES DE EXPORTAÇÃO (Excel & PDF via Dropdown) */}
-                    <div className="d-flex justify-content-center gap-3 mt-5 mb-5 flex-wrap">
+                    <div className="sll-history-export d-flex justify-content-center gap-3 mt-5 mb-5 flex-wrap">
                         
                         <div className="dropdown">
                             <button className="btn btn-success px-4 py-2 rounded-3 fw-bold shadow-sm d-flex align-items-center" 

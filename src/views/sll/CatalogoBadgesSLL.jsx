@@ -194,7 +194,7 @@ const CatalogoBadgesSLL = () => {
                         {/* Filtro de Nível: Botões (Seleção Múltipla) */}
                         <div className="col-md-6">
                             <label className="form-label fw-bold text-dark h5 ms-2">Nível de Competência</label>
-                            <div className="d-flex gap-2 ms-2">
+                            <div className="sll-niveis-filter d-flex gap-2 ms-2">
                                 {todosNiveis.length === 0 && <span className="text-muted small py-2">Sem níveis configurados na sua Service Line</span>}
                                 {todosNiveis.map(n => (
                                     <button 
