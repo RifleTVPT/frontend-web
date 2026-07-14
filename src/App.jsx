@@ -42,6 +42,8 @@ import GamificacaoTalent from './views/talent_manager/GamificacaoTalent';
 import ConfiguracoesTalent from './views/talent_manager/ConfiguracoesTalent';
 import DetalhesConquistaEspecialTalent from './views/talent_manager/DetalhesConquistaEspecialTalent';
 import TimelineGlobalTalent from './views/talent_manager/TimelineGlobalTalent';
+import BadgesPremiumTalent from './views/talent_manager/BadgesPremiumTalent';
+import DetalhesPremiumTalent from './views/talent_manager/DetalhesPremiumTalent';
 
 // --- SERVICE LINE LEADER ---
 import DashboardSLL from './views/sll/DashboardSLL';
@@ -118,6 +120,8 @@ function App() {
           {/* Talent Manager */}
           <Route path="/talent-manager/dashboard" element={<DashboardTalentManager />} />
           <Route path="/talent/catalogo-global" element={<CatalogoGlobalTalent />} />
+          <Route path="/talent/badges-premium" element={<BadgesPremiumTalent />} />
+          <Route path="/talent/badges-premium/detalhes/:id" element={<DetalhesPremiumTalent />} />
           <Route path="/talent/badge-detalhes/:id" element={<DetalhesBadgeTalent />} />
           <Route path="/talent/expiracao" element={<BadgesExpiracaoTalent />} />
           <Route path="/talent/validacoes/pendentes" element={<PedidosPendentesTalent />} />

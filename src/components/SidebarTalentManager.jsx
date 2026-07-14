@@ -113,6 +113,9 @@ const SidebarTalentManager = () => {
               <Link to="/talent/catalogo-global" className={subItemStyle("/talent/catalogo-global")} style={{textDecoration: 'none'}}>
                 Catálogo Global
               </Link>
+              <Link to="/talent/badges-premium" className={subItemStyle("/talent/badges-premium")} style={{textDecoration: 'none'}}>
+                Catálogo Premium
+              </Link>
               <Link to="/talent/expiracao" className={subItemStyle("/talent/expiracao")} style={{textDecoration: 'none'}}>
                 Badges em Expiração
               </Link>
