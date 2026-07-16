@@ -267,18 +267,23 @@
 }
 
 .talent-top-service-lines-card {
-    padding-top: 1.75rem !important;
-    padding-bottom: 1.75rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    min-height: 285px;
 }
 
 .talent-top-service-lines-card table {
-    font-size: 0.96rem;
+    font-size: 1.02rem;
 }
 
 .talent-top-service-lines-card th,
 .talent-top-service-lines-card td {
-    padding-top: 0.85rem;
-    padding-bottom: 0.85rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.talent-top-service-lines-card h6 {
+    font-size: 1.08rem;
 }
 
 @media (max-width: 1199.98px) {
