@@ -197,7 +197,7 @@
 }
 
 .talent-badges-chart-content {
-    min-height: 300px;
+    min-height: 260px;
 }
 
 .talent-badges-legend-grid {
@@ -214,8 +214,19 @@
 }
 
 .talent-badges-doughnut-size {
-    width: clamp(220px, 33vw, 310px) !important;
-    height: clamp(220px, 33vw, 310px) !important;
+    width: clamp(190px, 24vw, 250px) !important;
+    height: clamp(190px, 24vw, 250px) !important;
+}
+
+@media (max-width: 1399.98px) {
+    .talent-badges-doughnut-size {
+        width: clamp(175px, 22vw, 220px) !important;
+        height: clamp(175px, 22vw, 220px) !important;
+    }
+
+    .talent-badges-chart-content {
+        min-height: 245px;
+    }
 }
 
 .talent-top-service-lines-card {
