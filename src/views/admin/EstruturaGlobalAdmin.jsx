@@ -488,8 +488,8 @@ const EstruturaGlobalAdmin = () => {
                                                     {area.niveisAtivos.map(n => {
                                                         const letra = getLetraParaNivel(n, area);
                                                         return (
-                                                            <div key={n} className="d-inline-flex flex-column mb-3 me-4">
-                                                                <span className="badge bg-primary fs-6 px-3 py-2 rounded-pill shadow-sm mb-2" style={{backgroundColor: '#5D78FF'}}>
+                                                            <div key={n} className="d-inline-flex flex-column mb-3 me-2" style={{ maxWidth: '100%' }}>
+                                                                <span className="badge bg-primary fs-6 px-3 py-2 rounded-pill shadow-sm mb-2" style={{backgroundColor: '#5D78FF', whiteSpace: 'normal', lineHeight: 1.2, maxWidth: '100%', textAlign: 'center'}}>
                                                                     Nível {n} ({letra})
                                                                 </span>
                                                                 <span onClick={() => prepararNovoRequisito(letra, area.id)} className="extra-small text-primary fw-bold d-block cursor-pointer mb-1" style={{ fontSize: '10px', textAlign: 'center' }}>+ Req. ({letra}n)</span>

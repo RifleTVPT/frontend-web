@@ -309,8 +309,8 @@ const PedidosBadgeAdmin = () => {
                                     <td>
                                         <button 
                                             onClick={() => navigate(`/admin/badges/pedidos/detalhes/${p.id}`)} 
-                                            className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm" 
-                                            style={{ backgroundColor: '#5D78FF', border: 'none' }}
+                                            className="btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm text-nowrap" 
+                                            style={{ backgroundColor: '#5D78FF', border: 'none', minWidth: '96px' }}
                                         >
                                             Ver detalhes
                                         </button>

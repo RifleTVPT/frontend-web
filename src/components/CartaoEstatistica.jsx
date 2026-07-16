@@ -20,7 +20,7 @@ const CartaoEstatistica = ({
     const textSubClass = fundoEscuro ? 'opacity-75' : 'text-muted';
 
     return (
-        <div className={`dashboard-kpi-card card border-0 shadow-sm p-4 rounded-3 h-100 d-flex flex-column ${cardBgClass} ${isCenter ? 'text-center' : 'text-start'}`}>
+        <div className={`dashboard-kpi-card card border-0 shadow-sm p-4 rounded-3 h-100 w-100 d-flex flex-column ${cardBgClass} ${isCenter ? 'text-center' : 'text-start'}`} style={{ minHeight: '170px' }}>
             <div className={`small mb-2 ${textTituloClass}`}>
                 {icone && <i className={`bi ${icone} me-2`}></i>}
                 {titulo}
@@ -39,7 +39,7 @@ const CartaoEstatistica = ({
             {acaoBotao && (
                 <button 
                     onClick={acaoBotao.onClick}
-                    className={`btn btn-${corDestaque} btn-sm text-white rounded-pill px-4 mt-3 fw-bold shadow-sm`}
+                    className={`btn btn-${corDestaque} btn-sm text-white rounded-pill px-4 mt-3 fw-bold shadow-sm text-nowrap align-self-center`}
                 >
                     {acaoBotao.label}
                 </button>

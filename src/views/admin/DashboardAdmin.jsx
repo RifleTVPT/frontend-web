@@ -127,8 +127,8 @@ const DashboardAdmin = () => {
                     />
 
                     {/* KPIs SUPERIORES */}
-                    <div className="row g-3 mb-4 text-center">
-                        <div className="col-md-3">
+                    <div className="row g-3 mb-4 text-center align-items-stretch">
+                        <div className="col-md-3 d-flex">
                             <CartaoEstatistica 
                                 titulo="Utilizadores Ativos"
                                 valor={indicadores.utilizadoresAtivos}
@@ -140,7 +140,7 @@ const DashboardAdmin = () => {
                                 alinhamento="center"
                             />
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-3 d-flex">
                             <CartaoEstatistica 
                                 titulo="Badges Criados"
                                 valor={indicadores.badgesCriados}
@@ -149,7 +149,7 @@ const DashboardAdmin = () => {
                                 alinhamento="center"
                             />
                         </div>
-                        <div className="col-md-3 hover-scale">
+                        <div className="col-md-3 hover-scale d-flex">
                             <CartaoEstatistica 
                                 titulo="Pedidos de Registo"
                                 valor={indicadores.pedidosRegisto}
@@ -158,7 +158,7 @@ const DashboardAdmin = () => {
                                 acaoBotao={{ label: 'Validar Contas', onClick: () => navigate('/admin/utilizadores/pedidos') }}
                             />
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-3 d-flex">
                             <CartaoEstatistica 
                                 titulo="Taxa Aprovação Badges"
                                 valor={`${indicadores.taxaAprovacao} %`}
@@ -206,7 +206,7 @@ const DashboardAdmin = () => {
                                         <button 
                                             onClick={() => navigate(item.link)}
                                             className={`btn btn-outline-${item.type === 'reg' ? 'warning' : 'primary'} btn-sm rounded-pill px-3 fw-bold flex-shrink-0`} 
-                                            style={{ fontSize: '10px', lineHeight: 1.15, minWidth: '82px', maxWidth: '96px', overflowWrap: 'normal', wordBreak: 'normal' }}
+                                            style={{ fontSize: '10px', lineHeight: 1.15, minWidth: item.type === 'reg' ? '112px' : '86px', overflowWrap: 'normal', wordBreak: 'normal', whiteSpace: 'nowrap' }}
                                         >
                                             {item.action}
                                         </button>

@@ -252,7 +252,7 @@ const CatalogoBadgesAdmin = () => {
 
                     <div className="row g-5 pb-5">
                         {badgesFiltrados.length > 0 ? badgesFiltrados.map(b => (
-                            <div className="col-lg-3 col-md-4 col-sm-6" key={b.id}>
+                            <div className="col-xl-3 col-lg-4 col-md-6" key={b.id}>
                                 <CartaoBadge 
                                     badge={b}
                                     cabecalhoPersonalizado={

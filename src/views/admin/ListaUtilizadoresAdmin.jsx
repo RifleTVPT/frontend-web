@@ -317,8 +317,8 @@ const ListaUtilizadoresAdmin = () => {
                                                 <span className="text-muted small fw-bold">Sem ações</span>
                                             ) : (
                                                 <button onClick={() => navigate(`/admin/utilizadores/perfil/${u.id}`)}
-                                                        className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm"
-                                                        style={{backgroundColor: '#5D78FF', border: 'none'}}>Ver Perfil</button>
+                                                        className="btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm text-nowrap"
+                                                        style={{backgroundColor: '#5D78FF', border: 'none', minWidth: '86px'}}>Ver Perfil</button>
                                             )}
                                         </td>
                                     </tr>

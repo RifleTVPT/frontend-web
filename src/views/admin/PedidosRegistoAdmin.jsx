@@ -179,8 +179,8 @@ const PedidosRegistoAdmin = () => {
                                     <td>
                                         <button 
                                             onClick={() => navigate(`/admin/utilizadores/pedidos/detalhes/${p.id}`)} 
-                                            className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm transition-all hover-scale" 
-                                            style={{backgroundColor: '#5D78FF', border: 'none'}}
+                                            className="btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm transition-all hover-scale text-nowrap" 
+                                            style={{backgroundColor: '#5D78FF', border: 'none', minWidth: '96px'}}
                                         >
                                             Ver Detalhes
                                         </button>
