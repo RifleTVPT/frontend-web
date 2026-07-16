@@ -178,8 +178,8 @@ const DashboardAdmin = () => {
                         <div className="row g-4">
                             {atividades.length > 0 ? atividades.map((item, idx) => (
                                 <div key={idx} className="col-md-6">
-                                    <div className="dashboard-action-row d-flex align-items-center justify-content-between p-3 border border-light rounded-4 shadow-sm" style={{borderLeft: `5px solid ${item.type === 'reg' ? '#ffc107' : '#2575fc'}`}}>
-                                        <div className="d-flex align-items-center gap-3 text-start">
+                                    <div className="dashboard-action-row d-flex align-items-center justify-content-between gap-3 p-3 border border-light rounded-4 shadow-sm" style={{borderLeft: `5px solid ${item.type === 'reg' ? '#ffc107' : '#2575fc'}`}}>
+                                        <div className="d-flex align-items-center gap-3 text-start min-w-0">
                                             {item.type === 'badge' ? (
                                                 <img
                                                     src={resolvePublicBadgeImage(item.badgeImg)}
@@ -189,13 +189,13 @@ const DashboardAdmin = () => {
                                                     style={{ width: '45px', height: '45px', objectFit: 'cover' }}
                                                 />
                                             ) : (
-                                                <div className="bg-warning bg-opacity-10 p-2 rounded-circle d-flex align-items-center justify-content-center" style={{width: '45px', height: '45px'}}>
-                                                    <span className="fw-bold text-warning fs-5">
+                                                <div className="bg-warning bg-opacity-10 p-2 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: '45px', height: '45px', minWidth: '45px' }}>
+                                                    <span className="fw-bold text-warning fs-5 text-nowrap" style={{ lineHeight: 1 }}>
                                                         {item.userName ? item.userName.substring(0, 1) + (item.userName.split(' ').length > 1 ? item.userName.split(' ').pop().substring(0, 1) : '') : 'R'}
                                                     </span>
                                                 </div>
                                             )}
-                                            <div className="lh-sm">
+                                            <div className="lh-sm min-w-0">
                                                 <div className="fw-bold small text-dark mb-1">{item.title}</div>
                                                 <div className="text-muted small" style={{fontSize: '11px'}}>{item.detail}</div>
                                                 {item.subDetail && (
@@ -205,8 +205,8 @@ const DashboardAdmin = () => {
                                         </div>
                                         <button 
                                             onClick={() => navigate(item.link)}
-                                            className={`btn btn-outline-${item.type === 'reg' ? 'warning' : 'primary'} btn-sm rounded-pill px-3 fw-bold`} 
-                                            style={{fontSize: '10px'}}
+                                            className={`btn btn-outline-${item.type === 'reg' ? 'warning' : 'primary'} btn-sm rounded-pill px-3 fw-bold flex-shrink-0`} 
+                                            style={{ fontSize: '10px', lineHeight: 1.15, minWidth: '82px', maxWidth: '96px', overflowWrap: 'normal', wordBreak: 'normal' }}
                                         >
                                             {item.action}
                                         </button>
