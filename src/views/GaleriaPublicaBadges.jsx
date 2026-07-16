@@ -76,7 +76,17 @@ const GaleriaPublicaBadges = () => {
             return sl && a.slId === sl.id;
         });
     
-    const todosNiveis = ['A', 'B', 'C', 'D', 'E'];
+    const areaSelecionada = selectedArea !== 'Todas'
+        ? areasDisponiveis.find(a => normalizarFiltro(a.nome) === normalizarFiltro(selectedArea))
+        : null;
+    const todosNiveis = areaSelecionada?.niveisAtivos?.length
+        ? areaSelecionada.niveisAtivos.map((_, index) => String.fromCharCode(65 + index))
+        : Array.from(new Set(
+            badgesUnicos
+                .filter(b => b.tipoBadge !== 'Especial')
+                .map(b => b.nivelLetra)
+                .filter(Boolean)
+        )).sort();
 
     const badgesUnicos = [];
     const vistos = new Set();
@@ -88,11 +98,9 @@ const GaleriaPublicaBadges = () => {
         }
     });
 
-    const filtrosEspecificosAtivos = selectedServiceLine !== 'Todas' || selectedArea !== 'Todas' || selectedNivel !== 'Todos';
-
     const badgesFiltrados = badgesUnicos.filter(b => {
         if (b.tipoBadge === 'Especial') {
-            return mostrarEspeciais && !filtrosEspecificosAtivos;
+            return mostrarEspeciais;
         }
         const passSL = selectedServiceLine === 'Todas' || normalizarFiltro(b.sl) === normalizarFiltro(selectedServiceLine);
         const passArea = selectedArea === 'Todas' || normalizarFiltro(b.area) === normalizarFiltro(selectedArea);
