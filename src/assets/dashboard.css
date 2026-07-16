@@ -214,18 +214,55 @@
 }
 
 .talent-badges-doughnut-size {
-    width: clamp(190px, 24vw, 250px) !important;
-    height: clamp(190px, 24vw, 250px) !important;
+    width: clamp(175px, 20vw, 225px) !important;
+    height: clamp(175px, 20vw, 225px) !important;
 }
 
 @media (max-width: 1399.98px) {
     .talent-badges-doughnut-size {
-        width: clamp(175px, 22vw, 220px) !important;
-        height: clamp(175px, 22vw, 220px) !important;
+        width: clamp(165px, 19vw, 205px) !important;
+        height: clamp(165px, 19vw, 205px) !important;
     }
 
     .talent-badges-chart-content {
         min-height: 245px;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .talent-dashboard-badges-chart .talent-badges-chart-content {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+        min-height: 340px;
+    }
+
+    .talent-dashboard-badges-legend,
+    .talent-dashboard-badges-doughnut {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .talent-badges-legend-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        max-width: 100%;
+        margin: 0 auto;
+        font-size: 0.82rem !important;
+        column-gap: 0.75rem;
+        row-gap: 0.55rem;
+    }
+
+    .talent-badges-legend-grid > div {
+        justify-content: flex-start;
+        overflow-wrap: anywhere;
+    }
+
+    .talent-badges-doughnut-size {
+        width: 175px !important;
+        height: 175px !important;
+        margin-top: 0 !important;
     }
 }
 
@@ -452,14 +489,14 @@
     }
 
     .talent-dashboard-badges-legend {
-        flex: 0 0 46% !important;
-        width: 46% !important;
-        max-width: 46% !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     .talent-dashboard-badges-legend .dashboard-chart-legend {
         display: grid !important;
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         font-size: 0.78rem !important;
         gap: 0.35rem !important;
     }
@@ -475,14 +512,14 @@
     }
 
     .talent-dashboard-badges-doughnut {
-        flex: 0 0 54% !important;
-        width: 54% !important;
-        max-width: 54% !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     .talent-dashboard-badges-doughnut > div {
-        width: 145px !important;
-        height: 145px !important;
+        width: 160px !important;
+        height: 160px !important;
         margin-top: 0 !important;
     }
 
