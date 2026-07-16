@@ -75,6 +75,16 @@ const GaleriaPublicaBadges = () => {
             const sl = estrutura.serviceLines.find(s => s.nome === selectedServiceLine);
             return sl && a.slId === sl.id;
         });
+
+    const badgesUnicos = [];
+    const vistos = new Set();
+    (badges || []).forEach(b => {
+        const chave = `${b.tipoBadge || 'Normal'}-${b.id}-${b.linkUnico || ''}`;
+        if (!vistos.has(chave)) {
+            vistos.add(chave);
+            badgesUnicos.push(b);
+        }
+    });
     
     const areaSelecionada = selectedArea !== 'Todas'
         ? areasDisponiveis.find(a => normalizarFiltro(a.nome) === normalizarFiltro(selectedArea))
@@ -87,16 +97,6 @@ const GaleriaPublicaBadges = () => {
                 .map(b => b.nivelLetra)
                 .filter(Boolean)
         )).sort();
-
-    const badgesUnicos = [];
-    const vistos = new Set();
-    (badges || []).forEach(b => {
-        const chave = `${b.tipoBadge || 'Normal'}-${b.id}-${b.linkUnico || ''}`;
-        if (!vistos.has(chave)) {
-            vistos.add(chave);
-            badgesUnicos.push(b);
-        }
-    });
 
     const badgesFiltrados = badgesUnicos.filter(b => {
         if (b.tipoBadge === 'Especial') {
