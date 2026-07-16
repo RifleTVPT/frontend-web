@@ -4,6 +4,7 @@ import axios from 'axios';
 import SidebarConsultor from '../../components/SidebarConsultor';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import TabelaGenerica from '../../components/TabelaGenerica';
+import { abrirEvidenciaProtegida } from '../../utils/evidencias';
 import '../../assets/dashboard.css';
 
 const DetalhesPedidoConsultor = () => {
@@ -169,14 +170,13 @@ const DetalhesPedidoConsultor = () => {
                   <td className="py-3">
                     {/* Na vida real, o onClick faria download do URL da Evidência */}
                     {ev.url ? (
-                      <a
-                        href={ev.url.startsWith('http') ? ev.url : `https://softinsa-api-riya.onrender.com${ev.url}`}
-                        target="_blank"
-                        rel="noreferrer"
+                      <button
+                        type="button"
+                        onClick={() => abrirEvidenciaProtegida(ev.url)}
                         className="consultor-download-action btn btn-primary btn-sm rounded-3 px-3"
                       >
                         <i className="bi bi-download me-2"></i> Ver / Download
-                      </a>
+                      </button>
                     ) : (
                       <span className="badge bg-warning-subtle text-warning-emphasis border border-warning">
                         Ficheiro indisponível — requer novo envio

@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import SidebarTalent from '../../components/SidebarTalentManager';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import TabelaGenerica from '../../components/TabelaGenerica';
+import { abrirEvidenciaProtegida } from '../../utils/evidencias';
 import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 import axios from 'axios';
 import '../../assets/dashboard.css';
@@ -231,15 +232,16 @@ const AnalisarEvidenciasTalent = () => {
                                 </td>
                                 <td className="py-3">
                                     {e.url ? (
-                                        <a 
-                                            href={e.url.startsWith('http') ? e.url : `https://softinsa-api-riya.onrender.com${e.url}`}
-                                            target="_blank" 
-                                            rel="noreferrer" 
+                                        <button 
+                                            type="button"
                                             className="btn btn-primary btn-sm px-3 rounded-2 fw-bold shadow-sm"
-                                            onClick={() => setClickedEvidences(prev => ({...prev, [index]: true}))}
+                                            onClick={async () => {
+                                                await abrirEvidenciaProtegida(e.url);
+                                                setClickedEvidences(prev => ({...prev, [index]: true}));
+                                            }}
                                         >
                                             <i className="bi bi-download me-2"></i>Ver / Download
-                                        </a>
+                                        </button>
                                     ) : (
                                         <span className="badge bg-warning-subtle text-warning-emphasis border border-warning">
                                             Ficheiro indisponível — requer novo envio

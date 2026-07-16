@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import SidebarAdmin from '../../components/SidebarAdmin';
 import CabecalhoDashboard from '../../components/CabecalhoDashboard';
 import TabelaGenerica from '../../components/TabelaGenerica';
+import { abrirEvidenciaProtegida } from '../../utils/evidencias';
 import axios from 'axios';
 import '../../assets/dashboard.css';
 
@@ -134,7 +135,7 @@ const DetalhesPedidoBadgeAdmin = () => {
                                     <td><span className={`fw-bold text-${pedido.corStatus}`}>{pedido.status}</span></td>
                                     <td>
                                         {e.url ? (
-                                            <button onClick={() => window.open(e.url.startsWith('http') ? e.url : `https://softinsa-api-riya.onrender.com${e.url}`, '_blank')} className="btn btn-primary btn-sm px-4 rounded-3 fw-bold shadow-sm" style={{ backgroundColor: '#5D78FF', border: 'none' }}>
+                                            <button onClick={() => abrirEvidenciaProtegida(e.url)} className="btn btn-primary btn-sm px-4 rounded-3 fw-bold shadow-sm" style={{ backgroundColor: '#5D78FF', border: 'none' }}>
                                                 <i className="bi bi-eye-fill me-2"></i> Ver / Download
                                             </button>
                                         ) : (
