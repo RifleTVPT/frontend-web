@@ -123,7 +123,6 @@ const DashboardAdmin = () => {
                         utilizador={utilizador}
                         avatarUrl={avatarUrl}
                         linkHome="/admin/dashboard"
-                        iconeEsquerda={<><i className="bi bi-shield-lock-fill me-1"></i> Central de Comando</>}
                     />
 
                     {/* KPIs SUPERIORES */}
@@ -177,8 +176,8 @@ const DashboardAdmin = () => {
                         <h5 className="fw-bold mb-4">Ações Pendentes e Alertas do Sistema</h5>
                         <div className="row g-4">
                             {atividades.length > 0 ? atividades.map((item, idx) => (
-                                <div key={idx} className="col-md-6">
-                                    <div className="dashboard-action-row d-flex align-items-center justify-content-between gap-3 p-3 border border-light rounded-4 shadow-sm" style={{borderLeft: `5px solid ${item.type === 'reg' ? '#ffc107' : '#2575fc'}`}}>
+                                <div key={idx} className="col-md-6 d-flex">
+                                    <div className="dashboard-action-row d-flex align-items-center justify-content-between gap-3 p-3 border border-light rounded-4 shadow-sm w-100 h-100" style={{borderLeft: `5px solid ${item.type === 'reg' ? '#ffc107' : '#2575fc'}`}}>
                                         <div className="d-flex align-items-center gap-3 text-start min-w-0">
                                             {item.type === 'badge' ? (
                                                 <img
