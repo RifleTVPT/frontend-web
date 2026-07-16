@@ -188,6 +188,19 @@
     text-align: center;
 }
 
+.talent-export-report-btn span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+
+.talent-view-decision-btn {
+    min-width: 112px;
+    white-space: nowrap;
+    line-height: 1.1;
+}
+
 .dashboard-chart-legend {
     min-width: 0;
 }
@@ -601,6 +614,12 @@
         font-size: 0.82rem !important;
         line-height: 1.1 !important;
         white-space: nowrap;
+    }
+
+    .talent-view-decision-btn {
+        min-width: 104px;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
     }
 
     .talent-archived-alert {

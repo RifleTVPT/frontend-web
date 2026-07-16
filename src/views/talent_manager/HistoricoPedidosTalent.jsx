@@ -270,7 +270,7 @@ const HistoricoPedidosTalent = () => {
                                     <td className="py-3">
                                         <button 
                                             onClick={() => navigate(`/talent/validacoes/analisar/${p.id}?readonly=true`)} 
-                                            className="btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm"
+                                            className="talent-view-decision-btn btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm"
                                         >
                                             Ver decisão
                                         </button>

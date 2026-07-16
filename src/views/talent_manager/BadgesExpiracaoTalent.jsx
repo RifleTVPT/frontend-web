@@ -341,10 +341,10 @@ const BadgesExpiracaoTalent = () => {
                         <div className="col-md-3 position-relative align-self-end">
                             <button 
                                 onClick={() => setExportOpen(!exportOpen)} 
-                                className="btn btn-outline-primary w-100 py-2 rounded-3 fw-bold bg-white d-flex align-items-center justify-content-between px-4 shadow-sm"
+                                className="talent-export-report-btn btn btn-outline-primary w-100 py-2 rounded-3 fw-bold bg-white d-flex align-items-center justify-content-center px-4 shadow-sm position-relative"
                             >
                                 <span><i className="bi bi-download me-2"></i> Exportar Relatório</span>
-                                <i className={`bi bi-chevron-${exportOpen ? 'up' : 'down'}`}></i>
+                                <i className={`bi bi-chevron-${exportOpen ? 'up' : 'down'} position-absolute end-0 me-4`}></i>
                             </button>
 
                             {/* Menu Dropdown */}
