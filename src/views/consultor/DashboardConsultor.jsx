@@ -183,7 +183,7 @@ const DashboardConsultor = () => {
           <div className="row g-3 mb-4">
             {/* Gráfico Circular de Progresso */}
             <div className="col-md-3">
-              <div className="card border-0 shadow-sm p-3 h-100 bg-white text-start">
+              <div className="card border-0 shadow-sm p-3 h-100 bg-white text-start consultor-progress-card">
                 <h6 className="fw-bold mb-1">O meu Progresso Geral</h6>
                 <small className="text-muted mb-4 d-block">Badges da minha Service Line já obtidos</small>
                 <div className="progresso-circular-container">
@@ -230,12 +230,12 @@ const DashboardConsultor = () => {
 
             {/* Gráfico de Evolução */}
             <div className="col-md-6">
-              <div className="card border-0 shadow-sm p-3 h-100 bg-white text-start">
+              <div className="card border-0 shadow-sm p-3 h-100 bg-white text-start consultor-points-card">
                 <div className="d-flex justify-content-between align-items-start">
                   <h6 className="fw-bold">Progresso de Pontos (Últimos 6 meses)</h6>
                   <small className="text-danger fw-bold"><i className="bi bi-dot"></i> Ponto mais alto</small>
                 </div>
-                <div className="mt-2" style={{ height: '220px' }}>
+                <div className="consultor-points-chart mt-2" style={{ height: '260px' }}>
                   <Line data={lineData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
                 </div>
               </div>

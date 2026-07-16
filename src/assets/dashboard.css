@@ -28,12 +28,13 @@
     justify-content: center;
     align-items: center;
     flex-grow: 1;
+    min-height: 230px;
 }
 
 .anel-fundo {
-    width: 130px;
-    height: 130px;
-    border: 12px solid #e9ecef;
+    width: 165px;
+    height: 165px;
+    border: 14px solid #e9ecef;
     border-radius: 50%;
     position: absolute;
 }
@@ -43,8 +44,8 @@
  * mas centralizamos aqui os tamanhos. 
  */
 .anel-progresso {
-    width: 130px; 
-    height: 130px; 
+    width: 165px; 
+    height: 165px; 
     border-radius: 50%;
     display: flex; 
     align-items: center; 
@@ -54,8 +55,26 @@
 }
 
 .anel-interno {
-    width: 106px;
-    height: 106px;
+    width: 137px;
+    height: 137px;
+}
+
+.consultor-progress-card {
+    min-height: 360px;
+}
+
+.consultor-points-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.consultor-points-chart {
+    display: flex;
+    align-items: center;
+}
+
+.consultor-points-chart canvas {
+    max-height: 235px;
 }
 
 /* Cartões com hover scale (ex: ações rápidas Admin) */
@@ -158,6 +177,15 @@
 
 .dashboard-action-row > :first-child {
     min-width: 0;
+    flex: 1 1 auto;
+}
+
+.dashboard-action-btn {
+    flex: 0 0 auto;
+    min-width: 112px;
+    max-width: 136px;
+    white-space: nowrap;
+    text-align: center;
 }
 
 .dashboard-chart-legend {
@@ -166,6 +194,43 @@
 
 .dashboard-chart-legend > * {
     min-width: 0;
+}
+
+.talent-badges-chart-content {
+    min-height: 300px;
+}
+
+.talent-badges-legend-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1rem;
+    row-gap: 0.8rem;
+}
+
+.talent-badges-legend-grid > div {
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.2;
+}
+
+.talent-badges-doughnut-size {
+    width: clamp(220px, 33vw, 310px) !important;
+    height: clamp(220px, 33vw, 310px) !important;
+}
+
+.talent-top-service-lines-card {
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.75rem !important;
+}
+
+.talent-top-service-lines-card table {
+    font-size: 0.96rem;
+}
+
+.talent-top-service-lines-card th,
+.talent-top-service-lines-card td {
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
 }
 
 @media (max-width: 1199.98px) {
@@ -357,6 +422,7 @@
 
     .dashboard-action-row .btn {
         width: 100%;
+        max-width: none;
     }
 
     .dashboard-chart-legend {
@@ -381,6 +447,8 @@
     }
 
     .talent-dashboard-badges-legend .dashboard-chart-legend {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
         font-size: 0.78rem !important;
         gap: 0.35rem !important;
     }

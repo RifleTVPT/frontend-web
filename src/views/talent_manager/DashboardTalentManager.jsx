@@ -291,7 +291,7 @@ const DashboardTalentManager = () => {
                        </div>
                     </div>
                     {/* LINK CORRIGIDO PARA A ROTA ANALISAR EVIDÊNCIAS DO TALENT */}
-                    <Link to={`/talent/validacoes/analisar/${pedido.id}`} className="btn btn-primary btn-sm px-3 rounded-pill fw-bold">Validar agora</Link>
+                    <Link to={`/talent/validacoes/analisar/${pedido.id}`} className="dashboard-action-btn btn btn-primary btn-sm px-3 rounded-pill fw-bold">Validar agora</Link>
                   </div>
                 )) : (
                   <p className="text-muted small mt-4 text-center">Não existem pedidos pendentes.</p>
@@ -327,9 +327,9 @@ const DashboardTalentManager = () => {
             <div className="talent-dashboard-badges-chart col-md-6 d-flex">
               <div className="card border-0 shadow-sm p-4 w-100 bg-white d-flex flex-column">
                 <h6 className="fw-bold mb-3 text-start">Badges Obtidos (Por Nível)</h6>
-                <div className="row align-items-center flex-grow-1 m-0">
+                <div className="talent-badges-chart-content row align-items-center flex-grow-1 m-0">
                    <div className="talent-dashboard-badges-legend col-6 text-start px-0">
-                      <div className="dashboard-chart-legend d-flex flex-wrap gap-2 text-dark mt-1" style={{fontSize: '14.5px'}}>
+                      <div className="dashboard-chart-legend talent-badges-legend-grid text-dark mt-1" style={{fontSize: '14.5px'}}>
                           {doughnutData.labels && doughnutData.labels.map((lbl, idx) => {
                                const bgColors = ['#0d6efd', '#0dcaf0', '#ffc107', '#fd7e14', '#dc3545', '#6f42c1', '#20c997'];
                                return <div key={idx} className="d-flex align-items-center fw-bold"><i className="bi bi-circle-fill me-2 fs-5" style={{color: bgColors[idx]}}></i> {lbl}</div>;
@@ -337,7 +337,7 @@ const DashboardTalentManager = () => {
                       </div>
                    </div>
                    <div className="talent-dashboard-badges-doughnut col-6 d-flex justify-content-center align-items-center">
-                      <div style={{width: '190px', height: '190px', marginTop: '-15px'}}>
+                      <div className="talent-badges-doughnut-size" style={{width: '250px', height: '250px', marginTop: '-15px'}}>
                         {doughnutData.datasets.length > 0 && <Doughnut data={doughnutData} plugins={[percentagePlugin]} options={{ maintainAspectRatio: false, plugins: { legend: { display: false } } }} />}
                       </div>
                    </div>
@@ -347,7 +347,7 @@ const DashboardTalentManager = () => {
           </div>
 
           {/* Quarta Linha: Ranking de Service Lines */}
-          <div className="card border-0 shadow-sm p-4 text-start bg-white mb-5">
+          <div className="talent-top-service-lines-card card border-0 shadow-sm p-4 text-start bg-white mb-5">
             <h6 className="fw-bold mb-1">Top 5 Service Lines</h6>
             <div className="small text-muted mb-3">
               Pontuação calculada por badges da SL + badges premium dos consultores da SL
