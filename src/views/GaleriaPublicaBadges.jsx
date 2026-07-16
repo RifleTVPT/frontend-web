@@ -49,6 +49,7 @@ const GaleriaPublicaBadges = () => {
     if (!data) return <div className="d-flex justify-content-center align-items-center vh-100 text-danger fw-bold" style={{ backgroundColor: '#F4F5F9' }}><h3>Perfil não encontrado.</h3></div>;
 
     const { consultor, badges } = data;
+    const normalizarFiltro = valor => String(valor || '').trim().toLowerCase();
 
     const copyLink = () => {
         const publicOrigin = (import.meta.env.VITE_PUBLIC_APP_URL || window.location.origin).replace(/\/$/, '');
@@ -77,13 +78,25 @@ const GaleriaPublicaBadges = () => {
     
     const todosNiveis = ['A', 'B', 'C', 'D', 'E'];
 
-    const badgesFiltrados = badges.filter(b => {
-        if (b.tipoBadge === 'Especial') {
-            return mostrarEspeciais;
+    const badgesUnicos = [];
+    const vistos = new Set();
+    (badges || []).forEach(b => {
+        const chave = `${b.tipoBadge || 'Normal'}-${b.id}-${b.linkUnico || ''}`;
+        if (!vistos.has(chave)) {
+            vistos.add(chave);
+            badgesUnicos.push(b);
         }
-        const passSL = selectedServiceLine === 'Todas' || b.sl === selectedServiceLine;
-        const passArea = selectedArea === 'Todas' || b.area === selectedArea;
-        const passNivel = selectedNivel === 'Todos' || b.nivelLetra === selectedNivel;
+    });
+
+    const filtrosEspecificosAtivos = selectedServiceLine !== 'Todas' || selectedArea !== 'Todas' || selectedNivel !== 'Todos';
+
+    const badgesFiltrados = badgesUnicos.filter(b => {
+        if (b.tipoBadge === 'Especial') {
+            return mostrarEspeciais && !filtrosEspecificosAtivos;
+        }
+        const passSL = selectedServiceLine === 'Todas' || normalizarFiltro(b.sl) === normalizarFiltro(selectedServiceLine);
+        const passArea = selectedArea === 'Todas' || normalizarFiltro(b.area) === normalizarFiltro(selectedArea);
+        const passNivel = selectedNivel === 'Todos' || normalizarFiltro(b.nivelLetra) === normalizarFiltro(selectedNivel);
         return passSL && passArea && passNivel;
     });
 
@@ -181,7 +194,7 @@ const GaleriaPublicaBadges = () => {
                             <h5 className="fw-bold mb-4 border-bottom pb-2">Badges Conquistados</h5>
                             <div className="row g-4">
                                 {badgesFiltrados.length > 0 ? badgesFiltrados.map(b => (
-                                    <div key={b.id} className="col-md-12 col-xl-6">
+                                    <div key={`${b.tipoBadge || 'Normal'}-${b.id}-${b.linkUnico || 'sem-link'}`} className="col-md-12 col-xl-6">
                                         <div className="card shadow-sm rounded-4 p-4 hover-scale cursor-pointer h-100 d-flex flex-column" 
                                              style={{ border: b.tipoBadge === 'Especial' ? '2px solid #D4AF37' : 'none', borderLeft: b.tipoBadge === 'Especial' ? '2px solid #D4AF37' : `6px solid ${b.color}`, backgroundColor: b.tipoBadge === 'Especial' ? '#fff' : '#F8F9FA', transition: '0.3s' }}
                                              onClick={() => {

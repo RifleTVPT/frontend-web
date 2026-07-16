@@ -72,8 +72,18 @@
   align-items: center;
   display: inline-flex;
   justify-content: center;
+  gap: .45rem;
+  line-height: 1;
   min-height: 44px;
   white-space: normal;
+}
+
+.public-action-btn i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  margin-top: 0;
 }
 
 .public-profile-card,
