@@ -104,7 +104,7 @@ const Registo = () => {
             }
         } catch (error) {
             console.error(error);
-            alert("Erro ao tentar submeter o registo: " + (error.response?.data?.message || error.message));
+            alert(error.response?.data?.message || "Não foi possível submeter o registo neste momento. Tente novamente mais tarde.");
         }
     };
 

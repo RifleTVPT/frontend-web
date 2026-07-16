@@ -75,7 +75,7 @@ const CatalogoConquistasAdmin = () => {
                 fetchDados();
             }
         } catch (e) {
-            alert('Erro ao apagar conquista: ' + e.message);
+            alert('Não foi possível apagar a conquista neste momento.');
         }
     };
 

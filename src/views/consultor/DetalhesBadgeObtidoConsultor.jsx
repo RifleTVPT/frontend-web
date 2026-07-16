@@ -83,7 +83,7 @@ const DetalhesBadgeObtidoConsultor = () => {
             navigate(`/candidatar/${badgeData.id}`);
         }
     } catch(e) {
-        alert("Erro ao renovar: " + (e.response?.data?.message || e.message));
+        alert(e.response?.data?.message || "Não foi possível iniciar a renovação deste badge neste momento.");
     }
   };
 

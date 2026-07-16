@@ -66,7 +66,7 @@ const CriarConquistaAdmin = ({ show, onClose, onCreated }) => {
                 setParam1(''); setParam2(''); setImagemFile(null); setImagemPreview(null);
             }
         } catch (error) {
-            alert('Erro ao criar conquista: ' + (error.response?.data?.message || error.message));
+            alert(error.response?.data?.message || 'Não foi possível criar a conquista neste momento.');
         } finally {
             setLoading(false);
         }

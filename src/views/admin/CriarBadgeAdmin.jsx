@@ -4,7 +4,7 @@ import { resolvePublicBadgeImage } from '../../utils/publicBadgeImage';
 
 const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) => {
     const [hasValidade, setHasValidade] = useState(initialData?.hasValidade || false);
-    const [pontos, setPontos] = useState(initialData?.pontos || 150);
+    const [pontos, setPontos] = useState(initialData?.pontos ?? 150);
     
     const [nome, setNome] = useState(initialData?.nome || '');
     const [descricao, setDescricao] = useState(initialData?.desc || '');
@@ -192,9 +192,9 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
         }
     };
 
-    // Gera opções de 50 em 50, do 50 ao 1000
+    // Gera opções de 0 e depois de 50 em 50, até 1000
     const renderOpcoesPontos = () => {
-        const opcoes = [];
+        const opcoes = [<option key={0} value={0}>0 Pontos</option>];
         for (let i = 50; i <= 1000; i += 50) {
             opcoes.push(<option key={i} value={i}>{i} Pontos</option>);
         }
@@ -372,11 +372,11 @@ const CriarBadgeAdmin = ({ onClose, onSuccess, estrutura, initialData = null }) 
                                         <p className="text-muted small fw-bold">Padrão da Plataforma: 150 pontos</p>
                                         <div className="progress mt-2 mx-auto rounded-pill shadow-sm" style={{ height: '12px', width: '80%' }}>
                                             <div className="progress-bar progress-bar-striped progress-bar-animated" 
-                                                 style={{ width: `${(pontos/500)*100}%`, backgroundColor: '#5D78FF' }}></div>
+                                                 style={{ width: `${Math.min(100, Math.max(0, (pontos/1000)*100))}%`, backgroundColor: '#5D78FF' }}></div>
                                         </div>
                                         <div className="d-flex justify-content-between w-80 mx-auto mt-1 px-4 small text-muted fw-bold">
-                                            <span>100 pts</span>
-                                            <span>500 pts</span>
+                                            <span>0 pts</span>
+                                            <span>1000 pts</span>
                                         </div>
                                     </div>
                                 </div>

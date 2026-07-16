@@ -53,7 +53,7 @@ const DetalhesConquistaEspecialAdmin = () => {
                 navigate('/admin/badges/conquistas');
             }
         } catch (e) {
-            alert('Erro ao eliminar: ' + e.message);
+            alert('Não foi possível eliminar a conquista neste momento.');
         }
     };
 
