@@ -178,10 +178,10 @@ const PoliticasRGPDAdmin = () => {
                     </div>
 
                     {/* BOTÕES GLOBAIS */}
-                    <div className="admin-responsive-actions d-flex justify-content-center gap-4 mt-4">
+                    <div className="admin-responsive-actions admin-final-actions d-flex justify-content-center gap-4 mt-4">
                         <button 
                             className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg fs-5" 
-                            style={{backgroundColor: '#5D78FF', border: 'none', minWidth: '300px'}}
+                            style={{backgroundColor: '#5D78FF', border: 'none'}}
                             onClick={handleSave}
                             disabled={saving}
                         >
@@ -189,7 +189,6 @@ const PoliticasRGPDAdmin = () => {
                         </button>
                         <button 
                             className="btn btn-outline-secondary px-5 py-3 rounded-pill fw-bold border-2 fs-5" 
-                            style={{minWidth: '300px'}}
                             onClick={handleRestaurar}
                         >
                             Restaurar Textos Originais

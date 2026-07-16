@@ -174,10 +174,10 @@ const DashboardAdmin = () => {
                     {/* ATIVIDADE RECENTE CORRIGIDA (Dados Dinâmicos) */}
                     <div className="card border-0 shadow-sm p-4 mb-4 rounded-4 bg-white">
                         <h5 className="fw-bold mb-4">Ações Pendentes e Alertas do Sistema</h5>
-                        <div className="row g-4">
+                        <div className="row g-4 admin-pending-actions-grid align-items-stretch">
                             {atividades.length > 0 ? atividades.map((item, idx) => (
                                 <div key={idx} className="col-md-6 d-flex">
-                                    <div className="dashboard-action-row d-flex align-items-center justify-content-between gap-3 p-3 border border-light rounded-4 shadow-sm w-100 h-100" style={{borderLeft: `5px solid ${item.type === 'reg' ? '#ffc107' : '#2575fc'}`}}>
+                                    <div className="dashboard-action-row admin-pending-action-card d-flex align-items-center justify-content-between gap-3 p-3 border border-light rounded-4 shadow-sm w-100 h-100" style={{borderLeft: `5px solid ${item.type === 'reg' ? '#ffc107' : '#2575fc'}`}}>
                                         <div className="d-flex align-items-center gap-3 text-start min-w-0">
                                             {item.type === 'badge' ? (
                                                 <img
@@ -204,8 +204,8 @@ const DashboardAdmin = () => {
                                         </div>
                                         <button 
                                             onClick={() => navigate(item.link)}
-                                            className={`btn btn-outline-${item.type === 'reg' ? 'warning' : 'primary'} btn-sm rounded-pill px-3 fw-bold flex-shrink-0`} 
-                                            style={{ fontSize: '10px', lineHeight: 1.15, minWidth: item.type === 'reg' ? '112px' : '86px', overflowWrap: 'normal', wordBreak: 'normal', whiteSpace: 'nowrap' }}
+                                            className={`btn btn-outline-${item.type === 'reg' ? 'warning' : 'primary'} btn-sm rounded-pill px-3 fw-bold flex-shrink-0 admin-pending-action-btn`} 
+                                            style={{ fontSize: '10px', lineHeight: 1.15, overflowWrap: 'normal', wordBreak: 'normal', whiteSpace: 'nowrap' }}
                                         >
                                             {item.action}
                                         </button>
@@ -240,33 +240,33 @@ const DashboardAdmin = () => {
                     {/* AÇÕES RÁPIDAS DE GESTÃO */}
                     <div className="card border-0 shadow-sm p-4 rounded-4 bg-white mb-5">
                         <h5 className="fw-bold mb-5 text-center">Ações Rápidas de Gestão</h5>
-                        <div className="d-flex justify-content-around text-center flex-wrap gap-4">
-                            <Link to="/admin/utilizadores/lista" className="text-decoration-none transition-all hover-scale" style={{width: '120px', cursor: 'pointer'}}>
-                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm" style={{ width: '75px', height: '75px' }}>
+                        <div className="d-flex justify-content-around text-center flex-wrap gap-4 admin-quick-actions">
+                            <Link to="/admin/utilizadores/lista" className="text-decoration-none transition-all hover-scale admin-quick-action">
+                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm admin-quick-action-icon">
                                     <i className="bi bi-person-gear text-primary fs-2"></i>
                                 </div>
                                 <div className="small fw-bold text-dark">Gerir Utilizadores</div>
                             </Link>
-                            <Link to="/admin/badges/catalogo" className="text-decoration-none transition-all hover-scale" style={{width: '120px', cursor: 'pointer'}}>
-                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm" style={{ width: '75px', height: '75px' }}>
+                            <Link to="/admin/badges/catalogo" className="text-decoration-none transition-all hover-scale admin-quick-action">
+                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm admin-quick-action-icon">
                                     <i className="bi bi-shield-check text-primary fs-2"></i>
                                 </div>
                                 <div className="small fw-bold text-dark">Gerir Badges</div>
                             </Link>
-                            <Link to="/admin/badges/estrutura" className="text-decoration-none transition-all hover-scale" style={{width: '120px', cursor: 'pointer'}}>
-                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm" style={{ width: '75px', height: '75px' }}>
+                            <Link to="/admin/badges/estrutura" className="text-decoration-none transition-all hover-scale admin-quick-action">
+                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm admin-quick-action-icon">
                                     <i className="bi bi-diagram-3-fill text-primary fs-2"></i>
                                 </div>
                                 <div className="small fw-bold text-dark">Estrutura Global</div>
                             </Link>
-                            <Link to="/admin/performance/metricas" className="text-decoration-none transition-all hover-scale" style={{width: '120px', cursor: 'pointer'}}>
-                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm" style={{ width: '75px', height: '75px' }}>
+                            <Link to="/admin/performance/metricas" className="text-decoration-none transition-all hover-scale admin-quick-action">
+                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm admin-quick-action-icon">
                                     <i className="bi bi-bar-chart-line text-primary fs-2"></i>
                                 </div>
                                 <div className="small fw-bold text-dark">Performance Global</div>
                             </Link>
-                            <Link to="/admin/config/gerais" className="text-decoration-none transition-all hover-scale" style={{width: '120px', cursor: 'pointer'}}>
-                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm" style={{ width: '75px', height: '75px' }}>
+                            <Link to="/admin/config/gerais" className="text-decoration-none transition-all hover-scale admin-quick-action">
+                                <div className="rounded-circle border border-primary border-2 p-3 mb-3 mx-auto d-flex align-items-center justify-content-center bg-white shadow-sm admin-quick-action-icon">
                                     <i className="bi bi-gear-wide-connected text-primary fs-2"></i>
                                 </div>
                                 <div className="small fw-bold text-dark">Configurações Gerais</div>

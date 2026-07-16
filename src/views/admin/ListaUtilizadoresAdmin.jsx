@@ -303,7 +303,8 @@ const ListaUtilizadoresAdmin = () => {
                     <div className="mb-4">
                         <TabelaGenerica colunas={['Nome Utilizador', 'Função / Perfil', 'Service Line', 'Área', 'Último Acesso', 'Estado da Conta', 'Ações']} emptyMessage="Nenhum utilizador encontrado.">
                             {filtrados && filtrados.map(u => {
-                                const contaRecusada = String(u.status || '').toLowerCase().includes('recus');
+                                const estadoConta = String(u.status || '').toLowerCase();
+                                const contaSemPerfilEditavel = estadoConta.includes('recus') || estadoConta.includes('pendent');
                                 return (
                                     <tr key={u.id}>
                                         <td className="fw-bold text-center ps-4">{u.nome}</td>
@@ -313,7 +314,7 @@ const ListaUtilizadoresAdmin = () => {
                                         <td className="small">{u.acesso}</td>
                                         <td>{getStatusBadge(u.status)}</td>
                                         <td>
-                                            {contaRecusada ? (
+                                            {contaSemPerfilEditavel ? (
                                                 <span className="text-muted small fw-bold">Sem ações</span>
                                             ) : (
                                                 <button onClick={() => navigate(`/admin/utilizadores/perfil/${u.id}`)}

@@ -209,7 +209,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
                             <div className="card border-0 shadow-sm rounded-4 p-4 bg-white border-start border-5 border-primary">
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div className="d-flex align-items-center gap-3">
-                                        <div className="bg-primary bg-opacity-10 p-3 rounded-circle">
+                                        <div className="bg-primary bg-opacity-10 p-3 rounded-circle admin-service-status-icon">
                                             <i className="bi bi-envelope-paper text-primary fs-4"></i>
                                         </div>
                                         <div>
@@ -234,7 +234,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
                             <div className="card border-0 shadow-sm rounded-4 p-4 bg-white border-start border-5 border-info">
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div className="d-flex align-items-center gap-3">
-                                        <div className="bg-info bg-opacity-10 p-3 rounded-circle">
+                                        <div className="bg-info bg-opacity-10 p-3 rounded-circle admin-service-status-icon">
                                             <i className="bi bi-bell text-info fs-4"></i>
                                         </div>
                                         <div>
@@ -416,10 +416,10 @@ const ConfiguracoesNotificacoesAdmin = () => {
                     </div>
 
                     {/* BOTÕES DE AÇÃO */}
-                    <div className="admin-responsive-actions d-flex justify-content-center gap-4 mb-5 pt-3">
+                    <div className="admin-responsive-actions admin-final-actions d-flex justify-content-center gap-4 mb-5 pt-3">
                         <button 
                             className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg fs-5" 
-                            style={{backgroundColor: '#5D78FF', border: 'none', minWidth: '280px'}}
+                            style={{backgroundColor: '#5D78FF', border: 'none'}}
                             onClick={handleSave}
                             disabled={saving}
                         >
@@ -427,7 +427,6 @@ const ConfiguracoesNotificacoesAdmin = () => {
                         </button>
                         <button 
                             className="btn btn-outline-secondary px-5 py-3 rounded-pill fw-bold border-2 fs-5" 
-                            style={{minWidth: '280px'}}
                             onClick={handleRestaurar}
                             disabled={saving || testingSmtp}
                         >

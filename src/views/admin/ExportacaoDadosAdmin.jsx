@@ -373,7 +373,7 @@ const ExportacaoDadosAdmin = () => {
                     </div>
 
                     {/* BOTÕES DE GERAÇÃO */}
-                    <div className="admin-responsive-actions d-flex justify-content-center gap-5 mt-5 pt-5 pb-5">
+                    <div className="admin-responsive-actions admin-final-actions d-flex justify-content-center gap-5 mt-5 pt-5 pb-5">
                         <button 
                             className="btn btn-primary px-5 py-3 rounded-3 fw-bold shadow-lg d-flex align-items-center gap-3 fs-5 border-0 transition-all hover-up" 
                             style={{ backgroundColor: '#5D78FF' }}

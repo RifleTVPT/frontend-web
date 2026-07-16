@@ -318,7 +318,7 @@ const ConfiguracoesGeraisAdmin = () => {
 
 
                     {/* BOTÕES DE ACÇÃO FIXOS */}
-                    <div className="admin-responsive-actions d-flex justify-content-center gap-4 mt-5 pb-5">
+                    <div className="admin-responsive-actions admin-final-actions d-flex justify-content-center gap-4 mt-5 pb-5">
                         <button 
                             className="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg fs-5" 
                             style={{backgroundColor: '#5D78FF', border: 'none'}}

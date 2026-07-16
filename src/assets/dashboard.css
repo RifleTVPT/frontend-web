@@ -188,6 +188,70 @@
     text-align: center;
 }
 
+.admin-pending-actions-grid > [class*="col-"] {
+    display: flex;
+}
+
+.admin-pending-action-card {
+    min-height: 96px;
+}
+
+.admin-pending-action-btn {
+    width: 112px;
+    height: 30px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.75rem !important;
+}
+
+.admin-quick-action {
+    width: 110px;
+    cursor: pointer;
+}
+
+.admin-quick-action-icon {
+    width: 68px;
+    height: 68px;
+    aspect-ratio: 1 / 1;
+}
+
+.admin-back-list-btn {
+    min-width: 190px;
+    min-height: 44px;
+    padding: 0.65rem 1.5rem !important;
+    font-size: 1rem !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-metric-summary-card {
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-final-actions .btn,
+.admin-responsive-actions.admin-final-actions .btn {
+    min-height: 48px;
+    padding: 0.75rem 1.75rem !important;
+    font-size: 1rem !important;
+    line-height: 1.15 !important;
+}
+
+.admin-service-status-icon {
+    width: 68px;
+    height: 68px;
+    min-width: 68px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50% !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .talent-export-report-btn span {
     display: inline-flex;
     align-items: center;
@@ -1485,6 +1549,43 @@
     }
 }
 
+@media (max-width: 1399.98px) {
+    .admin-quick-actions {
+        gap: 1.25rem !important;
+    }
+
+    .admin-quick-action {
+        width: 96px;
+    }
+
+    .admin-quick-action-icon {
+        width: 58px;
+        height: 58px;
+        padding: 0.65rem !important;
+        margin-bottom: 0.65rem !important;
+    }
+
+    .admin-quick-action-icon i {
+        font-size: 1.45rem !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .admin-quick-actions {
+        justify-content: center !important;
+        gap: 1rem !important;
+    }
+
+    .admin-quick-action {
+        width: 88px;
+    }
+
+    .admin-quick-action-icon {
+        width: 52px;
+        height: 52px;
+    }
+}
+
 @media (max-width: 767.98px) {
     .admin-responsive-actions {
         flex-wrap: wrap !important;
@@ -1503,6 +1604,15 @@
         font-size: 0.95rem !important;
         line-height: 1.2 !important;
         white-space: normal;
+    }
+
+    .admin-pending-action-btn {
+        width: 112px !important;
+        max-width: 112px !important;
+        min-width: 112px !important;
+        height: 30px !important;
+        align-self: flex-end;
+        white-space: nowrap !important;
     }
 
     .admin-badge-requisitos-header {

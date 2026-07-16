@@ -210,6 +210,8 @@ const PerfilUtilizadorAdmin = () => {
     const isInativo = textStatus.includes('inativ');
     const isAtivo = textStatus.includes('ativ') && !isInativo;
     const isRecusado = textStatus.includes('recus');
+    const isPendente = textStatus.includes('pendent');
+    const semAcoesConta = isRecusado || isPendente;
 
     return (
         <div className="d-flex bg-light min-vh-100">
@@ -306,7 +308,7 @@ const PerfilUtilizadorAdmin = () => {
                                     {user.perfis.map(p => <span key={p} className="badge bg-primary rounded-pill px-3">{p}</span>)}
                                 </div>
                             </div>
-                            {!isRecusado && (
+                            {!semAcoesConta && (
                                 <div className="admin-profile-edit-action col-md-auto text-end">
                                     <button onClick={() => {
                                         if (editMode) {
@@ -388,10 +390,10 @@ const PerfilUtilizadorAdmin = () => {
                     )}
 
                     {/* BOTÕES DE ACÇÃO FINAIS */}
-                    {isRecusado ? (
+                    {semAcoesConta ? (
                         <div className="d-flex justify-content-center mt-4 pt-4 border-top">
                             <div className="alert alert-secondary border-0 rounded-4 px-4 py-3 fw-bold mb-0">
-                                Conta recusada. Não existem ações disponíveis para este registo.
+                                Conta {isPendente ? 'pendente' : 'recusada'}. Não existem ações disponíveis para este registo.
                             </div>
                         </div>
                     ) : editMode ? (

@@ -226,7 +226,7 @@ const MetricasGlobaisAdmin = () => {
                     <div className="row g-4 mb-5">
                         {statsTopo.map((item, index) => (
                             <div key={index} className="col-md-3 text-center">
-                                <div className="bg-white p-4 rounded-4 shadow-sm h-100 border-0">
+                                <div className="bg-white p-4 rounded-4 shadow-sm h-100 border-0 admin-metric-summary-card">
                                     <p className="fw-bold text-dark mb-3 px-3" style={{fontSize: '1.1rem', height: '3rem'}}>{item.label}</p>
                                     <h2 className="fw-bold text-primary mb-2" style={{fontSize: '2.5rem', color: '#5D78FF'}}>{item.valor}</h2>
                                     <small className={`fw-bold ${item.color}`}>{item.trend}</small>
@@ -310,7 +310,7 @@ const MetricasGlobaisAdmin = () => {
                     </div>
 
                     {/* Botões de Exportação Centralizados */}
-                    <div className="admin-responsive-actions d-flex justify-content-center gap-3 mb-5 mt-2">
+                    <div className="admin-responsive-actions admin-final-actions d-flex justify-content-center gap-3 mb-5 mt-2">
                         <button onClick={handleExportPDF} className="btn btn-primary px-5 py-3 rounded-3 fw-bold shadow d-flex align-items-center gap-2" style={{backgroundColor: '#5D78FF', border: 'none'}}>
                             <i className="bi bi-file-earmark-pdf-fill fs-5"></i> Exportar para PDF
                         </button>

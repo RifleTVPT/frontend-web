@@ -153,7 +153,7 @@ const DetalhesPedidoBadgeAdmin = () => {
                         {pedido.status !== 'Aceite' && pedido.status !== 'Recusado' && pedido.status !== 'Eliminado' && (
                             <button onClick={handleEliminar} className="btn btn-danger px-5 py-3 rounded-pill fw-bold fs-5 shadow" style={{backgroundColor: '#D9534F', border: 'none', minWidth: '220px'}}>Eliminar Pedido</button>
                         )}
-                        <button onClick={() => navigate('/admin/badges/pedidos')} className="btn btn-outline-secondary px-5 py-3 rounded-pill fw-bold fs-5 border-2" style={{minWidth: '220px'}}>Voltar à Lista de Pedidos</button>
+                        <button onClick={() => navigate('/admin/badges/pedidos')} className="btn btn-outline-secondary rounded-pill fw-bold border-2 admin-back-list-btn">Voltar à Lista de Pedidos</button>
                     </div>
                 </div>
             </div>
