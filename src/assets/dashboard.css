@@ -2111,6 +2111,36 @@
 }
 
 @media (min-width: 992px) and (max-width: 1399.98px) {
+    .consultor-historico-col-badge,
+    .consultor-historico-cell-badge {
+        min-width: 260px;
+        max-width: 340px;
+    }
+
+    .consultor-historico-cell-badge {
+        font-size: 0.88rem;
+        line-height: 1.28;
+        overflow-wrap: break-word;
+    }
+
+    .consultor-historico-col-sl,
+    .consultor-historico-cell-sl {
+        min-width: 150px;
+    }
+
+    .consultor-historico-col-data,
+    .consultor-historico-cell-data {
+        min-width: 110px;
+        white-space: nowrap;
+    }
+
+    .consultor-historico-col-status,
+    .consultor-historico-cell-status {
+        min-width: 150px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1399.98px) {
     .dashboard-kpi-card {
         padding: 1.25rem !important;
         min-height: 150px !important;

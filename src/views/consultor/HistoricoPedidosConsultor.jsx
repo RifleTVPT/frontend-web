@@ -259,11 +259,11 @@ const HistoricoPedidosConsultor = () => {
           
           <TabelaGenerica 
             colunas={[
-                { label: 'Badge — Área (Nível)', className: 'text-center' },
-                { label: 'Service Line', className: 'text-center' },
-                'Data Submissão',
-                'Status Atual',
-                'Data última ação',
+                { label: 'Badge — Área (Nível)', className: 'text-center consultor-historico-col-badge' },
+                { label: 'Service Line', className: 'text-center consultor-historico-col-sl' },
+                { label: 'Data Submissão', className: 'consultor-historico-col-data' },
+                { label: 'Status Atual', className: 'consultor-historico-col-status' },
+                { label: 'Data última ação', className: 'consultor-historico-col-data' },
                 'Feedback',
                 'Ações'
             ]}
@@ -271,19 +271,19 @@ const HistoricoPedidosConsultor = () => {
           >
             {filtrados.length > 0 && filtrados.map((item) => (
               <tr key={item.id} className="border-bottom">
-                <td className="px-4 fw-bold text-dark py-3 text-center">
+                <td className="px-4 fw-bold text-dark py-3 text-center consultor-historico-cell-badge">
                     {item.badge} — {item.areaExtraida} ({item.nivel})
                 </td>
-                <td className="px-4 small text-muted fw-medium text-center">{item.serviceLine}</td>
-                <td className="px-4 small">{item.dataSub}</td>
-                <td className="px-4 text-center">
+                <td className="px-4 small text-muted fw-medium text-center consultor-historico-cell-sl">{item.serviceLine}</td>
+                <td className="px-4 small consultor-historico-cell-data">{item.dataSub}</td>
+                <td className="px-4 text-center consultor-historico-cell-status">
                   <div className="d-flex justify-content-center">
                       <span className={`badge rounded-pill bg-${item.corStatus} px-3 py-2 fw-bold d-flex align-items-center justify-content-center`} style={{ minWidth: '110px', letterSpacing: '0.5px' }}>
                         {item.status}
                       </span>
                   </div>
                 </td>
-                <td className="px-4 small">{item.dataAcao}</td>
+                <td className="px-4 small consultor-historico-cell-data">{item.dataAcao}</td>
                 <td className="px-4 small text-muted fst-italic text-truncate" style={{maxWidth: '200px'}} title={item.feedback}>{item.feedback || '-'}</td>
                 <td className="px-4 text-center">
                   <Link to={`/pedidos/detalhes/${item.id}`} className="btn btn-outline-primary btn-sm rounded-pill px-4 fw-bold shadow-sm consultor-historico-ver-pedido text-nowrap">
