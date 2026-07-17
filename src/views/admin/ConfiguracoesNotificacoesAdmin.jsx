@@ -335,7 +335,7 @@ const ConfiguracoesNotificacoesAdmin = () => {
                             <div id="collapseSMTP" className="accordion-collapse collapse bg-white" aria-labelledby="headingSMTP" data-bs-parent="#accordionSMTP">
                                 <div className="accordion-body p-4 border-start border-5 border-secondary">
                                     <div className="d-flex align-items-center gap-3 mb-4 border-bottom pb-3">
-                                        <div className="bg-secondary bg-opacity-10 p-3 rounded-circle">
+                                        <div className="admin-smtp-icon bg-secondary bg-opacity-10 rounded-circle">
                                             <i className="bi bi-server text-secondary fs-4"></i>
                                         </div>
                                         <div>

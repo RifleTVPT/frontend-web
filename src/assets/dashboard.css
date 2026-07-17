@@ -2088,3 +2088,67 @@
     align-items: center;
     justify-content: center;
 }
+
+.admin-smtp-icon {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    aspect-ratio: 1 / 1;
+}
+
+.admin-conquista-modal .modal-dialog {
+    max-height: calc(100dvh - 2rem);
+}
+
+.admin-conquista-modal .modal-content {
+    max-height: calc(100dvh - 2rem);
+    overflow: hidden;
+}
+
+.admin-conquista-modal form {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-conquista-modal .modal-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 1199.98px) {
+    .admin-log-period-filter {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .admin-log-period-fields {
+        flex-wrap: wrap;
+    }
+
+    .admin-log-period-fields input {
+        min-width: 170px;
+        flex: 1 1 170px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .admin-activity-pagination {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.85rem;
+    }
+
+    .admin-activity-pagination .pagination {
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    .admin-activity-pagination .page-item {
+        white-space: nowrap;
+    }
+}

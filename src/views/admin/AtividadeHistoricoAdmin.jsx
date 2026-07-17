@@ -233,7 +233,7 @@ const AtividadeHistoricoAdmin = () => {
                     </div>
 
                     {/* Paginação Estilizada */}
-                    <div className="d-flex justify-content-between align-items-center mt-5 px-2 pb-5">
+                    <div className="admin-activity-pagination d-flex justify-content-between align-items-center mt-5 px-2 pb-5">
                         <div className="text-muted small fw-medium">
                             A mostrar {atividadesExibidas.length} de {atividadesFiltradas.length} resultados
                         </div>
@@ -244,7 +244,7 @@ const AtividadeHistoricoAdmin = () => {
                                         <i className="bi bi-chevron-left px-1"></i>
                                     </button>
                                 </li>
-                                <li className="page-item d-flex align-items-center px-3 fw-bold text-primary">
+                                <li className="page-item d-flex align-items-center px-3 fw-bold text-primary text-nowrap">
                                     Página {paginaAtual} de {totalPaginas || 1}
                                 </li>
                                 <li className={`page-item ${paginaAtual === totalPaginas || totalPaginas === 0 ? 'disabled' : ''}`}>

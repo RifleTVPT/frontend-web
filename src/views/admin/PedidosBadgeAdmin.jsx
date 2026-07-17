@@ -226,9 +226,9 @@ const PedidosBadgeAdmin = () => {
                                 </select>
                             </div>
                             {/* Período */}
-                            <div className="col-md-4">
+                            <div className="col-md-4 admin-log-period-filter">
                                 <label className="form-label fw-bold text-dark mb-2">Período de Submissão</label>
-                                <div className="d-flex align-items-center gap-2">
+                                <div className="admin-log-period-fields d-flex align-items-center gap-2">
                                     <input type="date" className="form-control bg-light border-1" value={dataInicio} onChange={(e) => setDataInicio(e.target.value)} />
                                     <span className="text-muted fw-bold">até</span>
                                     <input type="date" className="form-control bg-light border-1" value={dataFim} onChange={(e) => setDataFim(e.target.value)} />
