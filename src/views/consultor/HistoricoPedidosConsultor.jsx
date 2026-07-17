@@ -286,8 +286,8 @@ const HistoricoPedidosConsultor = () => {
                 <td className="px-4 small">{item.dataAcao}</td>
                 <td className="px-4 small text-muted fst-italic text-truncate" style={{maxWidth: '200px'}} title={item.feedback}>{item.feedback || '-'}</td>
                 <td className="px-4 text-center">
-                  <Link to={`/pedidos/detalhes/${item.id}`} className="btn btn-outline-primary btn-sm rounded-pill px-4 fw-bold shadow-sm">
-                    Ver Pedido
+                  <Link to={`/pedidos/detalhes/${item.id}`} className="btn btn-outline-primary btn-sm rounded-pill px-4 fw-bold shadow-sm consultor-historico-ver-pedido text-nowrap">
+                    Ver&nbsp;Pedido
                   </Link>
                 </td>
               </tr>

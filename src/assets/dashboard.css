@@ -2080,3 +2080,11 @@
         white-space: nowrap;
     }
 }
+
+.consultor-historico-ver-pedido {
+    min-width: 118px;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
