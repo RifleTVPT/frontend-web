@@ -70,9 +70,10 @@ const CabecalhoDashboard = ({ titulo, utilizador, avatarUrl, linkHome, iconeEsqu
                     ? '/admin/dashboard'
                     : '/dashboard'
     );
+    const perfilHeaderClass = perfil.includes('service line') || perfil.includes('sll') ? 'dashboard-header-sll' : '';
 
     return (
-        <header className="dashboard-header d-flex justify-content-between align-items-center mb-4 position-relative">
+        <header className={`dashboard-header ${perfilHeaderClass} d-flex justify-content-between align-items-center mb-4 position-relative`}>
             {/* Lado Esquerdo */}
             <div className="dashboard-header-title d-flex align-items-center gap-3">
                 <h4 className="fw-bold text-dark m-0">{titulo}</h4>

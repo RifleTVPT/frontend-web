@@ -2111,6 +2111,44 @@
 }
 
 @media (min-width: 992px) and (max-width: 1399.98px) {
+    .dashboard-header-sll {
+        display: grid !important;
+        grid-template-columns: minmax(260px, 1fr) auto minmax(190px, auto);
+        align-items: start !important;
+        column-gap: 1.15rem !important;
+        row-gap: 0.35rem !important;
+    }
+
+    .dashboard-header-sll .dashboard-header-title h4 {
+        font-size: clamp(1.05rem, 1.85vw, 1.45rem);
+        line-height: 1.18;
+    }
+
+    .dashboard-header-sll .dashboard-header-greeting {
+        align-self: start;
+        justify-self: center;
+        padding-top: 0.15rem;
+    }
+
+    .dashboard-header-sll .dashboard-header-greeting .fs-5 {
+        font-size: 1rem !important;
+    }
+
+    .dashboard-header-sll .dashboard-header-actions {
+        align-self: start;
+        justify-self: end;
+        gap: 0.75rem !important;
+    }
+
+    .dashboard-header-sll .dashboard-user-profile {
+        max-width: 190px;
+    }
+
+    .dashboard-header-sll .dashboard-user-profile .small.fw-bold {
+        font-size: 0.78rem;
+        line-height: 1.05;
+    }
+
     .sll-dashboard-pending-row {
         display: grid !important;
         grid-template-columns: auto minmax(0, 1fr) auto;

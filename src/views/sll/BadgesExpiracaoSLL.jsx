@@ -38,8 +38,8 @@ const BadgesExpiracaoSLL = () => {
         const n = nivelStr.toLowerCase();
         if (n.includes('1') || n.includes('júnior') || n.includes('junior') || n === 'a' || n.includes(' a ') || n.startsWith('a -')) return 'A';
         if (n.includes('2') || n.includes('intermédio') || n.includes('intermedio') || n.includes('pleno') || n === 'b' || n.includes(' b ') || n.startsWith('b -')) return 'B';
-        if (n.includes('3') || n.includes('especialista') || n === 'c' || n.includes(' c ') || n.startsWith('c -')) return 'C';
-        if (n.includes('4') || n.includes('sénior') || n.includes('senior') || n.includes('master') || n === 'd' || n.includes(' d ') || n.startsWith('d -')) return 'D';
+        if (n.includes('3') || n.includes('sénior') || n.includes('senior') || n === 'c' || n.includes(' c ') || n.startsWith('c -')) return 'C';
+        if (n.includes('4') || n.includes('especialista') || n.includes('master') || n === 'd' || n.includes(' d ') || n.startsWith('d -')) return 'D';
         if (n.includes('5') || n.includes('líder') || n.includes('lider') || n === 'e' || n.includes(' e ') || n.startsWith('e -')) return 'E';
         return '';
     };
@@ -139,7 +139,7 @@ const BadgesExpiracaoSLL = () => {
     // --- LÓGICA DE FILTRAGEM ---
     const dadosFiltrados = dadosExpiracao.filter(item => {
         const matchArea = areaFiltro === 'Todas' || item.area === areaFiltro;
-        const matchNivel = niveisAtivos.includes(item.nivel);
+        const matchNivel = niveisAtivos.some(nivel => obterLetraNivel(nivel) === obterLetraNivel(item.nivel));
         const matchPeriodo = periodo === 'Todas' || item.diasRestantes <= parseInt(periodo) * 30;
         const matchPesquisa = item.consultor.toLowerCase().includes(pesquisa.toLowerCase());
 
