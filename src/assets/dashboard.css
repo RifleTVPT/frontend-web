@@ -392,6 +392,27 @@
     }
 }
 
+.admin-log-period-fields {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.admin-log-period-fields input {
+    min-width: 0;
+    width: 0;
+    flex: 1 1 0;
+}
+
+.admin-log-period-fields span {
+    flex: 0 0 auto;
+}
+
+@media (max-width: 1399.98px) {
+    .admin-log-period-fields {
+        gap: 0.45rem !important;
+    }
+}
+
 .talent-top-service-lines-card {
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
