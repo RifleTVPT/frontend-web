@@ -249,7 +249,7 @@ const ListaConsultoresTalent = () => {
                                         <td className="fw-bold text-primary py-3">{c.pontos}</td>
                                         <td className="py-3">
                                             <button onClick={() => navigate(`/talent/consultores/perfil/${c.id}`)} 
-                                                    className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm">
+                                                    className="talent-ver-perfil-btn btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm text-nowrap">
                                                 Ver Perfil
                                             </button>
                                         </td>

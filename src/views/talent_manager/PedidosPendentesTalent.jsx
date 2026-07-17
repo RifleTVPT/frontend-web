@@ -210,7 +210,7 @@ const PedidosPendentesTalent = () => {
                                     <td className="fw-bold text-primary py-3">{p.badge}</td>
                                     <td className="py-3">{p.data}</td>
                                     <td className="py-3">
-                                        <button onClick={() => navigate(`/talent/validacoes/analisar/${p.id}`)} className="btn btn-primary btn-sm rounded-pill px-3 shadow-sm fw-bold">
+                                        <button onClick={() => navigate(`/talent/validacoes/analisar/${p.id}`)} className="talent-analisar-btn btn btn-primary btn-sm rounded-pill px-3 shadow-sm fw-bold text-nowrap">
                                             Analisar evidências
                                         </button>
                                     </td>

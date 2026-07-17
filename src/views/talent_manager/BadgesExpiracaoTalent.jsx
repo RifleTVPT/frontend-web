@@ -341,9 +341,9 @@ const BadgesExpiracaoTalent = () => {
                         <div className="col-md-3 position-relative align-self-end">
                             <button 
                                 onClick={() => setExportOpen(!exportOpen)} 
-                                className="talent-export-report-btn btn btn-outline-primary w-100 py-2 rounded-3 fw-bold bg-white d-flex align-items-center justify-content-center px-4 shadow-sm position-relative"
+                                className="talent-export-report-btn btn btn-outline-primary w-100 py-2 rounded-3 fw-bold bg-white d-flex align-items-center justify-content-center px-4 shadow-sm position-relative text-nowrap"
                             >
-                                <span><i className="bi bi-download me-2"></i> Exportar Relatório</span>
+                                <span className="d-inline-flex align-items-center justify-content-center text-nowrap"><i className="bi bi-download me-2"></i> Exportar Relatório</span>
                                 <i className={`bi bi-chevron-${exportOpen ? 'up' : 'down'} position-absolute end-0 me-4`}></i>
                             </button>
 
@@ -399,7 +399,7 @@ const BadgesExpiracaoTalent = () => {
                                     </td>
                                     <td className="py-3">
                                         <button 
-                                            className="talent-notificar-btn btn btn-primary btn-sm px-3 rounded-pill fw-bold shadow-sm"
+                                            className="talent-notificar-btn btn btn-primary btn-sm px-3 rounded-pill fw-bold shadow-sm text-nowrap"
                                             onClick={() => handleNotificar(item)}
                                         >
                                             <i className="bi bi-bell-fill me-2"></i>Notificar
