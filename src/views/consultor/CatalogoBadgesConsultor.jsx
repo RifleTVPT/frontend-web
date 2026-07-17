@@ -244,7 +244,7 @@ const CatalogoBadges = () => {
           <div className="row g-4">
             {badgesFiltrados.length > 0 ? (
               badgesFiltrados.map(badge => (
-                <div className="col-xl-3 col-md-4 col-sm-6" key={badge.id}>
+                <div className="col-xxl-3 col-xl-4 col-lg-4 col-md-6" key={badge.id}>
                   <CartaoBadge 
                     badge={badge}
                     acoesRodape={
