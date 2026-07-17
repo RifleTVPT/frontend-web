@@ -354,16 +354,15 @@ const ExportacaoDadosAdmin = () => {
                         <div className="row g-5">
                             {opcoesAdminList.map((item) => (
                                 <div key={item.id} className="col-md-6">
-                                    <div className="form-check d-flex align-items-center gap-4">
+                                    <div className="form-check d-flex align-items-center gap-3 admin-export-option">
                                         <input 
-                                            className="form-check-input border-dark shadow-none" 
+                                            className="form-check-input border-dark shadow-none admin-export-checkbox" 
                                             type="checkbox" 
                                             id={`check-${item.id}`} 
-                                            style={{ width: '28px', height: '28px', cursor: 'pointer' }} 
                                             checked={opcoesSelecionadas[item.id] || false}
                                             onChange={() => handleCheckToggle(item.id)}
                                         />
-                                        <label className="form-check-label text-dark fw-medium fs-5" htmlFor={`check-${item.id}`} style={{ cursor: 'pointer' }}>
+                                        <label className="form-check-label text-dark fw-medium admin-export-option-label" htmlFor={`check-${item.id}`} style={{ cursor: 'pointer' }}>
                                             {item.label}
                                         </label>
                                     </div>

@@ -227,15 +227,16 @@
 }
 
 .admin-register-decision-btn {
-    min-width: 190px;
-    max-width: 230px;
-    min-height: 52px;
-    padding: 0.8rem 1.35rem !important;
+    min-width: 240px;
+    max-width: 280px;
+    min-height: 42px;
+    padding: 0.55rem 1.6rem !important;
     font-size: 1rem !important;
     line-height: 1.2 !important;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
 }
 
 .admin-metric-summary-card {
@@ -243,6 +244,42 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.admin-metric-summary-card p {
+    height: auto !important;
+    min-height: 2.35rem;
+    margin-bottom: 0.85rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-metric-summary-card h2 {
+    margin-top: 0 !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1 !important;
+}
+
+.sll-export-compact-btn {
+    min-width: 300px;
+    min-height: 48px;
+    padding: 0.7rem 1.75rem !important;
+    font-size: 1rem !important;
+    line-height: 1.15 !important;
+    white-space: nowrap;
+}
+
+.admin-export-checkbox {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px;
+    cursor: pointer;
+}
+
+.admin-export-option-label {
+    font-size: 1.05rem !important;
+    line-height: 1.25;
 }
 
 .admin-final-actions .btn,
