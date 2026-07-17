@@ -226,6 +226,18 @@
     justify-content: center;
 }
 
+.admin-register-decision-btn {
+    min-width: 190px;
+    max-width: 230px;
+    min-height: 52px;
+    padding: 0.8rem 1.35rem !important;
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
 .admin-metric-summary-card {
     min-height: 170px;
     display: flex;

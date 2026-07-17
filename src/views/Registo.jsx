@@ -20,6 +20,7 @@ const Registo = () => {
     const [estrutura, setEstrutura] = useState({ serviceLines: [], areas: [] });
     const [showPoliticas, setShowPoliticas] = useState(false);
     const [politicasText, setPoliticasText] = useState('A carregar políticas do Administrador...');
+    const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
         axios.get('https://softinsa-api-riya.onrender.com/estrutura')
@@ -71,6 +72,7 @@ const Registo = () => {
 
     const handleRegisto = async (e) => {
         e.preventDefault();
+        if (submitting) return;
         if (!temPerfil) return alert("Selecione pelo menos um perfil.");
         if (!isTalentPuro && !formData.slId) return alert("É obrigatório selecionar uma Service Line para o(s) perfil(is) escolhido(s).");
         if (isConsultor && !formData.areaId) return alert("É obrigatório selecionar uma Área de Aprendizagem para o perfil de Consultor.");
@@ -82,6 +84,7 @@ const Registo = () => {
             return alert("A password deve ter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
         }
         
+        setSubmitting(true);
         try {
             const perfilString = formData.perfis.join(' / ');
             
@@ -105,6 +108,8 @@ const Registo = () => {
         } catch (error) {
             console.error(error);
             alert(error.response?.data?.message || "Não foi possível submeter o registo neste momento. Tente novamente mais tarde.");
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -218,7 +223,9 @@ const Registo = () => {
                                     </p>
                                 </div>
 
-                                <button type="submit" className="btn login-btn-primary w-100 text-white fw-bold mb-4 shadow-sm">Solicitar Registo</button>
+                                <button type="submit" disabled={submitting} className="btn login-btn-primary w-100 text-white fw-bold mb-4 shadow-sm">
+                                    {submitting ? 'A submeter...' : 'Solicitar Registo'}
+                                </button>
                             </form>
 
                             <div className="text-center">

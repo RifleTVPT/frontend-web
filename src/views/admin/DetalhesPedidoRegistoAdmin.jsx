@@ -117,10 +117,10 @@ const DetalhesPedidoRegistoAdmin = () => {
                     </div>
 
                     <div className="admin-request-actions d-flex justify-content-center gap-4">
-                        <button className="btn btn-success px-5 py-3 rounded-pill fw-bold fs-5 shadow" style={{backgroundColor: '#82D674', border: 'none'}} onClick={handleAceitar}>
+                        <button className="btn btn-success rounded-pill fw-bold shadow admin-register-decision-btn" style={{backgroundColor: '#82D674', border: 'none'}} onClick={handleAceitar}>
                             Aceitar Pedido e Criar Conta
                         </button>
-                        <button className="btn btn-danger px-5 py-3 rounded-pill fw-bold fs-5 shadow" style={{backgroundColor: '#E85353', border: 'none'}} onClick={handleRecusar}>
+                        <button className="btn btn-danger rounded-pill fw-bold shadow admin-register-decision-btn" style={{backgroundColor: '#E85353', border: 'none'}} onClick={handleRecusar}>
                             Recusar Pedido
                         </button>
                     </div>
