@@ -141,12 +141,18 @@ const CatalogoBadgesSLL = () => {
     // Sort array natively using formatNivel so A - Junior is before B - Pleno
     todosNiveis.sort((a, b) => formatNivel(a).localeCompare(formatNivel(b)));
 
+    const ordemNivel = (nivelStr) => {
+        const letra = obterLetraNivel(nivelStr);
+        if (!letra) return 999;
+        return letra.charCodeAt(0) - 64;
+    };
+
     // --- LÓGICA DE FILTRAGEM ---
     const badgesFiltrados = badgesBD.filter(badge => {
         const matchesArea = areaSelecionada === 'Todas' || badge.area === areaSelecionada;
         const matchesNivel = niveisAtivos.some(nivel => obterLetraNivel(nivel) === obterLetraNivel(badge.nivel));
         return matchesArea && matchesNivel;
-    });
+    }).sort((a, b) => ordemNivel(a.nivel) - ordemNivel(b.nivel) || String(a.titulo || a.nome || '').localeCompare(String(b.titulo || b.nome || '')));
 
     // Título Dinâmico conforme Figma
     const getTitulo = () => {
@@ -200,7 +206,7 @@ const CatalogoBadgesSLL = () => {
                                     <button 
                                         key={n} 
                                         onClick={() => toggleNivel(n)}
-                                        className={`btn btn-sm shadow-sm fw-bold px-3 py-2 rounded-3 border-0 transition-all ${
+                                        className={`sll-nivel-btn btn btn-sm shadow-sm fw-bold px-3 py-2 rounded-3 border-0 transition-all ${
                                             niveisAtivos.includes(n) ? 'btn-primary' : 'bg-white text-muted'
                                         }`}
                                         style={{ fontSize: '0.8rem' }}
@@ -221,7 +227,7 @@ const CatalogoBadgesSLL = () => {
                     <div className="row g-4 pb-5">
                         {badgesFiltrados.length > 0 ? (
                             badgesFiltrados.map(badge => (
-                                <div className="col-lg-3 col-md-4 col-sm-6" key={badge.id}>
+                                <div className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6" key={badge.id}>
                                     <CartaoBadge 
                                         badge={badge}
                                         acoesRodape={

@@ -251,7 +251,7 @@ const BadgesExpiracaoSLL = () => {
                         {/* BOTÕES DE EXPORTAÇÃO (Excel e PDF) */}
                         <div className="col-md-2 text-end">
                             <div className="dropdown w-100">
-                                <button className="btn btn-primary rounded-3 py-2 w-100 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2" 
+                                <button className="sll-exportar-btn btn btn-primary rounded-3 py-2 w-100 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 text-nowrap" 
                                         style={{backgroundColor: '#5D78FF', border: 'none'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-download"></i> Exportar
                                 </button>
@@ -287,7 +287,7 @@ const BadgesExpiracaoSLL = () => {
                             <div className="sll-niveis-filter d-flex gap-2 text-start">
                                 {todosNiveis.map(n => (
                                     <button key={n} onClick={() => toggleNivel(n)}
-                                        className={`btn btn-sm shadow-sm fw-bold px-3 rounded-3 border-0 transition-all py-2 ${niveisAtivos.includes(n) ? 'btn-primary' : 'bg-white text-muted'}`}
+                                        className={`sll-nivel-btn btn btn-sm shadow-sm fw-bold px-3 rounded-3 border-0 transition-all py-2 ${niveisAtivos.includes(n) ? 'btn-primary' : 'bg-white text-muted'}`}
                                         style={{ fontSize: '0.8rem' }}>
                                         {formatNivel(n)}
                                     </button>
@@ -308,7 +308,7 @@ const BadgesExpiracaoSLL = () => {
                                 <tr key={index}>
                                     <td className="fw-bold text-dark py-3">{item.consultor}</td>
                                     <td className="py-3">
-                                        <div className="fw-bold text-dark">{item.badge} - {item.area} (Nível {obterLetraNivel(item.nivel) || item.nivel})</div>
+                                        <div className="sll-expiring-badge-name fw-bold text-dark">{item.badge} - {item.area} (Nível {obterLetraNivel(item.nivel) || item.nivel})</div>
                                     </td>
                                     <td className="text-muted py-3">{item.dataAtribuicao}</td>
                                     <td className="fw-bold text-dark py-3">{item.dataExpiracao}</td>
@@ -319,7 +319,7 @@ const BadgesExpiracaoSLL = () => {
                                     </td>
                                     <td className="py-3">
                                         <button 
-                                            className="sll-notificar-btn btn btn-outline-primary btn-sm px-3 rounded-pill fw-bold"
+                                            className="sll-notificar-btn btn btn-outline-primary btn-sm px-3 rounded-pill fw-bold text-nowrap"
                                             onClick={() => handleNotificar(item)}
                                         >
                                             <i className="bi bi-bell-fill me-2"></i>Notificar

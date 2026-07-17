@@ -285,7 +285,7 @@ const HistoricoPedidosSLL = () => {
                                     {todosNiveis.length === 0 && <span className="text-muted small py-2">Sem níveis configurados na sua Service Line</span>}
                                     {todosNiveis.map(n => (
                                         <button key={n} onClick={() => toggleNivel(n)}
-                                            className={`btn btn-sm shadow-sm fw-bold px-3 rounded-3 border-0 transition-all py-2 ${niveisAtivos.includes(n) ? 'btn-primary' : 'bg-white text-muted'}`}
+                                            className={`sll-nivel-btn btn btn-sm shadow-sm fw-bold px-3 rounded-3 border-0 transition-all py-2 ${niveisAtivos.includes(n) ? 'btn-primary' : 'bg-white text-muted'}`}
                                             style={{ fontSize: '0.8rem' }}>
                                             {formatNivel(n)}
                                         </button>
@@ -320,7 +320,7 @@ const HistoricoPedidosSLL = () => {
                                     <td className="py-3">
                                         <button 
                                             onClick={() => navigate(`/sll/validacoes/validar/${p.id}?readonly=true`)} 
-                                            className="btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm"
+                                            className="sll-ver-decisao-btn btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm text-nowrap"
                                         >
                                             Ver decisão
                                         </button>

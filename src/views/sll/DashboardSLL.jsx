@@ -211,7 +211,7 @@ const DashboardSLL = () => {
                 <h5 className="fw-bold mb-4 text-primary">A Aguardar Validação SLL ({pedidosPendentes.length})</h5>
                 <div className="flex-grow-1">
                     {pedidosPendentes.length > 0 ? pedidosPendentes.slice(0, 4).map((pedido, i) => (
-                    <div key={i} className="dashboard-action-row d-flex align-items-center justify-content-between gap-3 mb-3 border rounded-4 p-3 bg-light bg-opacity-50 shadow-sm">
+                    <div key={i} className="dashboard-action-row sll-dashboard-pending-row d-flex align-items-center justify-content-between gap-3 mb-3 border rounded-4 p-3 bg-light bg-opacity-50 shadow-sm">
                         <div className="d-flex align-items-center gap-3 overflow-hidden">
                           <div className="bg-white rounded-circle border border-primary border-opacity-25 shadow-sm d-flex align-items-center justify-content-center overflow-hidden flex-shrink-0" style={{width: '56px', height: '56px'}}>
                             <img
@@ -233,7 +233,7 @@ const DashboardSLL = () => {
                               </div>
                           </div>
                         </div>
-                        <button onClick={() => navigate(`/sll/validacoes/validar/${pedido.id}`)} className="btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm flex-shrink-0">
+                        <button onClick={() => navigate(`/sll/validacoes/validar/${pedido.id}`)} className="sll-dashboard-validar-btn btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm flex-shrink-0">
                           Validar
                         </button>
                     </div>

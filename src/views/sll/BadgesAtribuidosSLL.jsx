@@ -234,7 +234,7 @@ const BadgesAtribuidosSLL = () => {
                             <div className="sll-niveis-filter d-flex gap-2 text-start">
                                 {todosNiveis.map(n => (
                                     <button key={n} onClick={() => toggleNivel(n)}
-                                        className={`btn btn-sm shadow-sm fw-bold px-3 rounded-3 border-0 transition-all py-2 ${niveisAtivos.includes(n) ? 'btn-primary' : 'bg-white text-muted'}`}
+                                        className={`sll-nivel-btn btn btn-sm shadow-sm fw-bold px-3 rounded-3 border-0 transition-all py-2 ${niveisAtivos.includes(n) ? 'btn-primary' : 'bg-white text-muted'}`}
                                         style={{ fontSize: '0.8rem' }}>
                                         {formatNivel(n)}
                                     </button>

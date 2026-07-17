@@ -219,7 +219,7 @@ const GestaoConsultoresSLL = () => {
                             <div className="col-md-2 text-end">
                                 {/* Botão em Formato de Dropdown (Exportar PDF e Excel) */}
                                 <div className="dropdown w-100">
-                                    <button className="btn btn-primary rounded-3 w-100 py-2 fw-bold shadow-sm d-flex justify-content-center align-items-center gap-2" 
+                                    <button className="sll-exportar-dados-btn btn btn-primary rounded-3 w-100 py-2 fw-bold shadow-sm d-flex justify-content-center align-items-center gap-2 text-nowrap" 
                                             style={{backgroundColor: '#5D78FF', border: 'none'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i className="bi bi-download"></i> Exportar Dados
                                     </button>
@@ -253,7 +253,7 @@ const GestaoConsultoresSLL = () => {
                                         <td className="fw-bold py-3">{c.badges}</td>
                                         <td className="fw-bold text-primary py-3">{c.pontos}</td>
                                         <td className="py-3">
-                                            <button onClick={() => navigate(`/sll/consultores/perfil/${c.id}`)} className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm" style={{backgroundColor: '#5D78FF', border: 'none'}}>Ver Perfil</button>
+                                            <button onClick={() => navigate(`/sll/consultores/perfil/${c.id}`)} className="sll-ver-perfil-btn btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm text-nowrap" style={{backgroundColor: '#5D78FF', border: 'none'}}>Ver Perfil</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -337,7 +337,7 @@ const GestaoConsultoresSLL = () => {
                                                     const closeBtn = document.querySelector('#modalRankingCompleto .btn-close');
                                                     if(closeBtn) closeBtn.click();
                                                     setTimeout(() => navigate(`/sll/consultores/perfil/${c.id}`), 250);
-                                                }} className="btn btn-sm btn-primary rounded-pill px-4 py-2 fw-bold">Ver Perfil</button>
+                                                }} className="sll-ver-perfil-btn btn btn-sm btn-primary rounded-pill px-4 py-2 fw-bold text-nowrap">Ver Perfil</button>
                                             </td>
                                         </tr>
                                     ))}

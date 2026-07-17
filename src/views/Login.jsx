@@ -159,7 +159,7 @@ const Login = () => {
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content border-0 rounded-4 shadow-lg p-4">
               <div className="text-center mb-4">
-                <div className="bg-primary bg-opacity-10 p-3 rounded-circle d-inline-block mb-2">
+                <div className="profile-select-icon bg-primary bg-opacity-10 rounded-circle d-inline-flex mb-2">
                     <i className="bi bi-people-fill fs-1 text-primary"></i>
                 </div>
                 <h4 className="fw-bold mt-2 text-dark">Perfil de Acesso</h4>

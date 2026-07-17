@@ -200,7 +200,7 @@ const PedidosPendentesSLL = () => {
                                     <td className="py-3">
                                         <button 
                                             onClick={() => navigate(`/sll/validacoes/validar/${p.id}`)} 
-                                            className="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm"
+                                            className="sll-validar-agora-btn btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm text-nowrap"
                                         >
                                             Validar agora
                                         </button>
