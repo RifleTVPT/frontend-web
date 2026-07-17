@@ -2110,6 +2110,105 @@
     justify-content: center;
 }
 
+@media (min-width: 992px) and (max-width: 1399.98px) {
+    .dashboard-kpi-card {
+        padding: 1.25rem !important;
+        min-height: 150px !important;
+    }
+
+    .dashboard-kpi-card > .small:first-child {
+        font-size: 0.78rem !important;
+        line-height: 1.15 !important;
+    }
+
+    .dashboard-kpi-card h1 {
+        font-size: clamp(1.25rem, 2.25vw, 1.8rem) !important;
+        line-height: 1.08 !important;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    .dashboard-kpi-card .small.mt-auto {
+        font-size: 0.76rem !important;
+        line-height: 1.15 !important;
+    }
+
+    .consultor-progress-card {
+        min-height: 320px;
+    }
+
+    .consultor-progress-card .progresso-circular-container {
+        min-height: 190px;
+    }
+
+    .consultor-progress-card .anel-fundo,
+    .consultor-progress-card .anel-progresso {
+        width: 145px;
+        height: 145px;
+    }
+
+    .consultor-progress-card .anel-interno {
+        width: 119px;
+        height: 119px;
+    }
+
+    .dashboard-recommended-item {
+        gap: 0.45rem !important;
+    }
+
+    .dashboard-recommended-item > img {
+        width: 34px !important;
+        height: 34px !important;
+        flex: 0 0 34px;
+    }
+
+    .dashboard-recommended-item .small {
+        font-size: 0.78rem !important;
+        line-height: 1.1 !important;
+    }
+
+    .dashboard-recommended-item .text-muted {
+        font-size: 0.65rem !important;
+        line-height: 1.08 !important;
+    }
+
+    .dashboard-recommended-item .btn {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important;
+    }
+
+    .consultor-points-card .consultor-points-chart {
+        min-height: 230px;
+        align-items: center;
+    }
+
+    .dashboard-notice-item {
+        padding: 0.85rem !important;
+        gap: 0.65rem;
+    }
+
+    .dashboard-notice-item i {
+        font-size: 1.45rem !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    .dashboard-notice-item small {
+        font-size: 0.72rem !important;
+        line-height: 1.18 !important;
+    }
+
+    .dashboard-notice-item .fw-bold.small {
+        font-size: 0.78rem !important;
+        line-height: 1.15 !important;
+    }
+}
+
 .admin-smtp-icon {
     width: 64px;
     height: 64px;
