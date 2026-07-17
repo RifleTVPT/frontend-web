@@ -272,7 +272,7 @@ const BadgesExpiracaoSLL = () => {
                     </div>
 
                     {/* SEGUNDA LINHA DE FILTROS */}
-                    <div className="row g-4 mb-5 align-items-end">
+                    <div className="row g-4 mb-5 align-items-start sll-filter-row">
                         <div className="col-md-5">
                             <label className="form-label fw-bold text-dark h5 mb-3">Pesquisar Consultor</label>
                             <div className="position-relative">

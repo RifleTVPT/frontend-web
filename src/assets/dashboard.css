@@ -2168,7 +2168,11 @@
 
     .sll-niveis-filter {
         flex-wrap: wrap;
-        align-items: center;
+        align-items: flex-start;
+    }
+
+    .sll-filter-row > [class*="col-"] {
+        align-self: flex-start;
     }
 
     .sll-nivel-btn {

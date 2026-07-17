@@ -220,7 +220,7 @@ const BadgesAtribuidosSLL = () => {
                     />
 
                     {/* PRIMEIRA LINHA DE FILTROS */}
-                    <div className="row g-4 mb-4 align-items-end">
+                    <div className="row g-4 mb-4 align-items-start sll-filter-row">
                         <div className="col-md-5">
                             <label className="form-label fw-bold text-dark h5 mb-3">Área de Competência</label>
                             <select className="form-select border-0 shadow-sm py-2 rounded-3" value={areaFiltro} onChange={(e) => setAreaFiltro(e.target.value)}>

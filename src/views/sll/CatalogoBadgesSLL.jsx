@@ -152,7 +152,11 @@ const CatalogoBadgesSLL = () => {
         const matchesArea = areaSelecionada === 'Todas' || badge.area === areaSelecionada;
         const matchesNivel = niveisAtivos.some(nivel => obterLetraNivel(nivel) === obterLetraNivel(badge.nivel));
         return matchesArea && matchesNivel;
-    }).sort((a, b) => ordemNivel(a.nivel) - ordemNivel(b.nivel) || String(a.titulo || a.nome || '').localeCompare(String(b.titulo || b.nome || '')));
+    }).sort((a, b) => (
+        String(a.area || '').localeCompare(String(b.area || '')) ||
+        ordemNivel(a.nivel) - ordemNivel(b.nivel) ||
+        String(a.titulo || a.nome || '').localeCompare(String(b.titulo || b.nome || ''))
+    ));
 
     // Título Dinâmico conforme Figma
     const getTitulo = () => {
@@ -181,7 +185,7 @@ const CatalogoBadgesSLL = () => {
                     />
 
                     {/* SEÇÃO DE FILTROS */}
-                    <div className="row g-4 mb-4 align-items-end">
+                    <div className="row g-4 mb-4 align-items-start sll-filter-row">
                         {/* Filtro de Área: Dropdown (Select) dinâmico da BD */}
                         <div className="col-md-6">
                             <label className="form-label fw-bold text-dark h5">Área de Competência</label>
