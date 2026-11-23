@@ -1,0 +1,115 @@
+html, body, #root {
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.auth-page {
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.auth-layout {
+    min-height: 100vh;
+}
+
+/* Form Side (40% do ecrã) */
+.login-form-side {
+    width: 55%;
+    min-width: 500px;
+    min-height: 100vh;
+    z-index: 10;
+    background-color: white !important;
+    overflow-y: auto;
+}
+
+/* Banner Side (60% do ecrã) */
+.login-banner-side {
+    width: 20%;
+    min-height: 100vh;
+    /* Pintamos o fundo com a mesma cor da imagem para continuidade */
+    background-color: #4C6EF5; 
+    
+    /* 'contain' garante que a imagem aparece INTEIRA sem cortes */
+    background-size: contain; 
+    
+    /* Alinhamos ao centro para não haver distorção */
+    background-position: center; 
+    background-repeat: no-repeat;
+    flex-grow: 1;
+    
+    /* Remove qualquer possível desfoque de interpolação */
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.login-input {
+    background-color: #F8F9FA !important;
+    border: 1px solid #E9ECEF !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+}
+
+.login-btn-primary {
+    background-color: #3B82F6 !important;
+    border: none !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    color: white !important;
+    transition: 0.3s;
+}
+
+.login-btn-primary:hover {
+    background-color: #2563EB !important;
+}
+
+.social-btn {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 30px !important;
+    background-color: white !important;
+    padding: 10px !important;
+}
+
+@media (max-width: 991.98px) {
+    .auth-page {
+        min-height: 100dvh;
+    }
+
+    .auth-layout {
+        min-height: 100dvh;
+    }
+
+    .login-form-side {
+        width: 100%;
+        min-width: 0;
+        min-height: 100dvh;
+        padding: 32px 24px !important;
+        justify-content: flex-start !important;
+        box-shadow: none !important;
+    }
+
+    .login-banner-side {
+        display: none;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .login-form-side {
+        padding: 24px 18px 36px !important;
+    }
+
+    .login-form-side h2 {
+        font-size: 2rem !important;
+    }
+
+    .login-input {
+        padding: 11px 14px !important;
+    }
+
+    .login-btn-primary {
+        padding: 11px !important;
+    }
+}
